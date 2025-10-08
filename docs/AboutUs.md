@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/0rbita1.png" width="200px">
 
 [[github](https://github.com/0rbita1)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/0rbita1.md)]
 
 * Role: Developer
 * Responsibilities: UI

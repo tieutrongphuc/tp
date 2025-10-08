@@ -274,44 +274,118 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* need to manage a significant network of professional contacts in their research field
+* want to track detailed information about fellow researchers, collaborators, and potential research partners
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* are reasonably comfortable using CLI apps
+* need to organize contacts by research interests, publications, and professional relationships
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: AcademeConnect solves the problem of managing a fragmented research network by providing a 
+centralized hub to organize contacts, track professional relationships, and find collaborators faster than a typical 
+mouse/GUI driven app. It helps researchers effortlessly manage their academic workflow by maintaining key details about 
+each contact including research specialties, conference interactions, and collaboration history.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​                            | I want to …​                                              | So that I can…​                                                           |
+|----------|------------------------------------|-----------------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | user                               | use the CLI to add a contact                              | keep track of contacts in the list and their associated details           |
+| `* * *`  | user                               | delete a contact                                          | keep the contacts list updated and clutter-free                           |
+| `* * *`  | user                               | view a list of contacts                                   | quickly see the most important information about each contact at a glance |
+| `* * *`  | user                               | edit a contact in place                                   | update information about my network efficiently                           |
+| `* * *`  | user with a large list of contacts | quickly search for a specific person by name              | access their information without scrolling through my entire list         |
+| `* *`    | user                               | add custom tags to a contact's profile                    | categorize them by their specific research interests or specialties       |
+| `* *`    | user                               | add detailed notes about my interactions with a contact   | remember the context of our conversations and refer to them later         |
+| `* *`    | user looking for a collaborator    | search for contacts based on their research interest tags | easily find people with relevant expertise                                |
+| `* *`    | new user                           | follow a guided tour of the basic features                | quickly learn how to use the app without having to read a manual          |
+| `* *`    | experienced user                   | use shortcut commands                                     | perform common tasks like adding a contact or searching more efficiently  |
+| `* *`    | researcher                         | link contacts to specific publications                    | track who collaborated on which research                                  |
+| `*`      | user with a strong network         | visualize the connections between my contacts             | see who knows whom                                                        |
+| `*`      | long-term user                     | archive contacts that are no longer active                | keep my primary contact list clutter-free and relevant                    |
+| `*`      | user with a large list of contacts | set reminders for conversational follow-ups               | not lose touch with important contacts                                    |
+| `*`      | user                               | get notified about any contact's recent activity          | stay up to date with my network's contributions                           |
+| `*`      | user looking for collaborators     | receive suggestions to collaborate with new researchers   | make it easier to network with unknown researchers                        |
+| `*`      | researcher                         | connect contacts to grant applications                    | see their roles in funding projects                                       |
+| `*`      | researcher                         | log which conferences I attended with a contact           | remember where we met                                                     |
+| `*`      | researcher                         | view a timeline of interactions with a contact            | recall the history of our collaboration                                   |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `AcademeConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a contact with research interest tags**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a new contact with basic details.
+2. AcademeConnect prompts for research interest tags.
+3. User enters one or more research interest tags.
+4. AcademeConnect adds the contact with the specified tags and displays a success message.
 
     Use case ends.
+
+**Extensions**
+
+* 1a. User enters invalid or incomplete contact details
+    * 1a1. AcademeConnect shows an error message indicating which field is invalid.
+    * 1a2. User enters corrected details. Steps 1a1-1a2 are repeated until the data entered is correct.
+
+      Use case resumes from step 2.
+
+* 3a. User enters no tags
+    * 3a1. AcademeConnect adds the contact without tags.
+  
+      Use case ends.
+  
+* *a. At any time, User chooses to cancel adding the contact
+    * *a1. AcademeConnect discards the input and returns to the main screen.
+
+      Use case ends.
+
+
+**Use case: UC02 - Search for potential collaborators by research interest**
+
+**MSS**
+
+1. User requests to search for contacts by research interest tag.
+2. AcademeConnect requests for the specific research interest tag.
+3. User enters the research interest tag.
+4. AcademeConnect displays a list of contacts with matching research interest tags.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The entered tag does not match any existing contacts
+    * 3a1. AcademeConnect displays a message indicating no matches found.
+
+      Use case ends.
+  
+* 3b. User enters multiple tags.
+    * 3b1. AcademeConnect displays contacts matching any of the entered tags.
+  
+      Use case resumes from step 4.
+
+* 4a. User requests to view detailed information about a specific contact from the results.
+    * 4a1. AcademeConnect displays the full contact details including all tags and notes.
+  
+      Use case ends.
+
+**Use case: UC03 - Delete a contact**
+
+**MSS**
+
+1. User requests to list contacts.
+2. AcademeConnect shows a list of contacts.
+3. User requests to delete a specific contact in the list.
+4. AcademeConnect deletes the contact.
+
+   Use case ends.
 
 **Extensions**
 
@@ -320,25 +394,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 * 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
+    * 3a1. AcademeConnect shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any mainstream OS as long as it has Java 17 or above installed.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The system should not lose any contact data during normal operation. All changes should be automatically saved to prevent data loss.
+5. New users should be able to add their first contact within 5 minutes of opening the application.
+6. User documentation should be comprehensive enough for a novice computer user to understand all basic features.
+7. The command-line interface should support standard keyboard shortcuts and provide clear error messages for all user actions.
+8. Contact information should be stored locally on the user's machine. The system should not transmit any contact data to external servers without explicit user consent.
+
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Academic Researcher**: A person engaged in scholarly research, typically affiliated with a university or research 
+institution, who needs to maintain professional contacts in their field.
+* **CLI (Command Line Interface)**: A text-based interface where users interact with the application by typing commands rather than using a mouse or graphical elements.
+* **Contact**: An entry in AcademeConnect representing a fellow researcher or professional connection, containing details such as name, affiliation, research interests, and interaction notes.
+* **Research Interest Tag**: A keyword or label (e.g., #AI ethics, #quantum computing) assigned to a contact to categorize their area of research specialization, enabling quick filtering and search.
+* **MSS (Main Success Scenario)**: The most common path of execution in a use case, describing the typical flow of events when everything proceeds without errors.
+* **Extensions**: Alternative paths in a use case that handle errors, special conditions, or optional flows that deviate from the main success scenario.
+* **Archived Contact**: A contact that is no longer active in the user's primary network but is retained in the system for historical reference.
+* **Custom List**: A user-defined grouping of contacts (e.g., "AI collaborators", "Grant reviewers") for flexible organization beyond research interest tags.
 
 --------------------------------------------------------------------------------------------------------------------
 
