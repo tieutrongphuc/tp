@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.Set;
+
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
         if (!tagKeywords.isEmpty()) {
