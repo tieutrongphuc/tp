@@ -11,51 +11,50 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Cyrus Low
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/crimsonchaos02.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/crimsonchaos02)]
+[[portfolio](team/crimsonchaos02.md)]
 
 * Role: Project Advisor
 
-### Jane Doe
+### Tan Jun Xiang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/0rbita1.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/0rbita1)]
+[[portfolio](team/0rbita1.md)]
 
-* Role: Team Lead
+* Role: Developer
 * Responsibilities: UI
 
-### Johnny Doe
+### Tran Bao Duy
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/duyy0406.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/Duyy0406)] [[portfolio](team/duyy0406.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Tieu Trong Phuc
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/tieutrongphuc.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/tieutrongphuc)]
+[[portfolio](team/tieutrongphuc.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Testing
 
-### James Doe
+### Aryan Sharma
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/aryann-sharma.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Aryann-Sharma)]
+[[portfolio](team/aryan.md)]
 
 * Role: Developer
 * Responsibilities: UI
