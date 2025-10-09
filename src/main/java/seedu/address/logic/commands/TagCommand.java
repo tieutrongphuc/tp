@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,13 +21,13 @@ public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to a person identified by the index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to a person identified by "
+            + "the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) TAG (must be a single word)\n"
             + "Example: " + COMMAND_WORD + "1 /t friend /t cs2103t";
 
     private final Index index;
     private final Set<Tag> tag;
-
 
     /**
      * Creates a TagCommand to add the specified {@code Tag}(s) to the person at the given {@code Index}.
