@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -12,6 +11,10 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Adds one or more tags to a person identified by the index number in the displayed person list.
+ * Creates a new Person instance with the updated set of tags, preserving immutability.
+ */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
@@ -23,6 +26,13 @@ public class TagCommand extends Command {
     private final Index index;
     private final Set<Tag> tag;
 
+
+    /**
+     * Creates a TagCommand to add the specified {@code Tag}(s) to the person at the given {@code Index}.
+     *
+     * @param index Index of the person in the filtered person list to add tags to
+     * @param tag Set of tags to add
+     */
     public TagCommand(Index index, Set<Tag> tag) {
         this.index = index;
         this.tag = tag;
