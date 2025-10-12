@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Note {
 
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Notes can take any values, it can be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -23,7 +23,7 @@ public class Note {
     }
 
     public static boolean isValidNote(String note) {
-        return note.matches(VALIDATION_REGEX);
+        return note.isEmpty() || note.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Note {
             return true;
         }
 
-        if (!(other instanceof Address)) {
+        if (!(other instanceof Note)) {
             return false;
         }
 
