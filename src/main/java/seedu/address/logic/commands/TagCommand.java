@@ -21,23 +21,23 @@ public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to a person identified by "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds one or more tag to a person identified by "
             + "the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) TAG (must be a single word)\n"
-            + "Example: " + COMMAND_WORD + "1 /t friend /t cs2103t";
+            + "Example: " + COMMAND_WORD + " 1 t/ friend t/ cs2103t";
 
     private final Index index;
-    private final Set<Tag> tag;
+    private final Set<Tag> tags;
 
     /**
      * Creates a TagCommand to add the specified {@code Tag}(s) to the person at the given {@code Index}.
      *
      * @param index Index of the person in the filtered person list to add tags to
-     * @param tag Set of tags to add
+     * @param tags Set of tags to add
      */
-    public TagCommand(Index index, Set<Tag> tag) {
+    public TagCommand(Index index, Set<Tag> tags) {
         this.index = index;
-        this.tag = tag;
+        this.tags = tags;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class TagCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
-        updatedTags.addAll(tag);
+        updatedTags.addAll(tags);
 
         Person editedPerson = new Person(
                 personToEdit.getName(),
