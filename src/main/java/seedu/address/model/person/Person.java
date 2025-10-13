@@ -39,6 +39,10 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Constructs a Person with the specified details and note.
+     * Every field must be present and not null.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Note note, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, note, tags);
         this.name = name;
