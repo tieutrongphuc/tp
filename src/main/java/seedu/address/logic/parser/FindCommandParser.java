@@ -29,15 +29,16 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
-        if (!tagKeywords.isEmpty()) {
+        String[] nameKeywords = trimmedArgs.split("\\s+");
+        if (!tagKeywords.isEmpty() && !(nameKeywords.length == 1)) {
+            throw new ParseException("Please search either only by tag or by name!");
+        } else if (!tagKeywords.isEmpty()) {
             return new FindCommand(new TagContainsKeywordsPredicate(tagKeywords));
         } else {
-            String[] nameKeywords = trimmedArgs.split("\\s+");
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
     }

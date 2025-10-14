@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Alternatively, lists all persons in address book with any tag matching the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -22,7 +23,7 @@ public class FindCommand extends Command {
             + "Alternatively, finds all persons whose tags match the specified tags. Use t/ to indicate search by tag."
             + "\nParameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie\n"
-            + "Or: " + COMMAND_WORD + " t/ friends colleagues";
+            + "Or: " + COMMAND_WORD + " t/friends t/colleagues";
 
     private final Predicate<Person> predicate;
 
