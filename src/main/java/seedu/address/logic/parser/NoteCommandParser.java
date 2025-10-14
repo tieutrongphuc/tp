@@ -18,10 +18,21 @@ public class NoteCommandParser implements Parser<NoteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public NoteCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+        }
+
+        String[] splitArgs = trimmedArgs.split(" ", 2);
+        if (splitArgs.length < 2) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
+        }
+
         try {
-            Index index = ParserUtil.parseIndex(args);
-            String noteContent = args.split(" ", 2)[1];
-            Note note = ParserUtil.parseNote(noteContent);
+            Index index = ParserUtil.parseIndex(splitArgs[0]);
+            Note note = ParserUtil.parseNote(splitArgs[1]);
             return new NoteCommand(index, note);
         } catch (ParseException pe) {
             throw new ParseException(
