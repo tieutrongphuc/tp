@@ -90,10 +90,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find_invalid_terms() {
-        assertThrows(ParseException.class,
-                    "Please search either only by tag or by name!",
-                    () -> parser.parseCommand("find Alex t/friends"));
+    public void parseCommandFindInvalidTerms() {
+        assertThrows(
+                ParseException.class,
+                "Please search either only by tag or by name!",
+                () -> parser.parseCommand("find Alex t/friends"));
     }
 
     @Test
