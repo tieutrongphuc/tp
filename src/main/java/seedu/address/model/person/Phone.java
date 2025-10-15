@@ -22,9 +22,8 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        checkArgument(isValidPhone(trimmedPhone), MESSAGE_CONSTRAINTS);
-        value = trimmedPhone.replaceAll("\\s+", "");
+        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        value = phone;
     }
 
     /**
