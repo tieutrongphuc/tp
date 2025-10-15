@@ -90,12 +90,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    // CHECKSTYLE:OFF: SeparatorWrap
     public void parseCommandFindInvalidTerms() {
-        assertThrows(
-                ParseException.class,
+        assertThrows(ParseException.class,
                 "Please search either only by tag or by name!",
                 () -> parser.parseCommand("find Alex t/friends"));
     }
+    // CHECKSTYLE:ON: SeparatorWrap
 
     @Test
     public void parseCommand_help() throws Exception {
