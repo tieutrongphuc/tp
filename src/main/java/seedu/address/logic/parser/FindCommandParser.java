@@ -34,7 +34,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        if (!tagKeywords.isEmpty() && !(nameKeywords.length == 1)) {
+        boolean containsNonTag = (nameKeywords.length - trimmedArgs.split("t/").length == 0);
+        if (!tagKeywords.isEmpty() && containsNonTag) {
             throw new ParseException("Please search either only by tag or by name!");
         } else if (!tagKeywords.isEmpty()) {
             return new FindCommand(new TagContainsKeywordsPredicate(tagKeywords));
