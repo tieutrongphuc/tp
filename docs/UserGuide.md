@@ -4,9 +4,12 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# AcademeConnect User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+AcademeConnect (AC) is a **desktop app for managing contacts, optimized for use by academic researchers
+via a Command Line Interface** (CLI) while 
+still having the benefits of a Graphical User Interface (GUI). 
+If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -20,7 +23,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your AC.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -31,7 +34,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/National University of Singapore` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -114,15 +117,18 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating persons by name or tag: `find`
 
 Finds persons whose names contain any of the given keywords.
 
+Alternatively, finds persons whose names are assigned any of the given tags.
+
 Format: `find KEYWORD [MORE_KEYWORDS]`
+OR `find t/[TAG_NAME]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only search by name or search by tag.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -130,7 +136,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find t/friends` returns everyone tagged as `friends`
+* `find t/friends t/colleagues` returns everyone tagged as `friends` or `colleagues`.
+![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `delete`
 
