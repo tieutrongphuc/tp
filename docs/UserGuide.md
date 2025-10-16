@@ -117,6 +117,24 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+### Adding tags to a person : `tag`
+
+Adds one or more tags to an existing person in the address book.
+
+Format: `tag INDEX t/TAG [t/MORE_TAGS]…​`
+
+* Adds tag(s) to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Tags are added cumulatively - existing tags are preserved.
+* Each tag must be a single word (no spaces allowed).
+* You can add multiple tags in a single command.
+
+Examples:
+* `tag 1 t/friend` Adds the tag `friend` to the 1st person.
+* `tag 2 t/colleague t/cs2103t` Adds both `colleague` and `cs2103t` tags to the 2nd person.
+* `list` followed by `tag 3 t/professor` adds the tag `professor` to the 3rd person in the address book.
+
 ### Locating persons by name or tag: `find`
 
 Finds persons whose names contain any of the given keywords.
@@ -212,3 +230,4 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
+**Tag**    | `tag INDEX t/TAG [t/MORE_TAGS]…​`<br> e.g., `tag 1 t/friend t/colleague`
