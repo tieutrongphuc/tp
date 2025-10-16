@@ -25,6 +25,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -75,6 +77,26 @@ public class AddressBookParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
+
+    @Test
+    public void parseCommand_find_tag() throws Exception {
+        Tag tag1 = new Tag("tag1");
+        Tag tag2 = new Tag("tag2");
+        Tag tag3 = new Tag("tag3");
+        List<Tag> keywords = Arrays.asList(tag1, tag2, tag3);
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + "t/tag1 t/tag2 t/tag3");
+        assertEquals(new FindCommand(new TagContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    // CHECKSTYLE:OFF: SeparatorWrap
+    public void parseCommandFindInvalidTerms() {
+        assertThrows(ParseException.class,
+                "Please search either only by tag or by name!",
+                () -> parser.parseCommand("find Alex t/friends"));
+    }
+    // CHECKSTYLE:ON: SeparatorWrap
 
     @Test
     public void parseCommand_help() throws Exception {
