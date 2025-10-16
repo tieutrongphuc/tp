@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 /**
  * Deletes note of an existing person using it's displayed index from the address book.
  */
-public class DeleteNoteCommand {
+public class DeleteNoteCommand extends Command {
     public static final String COMMAND_WORD = "deleteNote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -23,6 +23,7 @@ public class DeleteNoteCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted note of Person: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_FAIL = "No note available to delete of Person: %1$s";
 
     private final Index targetIndex;
 
@@ -40,7 +41,9 @@ public class DeleteNoteCommand {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        targetPerson.deleteNote();
+        if (!targetPerson.deleteNote()) {
+            return new CommandResult(String.format(MESSAGE_DELETE_NOTE_FAIL, Messages.format(targetPerson)));
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, Messages.format(targetPerson)));
     }
 }
