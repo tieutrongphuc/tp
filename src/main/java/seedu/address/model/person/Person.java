@@ -23,7 +23,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Note note;
+    private Note note;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -69,9 +69,19 @@ public class Person {
         return address;
     }
 
+
     public Note getNote() {
         return note;
     }
+
+    public boolean deleteNote() {
+        if (this.note.value.isEmpty()) {
+            return false;
+        }
+        this.note = new Note("");
+        return true;
+    }
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
