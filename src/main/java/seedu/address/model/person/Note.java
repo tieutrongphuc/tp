@@ -11,12 +11,6 @@ public class Note {
 
     public static final String MESSAGE_CONSTRAINTS = "Notes can take any values, it can be blank";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
-
     public final String value;
 
     /**
@@ -34,7 +28,7 @@ public class Note {
      * Returns true if a given string is a valid note.
      */
     public static boolean isValidNote(String note) {
-        return note.isEmpty() || note.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override
