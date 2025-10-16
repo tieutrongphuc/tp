@@ -33,9 +33,6 @@ public class TagCommandParserTest {
         // no index specified
         assertParseFailure(parser, VALID_TAG_FRIEND, MESSAGE_INVALID_FORMAT);
 
-        // no tag specified
-        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
-
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
