@@ -21,7 +21,8 @@ public class DeleteNoteCommandParser implements Parser<DeleteNoteCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteNoteCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteNoteCommand.MESSAGE_USAGE),pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteNoteCommand.MESSAGE_USAGE),
+                    pe);
         }
     }
 }
