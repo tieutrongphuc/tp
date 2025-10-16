@@ -67,25 +67,40 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
+     * If the address is null, it sets the address to Address.EMPTY.
      */
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        if (address == null) {
+            this.address = Address.EMPTY;
+        } else {
+            this.address = new Address(address);
+        }
         return this;
     }
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
+     * If the phone is null, it sets the phone to Phone.EMPTY.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        if (phone == null) {
+            this.phone = Phone.EMPTY;
+        } else {
+            this.phone = new Phone(phone);
+        }
         return this;
     }
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
+     * If the email is null, it sets the email to Email.EMPTY.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+        if (email == null) {
+            this.email = Email.EMPTY;
+        } else {
+            this.email = new Email(email);
+        }
         return this;
     }
 
