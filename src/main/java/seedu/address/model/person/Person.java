@@ -74,6 +74,11 @@ public class Person {
         return note;
     }
 
+    /**
+     * Deletes note associated to the person
+     * @return {@code true} if the note was deleted (i.e., the note had a value before being cleared),
+     *         {@code false} if the note was already empty and no deletion occurred.
+     */
     public boolean deleteNote() {
         if (this.note.value.isEmpty()) {
             return false;
