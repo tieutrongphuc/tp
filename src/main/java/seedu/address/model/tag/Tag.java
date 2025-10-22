@@ -10,19 +10,21 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\s]+";
 
     public final String tagName;
+    public final String tagType;
 
     /**
      * Constructs a {@code Tag}.
      *
      * @param tagName A valid tag name.
      */
-    public Tag(String tagName) {
+    public Tag(String tagName, String tagType) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagType = tagType;
     }
 
     /**
@@ -30,6 +32,19 @@ public class Tag {
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns the colour for Tag display.
+     */
+    public String getTagColour() {
+        switch (tagType) {
+        case "research":
+            return "#00008B";
+        case "title":
+            return "#8b0000";
+        default: return "#000000";
+        }
     }
 
     @Override

@@ -23,8 +23,9 @@ public class TagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds one or more tag to a person identified by "
             + "the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) TAG (must be a single word)\n"
-            + "Example: " + COMMAND_WORD + " 1 t/ friend t/ cs2103t";
+            + "Use 'trt' to tag by research topics and 'tjt' to tag by job title.\n"
+            + "Parameters: INDEX (must be a positive integer) TAG \n"
+            + "Example: " + COMMAND_WORD + " 1 t/ friend trt/ Machine Learning tjt/ Lead Researcher";
 
     private final Index index;
     private final Set<Tag> tags;
