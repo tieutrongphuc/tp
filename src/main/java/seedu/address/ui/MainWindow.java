@@ -1,21 +1,31 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Note;
+import seedu.address.model.person.Person;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private NoteEditView noteEditView;
+    private boolean isNoteEditMode = false;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -121,6 +134,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        noteEditView = new NoteEditView();
+
+        setupKeyboardShortcuts();
     }
 
     /**
@@ -186,11 +203,93 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowNoteEdit()) {
+                showNoteEditView(commandResult.getTargetPersonIndex());
+            } else if (isNoteEditMode) {
+                showPersonListView();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void showNoteEditView(Index personIndex) {
+        Person targetPerson = logic.getFilteredPersonList().get(personIndex.getZeroBased());
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(noteEditView.getRoot());
+        noteEditView.setPerson(targetPerson);
+        noteEditView.requestFocus();
+        isNoteEditMode = true;
+    }
+
+    /**
+     * Shows the person list view.
+     */
+    private void showPersonListView() {
+        if (isNoteEditMode && noteEditView.getCurrentPerson() != null) {
+            saveCurrentNote();
+        }
+
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        isNoteEditMode = false;
+    }
+
+    /**
+     * Saves the current note content to the person.
+     */
+    private void saveCurrentNote() {
+        if (noteEditView.getCurrentPerson() != null) {
+            try {
+                String content = noteEditView.getNoteContent();
+                Person person = noteEditView.getCurrentPerson();
+
+                List<Person> persons = logic.getFilteredPersonList();
+                Person currentPerson = null;
+                for (Person p : persons) {
+                    if (p.isSamePerson(person)) {
+                        currentPerson = p;
+                        break;
+                    }
+                }
+
+                if (currentPerson != null) {
+                    logic.setPersonNote(currentPerson, new Note(content));
+                    resultDisplay.setFeedbackToUser("Note saved for " + currentPerson.getName());
+                } else {
+                    logic.setPersonNote(person, new Note(content));
+                    resultDisplay.setFeedbackToUser("Note saved for " + person.getName());
+                }
+            } catch (Exception e) {
+                resultDisplay.setFeedbackToUser("Error saving note: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Sets up keyboard shortcuts.
+     */
+    private void setupKeyboardShortcuts() {
+        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE && isNoteEditMode) {
+                if (noteEditView.isTextAreaFocused()) {
+                    saveCurrentNote();
+                    Node commandBoxRoot = commandBoxPlaceholder.getChildren().get(0);
+                    if (commandBoxRoot instanceof Region) {
+                        TextField commandTextField = (TextField) ((Parent) commandBoxRoot).lookup("#commandTextField");
+                        if (commandTextField != null) {
+                            commandTextField.requestFocus();
+                        }
+                    }
+                } else {
+                    noteEditView.requestFocus();
+                }
+                event.consume();
+            }
+        });
     }
 }

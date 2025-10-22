@@ -13,16 +13,16 @@ public class NoteEditView extends UiPart<Region> {
     private static final int MAX_CHARS = 5000;
 
     @FXML
-    private TextArea noteTextField;
+    private TextArea noteTextArea;
 
     private Person currentPerson;
 
     public NoteEditView() {
         super(FXML);
 
-        noteTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+        noteTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > MAX_CHARS) {
-                noteTextField.setText(oldValue);
+                noteTextArea.setText(oldValue);
             }
         });
     }
@@ -31,21 +31,26 @@ public class NoteEditView extends UiPart<Region> {
         this.currentPerson = person;
 
         if (person.getNote() != null) {
-            noteTextField.setText(person.getNote().toString());
+            noteTextArea.setText(person.getNote().toString());
+            noteTextArea.positionCaret(noteTextArea.getText().length());
         } else {
-            noteTextField.clear();
+            noteTextArea.clear();
         }
     }
 
     public String getNoteContent() {
-        return noteTextField.getText();
+        return noteTextArea.getText();
     }
 
     public void requestFocus() {
-        noteTextField.requestFocus();
+        noteTextArea.requestFocus();
     }
 
     public Person getCurrentPerson() {
         return currentPerson;
+    }
+
+    public boolean isTextAreaFocused() {
+        return noteTextArea.isFocused();
     }
 }
