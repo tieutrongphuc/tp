@@ -17,6 +17,9 @@ public class NoteEditView extends UiPart<Region> {
 
     private Person currentPerson;
 
+    /**
+     * Constructs a NoteEditView and sets up the character limit listener.
+     */
     public NoteEditView() {
         super(FXML);
 

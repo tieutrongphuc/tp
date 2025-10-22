@@ -40,7 +40,8 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields, meant for note editing mode.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showNoteEdit, Index targetPersonIndex) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showNoteEdit, Index
+            targetPersonIndex) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
