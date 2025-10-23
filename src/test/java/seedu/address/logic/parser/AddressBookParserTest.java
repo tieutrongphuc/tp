@@ -93,7 +93,7 @@ public class AddressBookParserTest {
     // CHECKSTYLE:OFF: SeparatorWrap
     public void parseCommandFindInvalidTerms() {
         assertThrows(ParseException.class,
-                "Please search either only by tag or by name!",
+                "Please search by only one field.",
                 () -> parser.parseCommand("find Alex t/friends"));
     }
     // CHECKSTYLE:ON: SeparatorWrap

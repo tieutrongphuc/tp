@@ -118,6 +118,23 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
+
+    public static Tag parseTag(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag, "default");
+    }
+
+    /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Accepts additional field "tagType" for categorisation.
+     *
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
     public static Tag parseTag(String tag, String tagType) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
@@ -129,6 +146,20 @@ public class ParserUtil {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName, "default"));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} of type tagType into a {@code Set<Tag>} containing
+     * Tags of type tagType.
      */
     public static Set<Tag> parseTags(Collection<String> tags, String tagType) throws ParseException {
         requireNonNull(tags);

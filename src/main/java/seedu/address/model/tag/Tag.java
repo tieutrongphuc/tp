@@ -20,6 +20,19 @@ public class Tag {
      *
      * @param tagName A valid tag name.
      */
+    public Tag(String tagName) {
+        requireNonNull(tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.tagName = tagName;
+        this.tagType = "default";
+    }
+
+    /**
+     * Constructs a {@code Tag}. Accepts additional parameter tagType.
+     *
+     * @param tagName A valid tag name.
+     * @param tagType Categorisation of the tag.
+     */
     public Tag(String tagName, String tagType) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
