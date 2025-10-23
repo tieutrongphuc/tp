@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_RESEARCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_TITLE;
 import static seedu.address.logic.parser.ParserUtil.parseTags;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
