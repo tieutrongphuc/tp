@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -16,6 +17,12 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Note editing mode should be shown to the user. */
+    private final boolean showNoteEdit;
+
+    /** Index of the person whose note is being editted. */
+    private final Index targetPersonIndex;
+
     /** The application should exit. */
     private final boolean exit;
 
@@ -26,6 +33,20 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showNoteEdit = false;
+        this.targetPersonIndex = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, meant for note editing mode.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showNoteEdit, Index
+            targetPersonIndex) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showNoteEdit = showNoteEdit;
+        this.targetPersonIndex = targetPersonIndex;
     }
 
     /**
@@ -48,6 +69,14 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isShowNoteEdit() {
+        return showNoteEdit;
+    }
+
+    public Index getTargetPersonIndex() {
+        return targetPersonIndex;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -62,12 +91,14 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showNoteEdit == otherCommandResult.showNoteEdit
+                && targetPersonIndex == otherCommandResult.targetPersonIndex;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, showNoteEdit, targetPersonIndex);
     }
 
     @Override
@@ -76,6 +107,8 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("showNoteEdit", showNoteEdit)
+                .add("targetPersonIndex", targetPersonIndex)
                 .toString();
     }
 
