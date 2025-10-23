@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.FindCommand.MESSAGE_MULTIPLE_SEARCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_RESEARCH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_TITLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +36,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_RESEARCH), "research"));
+        tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_TITLE), "title"));
 
         String[] noteKeywordsArr = args.split("note/");
         if (noteKeywordsArr.length > 1) {
@@ -45,9 +49,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        boolean containsMultipleSearch =
-                trimmedArgs.split("note/").length > 1 || (tagKeywords.size() - nameKeywords.length == 0);
-        containsMultipleSearch = containsMultipleSearch || (!noteKeywords.isBlank() && !tagKeywords.isEmpty());
+        boolean containsTagAndNote = (!noteKeywords.isBlank() && !tagKeywords.isEmpty());
+        boolean containsTagAndName = (!tagKeywords.isEmpty() && nameKeywords.length > tagKeywords.size());
+        boolean containsNoteAndName = (trimmedArgs.split("note/").length > 1);
+
+        boolean containsMultipleSearch = containsTagAndName || containsTagAndNote || containsNoteAndName;
 
         if (containsMultipleSearch) {
             throw new ParseException(MESSAGE_MULTIPLE_SEARCH);
