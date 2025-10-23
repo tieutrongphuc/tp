@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
