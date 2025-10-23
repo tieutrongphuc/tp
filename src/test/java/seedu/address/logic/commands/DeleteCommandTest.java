@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -107,7 +108,9 @@ public class DeleteCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         DeleteCommand deleteCommand = new DeleteCommand(List.of(targetIndex));
-        String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        String expected = new ToStringBuilder(deleteCommand)
+                .add("targetIndexes", List.of(targetIndex))
+                .toString();
         assertEquals(expected, deleteCommand.toString());
     }
 
