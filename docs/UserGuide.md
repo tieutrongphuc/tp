@@ -334,5 +334,4 @@ the data of your previous AddressBook home folder.
 | **Note**        | `note INDEX`                                                                                                                                                |
 | **View Note**   | `viewNote INDEX`                                                                                                                                            |
 | **Delete Note** | `deleteNote INDEX`                                                                                                                                          |
-
 --------------------------------------------------------------------------------------------------------------------
