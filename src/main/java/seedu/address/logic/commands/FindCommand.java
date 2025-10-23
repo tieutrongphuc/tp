@@ -18,9 +18,11 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": choose one of searching by name, tag, or note.\n"
             + "Find by name: finds all persons whose names match the specified keywords.\n"
-            + "Find by tag: finds all persons whose tags match the specified tags. Use 't/' to indicate search by tag.\n"
+            + "Find by tag: finds all persons whose tags match the specified tags. "
+            + "Use 't/' to indicate search by tag.\n"
             + "Find by note: finds all persons whose notes contain the specified keywords. "
             + "Use 'note/' to indicate search by note.\n"
             + "\nParameters: KEYWORD [MORE_KEYWORDS]...\n"

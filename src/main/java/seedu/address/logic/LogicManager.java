@@ -95,4 +95,9 @@ public class LogicManager implements Logic {
             throw new CommandException("Error setting note: " + e.getMessage());
         }
     }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
 }
