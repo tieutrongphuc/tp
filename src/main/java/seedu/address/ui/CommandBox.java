@@ -76,14 +76,26 @@ public class CommandBox extends UiPart<Region> {
         String currentText = commandTextField.getText();
         int caretPosition = commandTextField.getCaretPosition();
 
-        int lastTagPrefix = currentText.lastIndexOf("t/", caretPosition);
+        String[] prefixes = { "t/", "jtt", "rtt" };
+        int lastPrefixIndex = -1;
+        String matchedPrefix = null;
+        for (String prefix : prefixes) {
+            int idx = currentText.lastIndexOf(prefix, caretPosition - 1);
+            if (idx > lastPrefixIndex) {
+                lastPrefixIndex = idx;
+                matchedPrefix = prefix;
+            }
+        }
+
+
+        int lastTagPrefix = currentText.lastIndexOf(matchedPrefix, caretPosition);
         if (lastTagPrefix == -1) {
             currentSuggestion = "";
             suggestionText.setVisible(false);
             return;
         }
 
-        int tagStart = lastTagPrefix + 2;
+        int tagStart = lastTagPrefix + matchedPrefix.length();
         int tagEnd = currentText.indexOf(' ', tagStart);
         if (tagEnd == -1) {
             tagEnd = currentText.length();

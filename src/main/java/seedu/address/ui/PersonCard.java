@@ -54,6 +54,10 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.setStyle("-fx-background-color: " + tag.getTagColour() + ";");
+                    tags.getChildren().add(tagLabel);
+                });
     }
 }

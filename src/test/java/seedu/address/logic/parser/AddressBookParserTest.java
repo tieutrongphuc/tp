@@ -52,7 +52,7 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new DeleteCommand(List.of(INDEX_FIRST_PERSON)), command);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class AddressBookParserTest {
     // CHECKSTYLE:OFF: SeparatorWrap
     public void parseCommandFindInvalidTerms() {
         assertThrows(ParseException.class,
-                "Please search either only by tag or by name!",
+                "Please search by only one field.",
                 () -> parser.parseCommand("find Alex t/friends"));
     }
     // CHECKSTYLE:ON: SeparatorWrap
