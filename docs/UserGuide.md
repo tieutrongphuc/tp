@@ -34,7 +34,9 @@ If you can type fast, AB3 can get your contact management tasks done faster than
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/National University of Singapore` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe` : Adds a contact named `John Doe` to the Address Book.
+
+   * `add n/Jane Smith p/+6598765432 e/janes@example.com a/National University of Singapore` : Adds a contact named `Jane Smith` with phone, email and address.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -83,7 +85,11 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+
+* Only the name field is required; all other fields are optional.
+* The name can contain any characters (including special characters and numbers).
+* Phone numbers can optionally start with a `+` for international numbers (e.g., `+6591234567`).
 
 <box type="tip" seamless><box>
 
@@ -91,8 +97,11 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </box>
 
 Examples:
+* `add n/John Doe` - Adds a person with only a name
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+441234567 t/criminal`
+* `add n/李明 p/+8613812345678` - Names can contain non-English characters
+* `add n/Dr. Jane Smith-O'Connor` - Names can contain special characters
 
 ### Listing all persons : `list`
 
@@ -251,13 +260,13 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action     | Format, Examples                                                                                                                                                      |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**  | `clear`                                                                                                                                                               |
-| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
-| **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
-| **List**   | `list`                                                                                                                                                                |
-| **Help**   | `help`                                                                                                                                                                |
-| **Tag**    | `tag INDEX t/TAG [t/MORE_TAGS]…​`<br> e.g., `tag 1 t/friend t/colleague`                                                                                              |
+Action     | Format, Examples
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Add**    | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho`, `add n/James Ho p/+6522224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear**  | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**List**   | `list`
+**Help**   | `help`
+**Tag**    | `tag INDEX t/TAG [t/MORE_TAGS]…​`<br> e.g., `tag 1 t/friend t/colleague`
