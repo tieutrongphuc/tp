@@ -8,7 +8,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,22 +17,20 @@ public class NoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens note editor for the person identified "
             + "by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) NOTE\n"
-            + "Example: " + COMMAND_WORD + " 1 Likes to swim";
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Added note to Person: %1$s";
+    public static final String MESSAGE_SUCCESS = "Opening note editor for Person: %1$s";
 
     private final Index index;
-    private final Note note;
 
     /**
      * Creates a NoteCommand to add the specified {@code Note} to the person at the given {@code Index}.
      */
-    public NoteCommand(Index index, Note note) {
+    public NoteCommand(Index index) {
         this.index = index;
-        this.note = note;
     }
 
     /**
@@ -53,15 +50,8 @@ public class NoteCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                note,
-                personToEdit.getTags());
 
-        model.setPerson(personToEdit, editedPerson);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()), false, false, true,
+                index);
     }
 }
