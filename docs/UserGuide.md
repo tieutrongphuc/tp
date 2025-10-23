@@ -50,7 +50,7 @@ If you can type fast, AB3 can get your contact management tasks done faster than
 
 ## Features
 
-<box type="info" seamless>
+<box type="info" seamless><box>
 
 **Notes about the command format:**<br>
 
@@ -58,7 +58,7 @@ If you can type fast, AB3 can get your contact management tasks done faster than
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -91,7 +91,7 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * The name can contain any characters (including special characters and numbers).
 * Phone numbers can optionally start with a `+` for international numbers (e.g., `+6591234567`).
 
-<box type="tip" seamless>
+<box type="tip" seamless><box>
 
 **Tip:** A person can have any number of tags (including 0)
 </box>
@@ -143,6 +143,36 @@ Examples:
 * `tag 1 t/friend` Adds the tag `friend` to the 1st person.
 * `tag 2 t/colleague t/cs2103t` Adds both `colleague` and `cs2103t` tags to the 2nd person.
 * `list` followed by `tag 3 t/professor` adds the tag `professor` to the 3rd person in the address book.
+
+### Adding or updating a note : `note`
+
+Adds or updates the note for the person at the given index in the currently displayed list.
+
+Format: `note INDEX NOTE_CONTENT`
+
+* `INDEX` is the 1-based index shown in the displayed person list.
+* `NOTE_CONTENT` is the note text (may contain spaces). If omitted, the note is set to empty.
+
+Examples:
+* `note 2 Likes hiking and coffee`
+* `note 1 Met at conference 2024`
+* `note 3` — clears the note (sets to empty)
+
+Tips:
+* Notes accept any text (punctuation, newlines are preserved when entered via command line where supported).
+* Use `list` to confirm the index of the person you want to annotate.
+
+### Viewing a note : `viewNote`
+
+Displays the note associated with the person at the given index in the currently displayed list.
+
+Format: `viewNote INDEX`
+
+Examples:
+* `viewNote 2`  
+  Output: `Note for Alex Yeoh: Likes hiking and coffee`
+* `viewNote 5`  
+  Output: `Note for John Doe: (No note)` — if the note is empty
 
 ### Locating persons by name or tag: `find`
 
@@ -201,7 +231,7 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<box type="warning" seamless>
+<box type="warning" seamless><box>
 
 **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
