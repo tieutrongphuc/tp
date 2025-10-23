@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -143,6 +144,22 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
+    }
+
+    @Override
+    public void setPersonNote(Person person, Note note) {
+        requireAllNonNull(person, note);
+
+        Person updatedPerson = new Person(
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getAddress(),
+                note,
+                person.getTags()
+        );
+
+        setPerson(person, updatedPerson);
     }
 
 }

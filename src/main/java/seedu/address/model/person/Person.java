@@ -23,7 +23,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Note note;
+    private Note note;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -69,9 +69,24 @@ public class Person {
         return address;
     }
 
+
     public Note getNote() {
         return note;
     }
+
+    /**
+     * Deletes note associated to the person
+     * @return {@code true} if the note was deleted (i.e., the note had a value before being cleared),
+     *         {@code false} if the note was already empty and no deletion occurred.
+     */
+    public boolean deleteNote() {
+        if (this.note.value.isEmpty()) {
+            return false;
+        }
+        this.note = new Note("");
+        return true;
+    }
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
