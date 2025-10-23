@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -142,8 +142,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndexes} into a {@code List<Index>} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code oneBasedIndexes} into a {@code List<Index>} and returns it. Leading and trailing whitespaces will
+     * be trimmed.
      * @throws ParseException if any of the specified indexes are invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
