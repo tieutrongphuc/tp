@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -168,5 +170,26 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName, tagType));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code oneBasedIndexes} into a {@code List<Index>} and returns it. Leading and trailing whitespaces will
+     * be trimmed.
+     * @throws ParseException if any of the specified indexes are invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
+        requireNonNull(oneBasedIndexes);
+        String trimmedIndexes = oneBasedIndexes.trim();
+        String[] splitIndexes = trimmedIndexes.split("\\s+");
+
+        List<Index> indexes = new ArrayList<>();
+        for (String index: splitIndexes) {
+            if (!StringUtil.isNonZeroUnsignedInteger(index)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            indexes.add(Index.fromOneBased(Integer.parseInt(index)));
+        }
+
+        return indexes;
     }
 }
