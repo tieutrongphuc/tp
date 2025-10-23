@@ -318,13 +318,11 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent, #191919;
+    -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
-    -fx-background-radius: 15, 15;
-    -fx-border-color: transparent;
+    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-border-radius: 15;
-    -fx-padding: 6 8 6 8;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
@@ -335,10 +333,8 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #191919, transparent, #191919;
-    -fx-background-radius: 15, 15, 15, 15;
-    -fx-background-insets: 0, 0, 1, 1;
-    -fx-padding: 6 8 6 8;
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
 }
 
 #tags {
