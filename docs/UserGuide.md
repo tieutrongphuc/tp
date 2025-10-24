@@ -4,6 +4,9 @@
     pageNav: 3
 ---
 
+* Table of Contents
+  {:toc}
+
 # AcademeConnect User Guide
 
 ## Introduction
@@ -21,13 +24,11 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 - Basic familiarity with Windows/macOS/Linux file navigation and opening a terminal.
 - Java 17 (or newer) installed and available on the PATH.
 
-How to use this guide
+**_How to use this guide_**
 - A quick-start section shows installation and the shortest path to run the app.
 - Features are organised by task with example commands and expected outputs.
 - Use the page navigation at the top of the page to jump between sections. Internal anchors are provided for direct
   linking to commands and examples.
-
-<page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ How to use this guide
 * Extraneous parameters for no-argument commands (`help`, `list`, `exit`, `clear`) are ignored.<br>
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple
   lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
+</box>
 
 
 ### Adding a person: `add`
