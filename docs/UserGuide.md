@@ -4,9 +4,6 @@
     pageNav: 3
 ---
 
-* Table of Contents
-  {:toc}
-
 # AcademeConnect User Guide
 
 ## Introduction
@@ -29,6 +26,8 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 - Features are organised by task with example commands and expected outputs.
 - Use the page navigation at the top of the page to jump between sections. Internal anchors are provided for direct
   linking to commands and examples.
+
+  
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -59,18 +58,20 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 
 ### Tips
 
-<box type="info" seamless><box>
+<div markdown="block" class="alert alert-info">
+
 - Use `list` to confirm the index numbers before using index-based commands like `delete`, `edit`, `note`, `viewNote`,
   and `tag`.
+
 - Copy multi-line example commands into a plain-text editor first if you find line-breaks get removed when copying from
   a PDF.
-  </box>
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
-<box type="info" seamless><box>
+<div markdown="block" class="alert alert-info">
 
 **Notes about the command format:**<br>
 
@@ -81,7 +82,7 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 * Extraneous parameters for no-argument commands (`help`, `list`, `exit`, `clear`) are ignored.<br>
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple
   lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</box>
+</div>
 
 
 ### Adding a person: `add`
@@ -97,17 +98,23 @@ add n/李明 p/+8613812345678 # Names can contain non-English characters
 add n/Dr. Jane Smith-O'Connor # Names can contain special characters
 ```
 
+**Expected output on success:** `New person added: John Doe` <br>
+
 **Notes:**
 * Only the name field is required; all other fields are optional.
 * The name can contain any characters (including special characters and numbers).
 * Phone numbers can optionally start with a `+` for international numbers (e.g., `+6591234567`).
 
-**Expected output on success:** `New person added: John Doe`
+<br>
+<br>
 
 ### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
 **Format:** `list` <br>
 **Expected output on success:** `Listed all persons`
+
+<br>
+<br>
 
 ### Editing a person : `edit`
 Edits an existing person in the address book.<br>
@@ -121,6 +128,9 @@ edit 1 p/91234567 e/johndoe@example.com   # Edits the phone number and email add
 edit 2 n/Betsy Crower t/   # Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 ```
 
+**Expected output on success:** `Edited Person: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
+Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
+
 **Notes:**
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -128,6 +138,9 @@ edit 2 n/Betsy Crower t/   # Edits the name of the 2nd person to be `Betsy Crowe
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
+
+<br>
+<br>
 
 ### Adding tags to a person : `tag`
 Adds one or more tags to an existing person in the address book.<br>
@@ -139,6 +152,9 @@ tag 1 t/friend    # Adds the tag `friend` to the 1st person.
 tag 2 t/colleague t/cs2103t   # Adds both `colleague` and `cs2103t` tags to the 2nd person.
 ```
 
+**Expected output on success:** `New tag added: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
+Blk 30 Geylang Street 29, #06-40; Tags: [classmates][friends]` <br>
+
 **Notes:**
 * Adds tag(s) to the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -146,6 +162,9 @@ tag 2 t/colleague t/cs2103t   # Adds both `colleague` and `cs2103t` tags to the 
 * Tags are added cumulatively - existing tags are preserved.
 * Each tag must be a single word (no spaces allowed).
 * You can add multiple tags in a single command.
+
+<br>
+<br>
 
 ### Adding or updating a note : `note`
 Opens a note editor for the person at the given index in the currently displayed list. The editor is a text box overlay
@@ -161,6 +180,8 @@ note 2   # opens the note editor for the 2nd person
 ```
 
 **Expected output on success:** `Opening text editor for Person: John Doe`
+<br>
+
 ![img_1.png](img_1.png)
 
 **Behavior:**
@@ -179,6 +200,9 @@ note 2   # opens the note editor for the 2nd person
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
+<br>
+<br>
+
 ### Viewing a note: `viewNote`
 Displays a person's note in the result area (read-only). Refer to 'note' command to edit.
 
@@ -191,19 +215,29 @@ Displays a person's note in the result area (read-only). Refer to 'note' command
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
+<br>
+<br>
+
 ### Deleting a note: `deleteNote`
 Deletes a person's note.
 
 **Format:** `deleteNote INDEX'<br>
 
-**Expected output on success:** `Deleted note of Person: John Doe`
+**Examples:**
+```
+deleteNote 2   # deletes the note of the 2nd person
+```
 
-**Expected output on failure:** `No note available to delete of Person: John Doe`
+**Expected output on success:** `Deleted note of Person: John Doe`
 
 **Notes:**
 * Deletes the note of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+
+
+<br>
+<br>
 
 
 ### Locating persons by name or tag: `find`
@@ -222,6 +256,8 @@ find t/friends t/colleagues # returns everyone tagged as `friends` or `colleague
 ```
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+**Expected output on success:** `1 persons listed!`
+
 **Notes:**
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -229,6 +265,9 @@ find t/friends t/colleagues # returns everyone tagged as `friends` or `colleague
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+<br>
+<br>
 
 ### Deleting a person : `delete`
 
@@ -241,10 +280,16 @@ Deletes the specified person from the address book.
 delete 2    # deletes the 2nd person in the address book
 ```
 
+**Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
+Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
+
 **Notes:**
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+
+<br>
+<br>
 
 
 ### Clearing all entries : `clear`
@@ -253,15 +298,21 @@ Clears all entries from the address book.
 
 **Format:** `clear`
 
-<box type="warning" seamless><box>
-**This action is irreversible**
-</box>
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This action is irreversible
+</div>
+
+<br>
+<br>
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
 **Format:** `exit`
+
+<br>
+<br>
 
 ### Viewing help : `help`
 
@@ -271,33 +322,43 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+<br>
+<br>
+
 ### Saving the data
 
 Data is saved automatically after any command that modifies the address book. Data file location:
 `[JAR file location]/data/addressbook.json`.
 
-<box type="warning" seamless><box>
-**Caution:** Incorrect manual edits to `addressbook.json` may corrupt the file and cause data loss on next run. Back
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Incorrect manual edits to `addressbook.json` may corrupt the file and cause data loss on next run. Back
 up before editing.
-</box>
+</div>
+
+<br>
+<br>
 
 ### Editing the data file
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are
 welcome to update data directly by editing that data file.
 
-<box type="warning" seamless><box>
-
-**Caution:**
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty
 data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside
 the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
+</div>
+
+<br>
+<br>
 
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
+
+<br>
+<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
