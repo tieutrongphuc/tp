@@ -58,3 +58,4 @@ deactivate NoteCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
+
