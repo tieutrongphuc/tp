@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ReminderAddCommand;
 import seedu.address.logic.commands.ReminderListCommand;
+import seedu.address.logic.commands.ReminderMarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +54,9 @@ public class ReminderCommandParser implements Parser<Command> {
 
         case ReminderListCommand.COMMAND_WORD:
             return new ReminderListCommand();
+
+        case ReminderMarkCommand.SUB_COMMAND_WORD:
+            return new ReminderMarkCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
