@@ -5,28 +5,28 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
 }
 
 .tab-pane {
@@ -66,7 +66,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -99,8 +99,8 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 10 0 10 0;
-    -fx-border-width: 0 0 8 0; /* Add 8px bottom spacing */
-    -fx-border-color: transparent; /* Make border invisible */
+    -fx-border-width: 0 0 8 0;
+    -fx-border-color: transparent;
 }
 
 .list-cell:filled:even {
@@ -125,14 +125,21 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Calibri";
-    -fx-font-size: 16px;
+    -fx-font-family: "Serif";
+    -fx-font-size: 25px;
+    -fx-text-fill: #010504;
+}
+
+.cell_big_label_bold {
+    -fx-font-family: "Serif";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Calibri";
-    -fx-font-size: 13px;
+    -fx-font-family: "Serif";
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
 }
 
@@ -152,7 +159,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
@@ -162,7 +169,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
@@ -202,7 +209,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -222,7 +229,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Calibri", Helvetica, Calibri, sans-serif;
+    -fx-font-family: "Serif", Helvetica, Serif, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -327,7 +334,7 @@
     -fx-border-color: #ffffff #ffffff #ffffff #ffffff;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
     -fx-background-radius: 25;
@@ -363,15 +370,15 @@
 }
 
 .header-text {
-    -fx-font-size: 24pt;
-    -fx-font-family: "Calibri";
+    -fx-font-size: 30pt;
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
 #noteTextArea {
     -fx-control-inner-background: #383838;
-    -fx-font-family: "Calibri";
+    -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-font-size: 18;
 }

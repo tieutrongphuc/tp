@@ -9,6 +9,10 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -25,13 +29,44 @@
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
+               <font>
+                  <Font size="18.0" />
+               </font>
         </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" styleClass="cell_big_label_bold" text="\$first">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone">
+            <font>
+               <Font size="1.0" />
+            </font></Label>
+      <Label fx:id="address" styleClass="cell_small_label" text="\$address">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
+      <Label fx:id="email" styleClass="cell_small_label" text="\$email">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
     </VBox>
       <rowConstraints>
          <RowConstraints />

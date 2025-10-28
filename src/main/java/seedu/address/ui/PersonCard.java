@@ -49,9 +49,16 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+
+        String phoneValue = person.getPhone().value;
+        phone.setText((phoneValue != null && !phoneValue.isEmpty()) ? "📞 " + phoneValue : "");
+
+        String addressValue = person.getAddress().value;
+        address.setText((addressValue != null && !addressValue.isEmpty()) ? "🏠 " + addressValue : "");
+
+        String emailValue = person.getEmail().value;
+        email.setText((emailValue != null && !emailValue.isEmpty()) ? "\uD83D\uDCC4 " + emailValue : "");
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
