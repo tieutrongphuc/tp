@@ -85,7 +85,7 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid  date.
+     * Returns true if a given string is a valid date.
      * A valid date is one that can be parsed by at least one of the defined formatters.
      */
     public static boolean isValidDate(String test) {
