@@ -313,8 +313,8 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 * Date formats supported:
   * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)
   * `d/M/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
-  * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day (23:59:59)
-  * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day (23:59:59)
+  * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day
+  * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day
 * Time is optional. If not specified, the reminder will be set to the end of the specified date.
 * Messages can contain any text to describe the reminder purpose.
 * Duplicate reminders (same person, date, and message) cannot be added.
