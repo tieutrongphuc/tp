@@ -3,6 +3,7 @@ package seedu.address.model.reminder;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,15 +17,22 @@ import seedu.address.model.reminder.exceptions.ReminderNotFoundException;
  * A reminder is considered unique by comparing using {@code Reminder#equals(Object)}. As such, adding, updating,
  * and removing of reminders uses Reminder#equals(Object) for equality checks.
  *
+ * The list is automatically sorted by date in ascending order.
+ *
  * Supports a minimal set of list operations.
  *
  * @see Reminder#equals(Object)
  */
 public class UniqueReminderList implements Iterable<Reminder> {
 
+    // Comparator for sorting reminders by date in ascending order
+    private static final Comparator<Reminder> DATE_COMPARATOR =
+            Comparator.comparing(Reminder::getDate);
+
     private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
     private final ObservableList<Reminder> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
 
     /**
      * Returns true if the list contains an equivalent reminder as the given argument.
@@ -38,6 +46,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     /**
      * Adds a reminder to the list.
      * The reminder must not already exist in the list.
+     * The list will be automatically sorted by date after addition.
      */
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
@@ -45,12 +54,14 @@ public class UniqueReminderList implements Iterable<Reminder> {
             throw new DuplicateReminderException();
         }
         internalList.add(toAdd);
+        sortReminders();
     }
 
     /**
      * Replaces the reminder {@code target} in the list with {@code editedReminder}.
      * {@code target} must exist in the list.
      * The identity of {@code editedReminder} must not be the same as another existing reminder in the list.
+     * The list will be automatically sorted by date after replacement.
      */
     public void setReminder(Reminder target, Reminder editedReminder) {
         requireAllNonNull(target, editedReminder);
@@ -65,6 +76,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
         }
 
         internalList.set(index, editedReminder);
+        sortReminders();
     }
 
     /**
@@ -81,11 +93,13 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void setReminders(UniqueReminderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sortReminders();
     }
 
     /**
      * Replaces the contents of this list with {@code reminders}.
      * {@code reminders} must not contain duplicate reminders.
+     * The list will be automatically sorted by date.
      */
     public void setReminders(List<Reminder> reminders) {
         requireAllNonNull(reminders);
@@ -94,6 +108,14 @@ public class UniqueReminderList implements Iterable<Reminder> {
         }
 
         internalList.setAll(reminders);
+        sortReminders();
+    }
+
+    /**
+     * Sorts the internal list by date in ascending order.
+     */
+    private void sortReminders() {
+        FXCollections.sort(internalList, DATE_COMPARATOR);
     }
 
     /**

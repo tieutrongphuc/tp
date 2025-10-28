@@ -14,7 +14,7 @@ import java.util.List;
  * Represents a Reminder's date.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date must be a valid date in 'yyyy-MM-dd' or 'd/M/yyyy' format, "
@@ -137,5 +137,10 @@ public class Date {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Date other) {
+        return this.value.compareTo(other.value);
     }
 }
