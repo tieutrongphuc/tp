@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * The API of the Model component.
@@ -14,6 +15,12 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
+
+    /** {@code Predicate} that filters for upcoming reminders */
+    Predicate<Reminder> PREDICATE_SHOW_UPCOMING_REMINDERS = Reminder::isUpcoming;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -87,4 +94,37 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     void setPersonNote(Person person, Note note);
+
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    boolean hasReminder(Reminder reminder);
+
+    /**
+     * Deletes the given reminder.
+     * The reminder must exist in the address book.
+     */
+    void deleteReminder(Reminder target);
+
+    /**
+     * Adds the given reminder.
+     * {@code reminder} must not already exist in the address book.
+     */
+    void addReminder(Reminder reminder);
+
+    /**
+     * Replaces the given reminder {@code target} with {@code editedReminder}.
+     * {@code target} must exist in the address book.
+     * The {@code editedReminder} must not be the same as another existing reminder in the address book.
+     */
+    void setReminder(Reminder target, Reminder editedReminder);
+
+    /** Returns an unmodifiable view of the filtered reminder list */
+    ObservableList<Reminder> getFilteredReminderList();
+
+    /**
+     * Updates the filter of the filtered reminder list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReminderList(Predicate<Reminder> predicate);
 }
