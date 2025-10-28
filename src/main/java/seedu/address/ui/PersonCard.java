@@ -51,13 +51,13 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
 
         String phoneValue = person.getPhone().value;
-        phone.setText((phoneValue != null && !phoneValue.isEmpty()) ? "📞 " + phoneValue : "");
+        phone.setText((phoneValue != null && !phoneValue.isEmpty()) ? "      📞  " + phoneValue : "");
 
         String addressValue = person.getAddress().value;
-        address.setText((addressValue != null && !addressValue.isEmpty()) ? "🏠 " + addressValue : "");
+        address.setText((addressValue != null && !addressValue.isEmpty()) ? "      🏠  " + addressValue : "");
 
         String emailValue = person.getEmail().value;
-        email.setText((emailValue != null && !emailValue.isEmpty()) ? "\uD83D\uDCC4 " + emailValue : "");
+        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCC4  " + emailValue : "");
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

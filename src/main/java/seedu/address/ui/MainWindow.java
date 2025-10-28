@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -62,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Label headerLabel;  // Add this line
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -224,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         noteEditView.setPerson(targetPerson);
         noteEditView.requestFocus();
         isNoteEditMode = true;
+        headerLabel.setText("Notes");
     }
 
     /**
@@ -237,6 +242,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         isNoteEditMode = false;
+        headerLabel.setText("Contacts");
     }
 
     /**
