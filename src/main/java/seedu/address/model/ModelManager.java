@@ -131,6 +131,10 @@ public class ModelManager implements Model {
     @Override
     public void addReminder(Reminder reminder) {
         addressBook.addReminder(reminder);
+        Person p = reminder.getPerson();
+
+        // Trigger person list update to reflect reminder change
+        addressBook.setPerson(p, p);
         updateFilteredReminderList(PREDICATE_SHOW_UPCOMING_REMINDERS);
     }
 
