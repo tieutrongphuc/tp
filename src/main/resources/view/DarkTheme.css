@@ -371,5 +371,7 @@
 
 #noteTextArea {
     -fx-control-inner-background: #383838;
+    -fx-font-family: "Calibri";
     -fx-text-fill: white;
+    -fx-font-size: 18;
 }
