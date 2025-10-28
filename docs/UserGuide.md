@@ -291,6 +291,52 @@ Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
 <br>
 <br>
 
+### Adding a reminder: `reminder add`
+
+Adds a reminder for a person in the address book. Reminders help you track follow-ups, meetings, or important dates associated with your contacts.
+
+**Format:** `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`
+
+**Examples:**
+```
+reminder add n/John Doe d/2025-11-15 10:30 m/Follow up on research collaboration
+reminder add 1 d/15/11/2025 14:00 m/Coffee meeting at NUS
+reminder add n/Jane Smith d/2025-12-01 m/Send conference paper draft
+reminder add 2 d/1/12/2025 m/Review thesis chapter
+```
+
+**Expected output on success:** `New reminder added: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
+
+**Notes:**
+* You can specify the person either by `n/NAME` (exact match required) or by `INDEX` from the displayed person list.
+* The `INDEX` must be a positive integer 1, 2, 3, …​
+* Date formats supported:
+  * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)
+  * `d/M/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
+  * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day (23:59:59)
+  * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day (23:59:59)
+* Time is optional. If not specified, the reminder will be set to the end of the specified date.
+* Messages can contain any text to describe the reminder purpose.
+* Duplicate reminders (same person, date, and message) cannot be added.
+
+<br>
+<br>
+
+### Listing reminders: `reminder list`
+
+Shows all upcoming reminders for the next 7 days. This helps you see what follow-ups are due soon.
+
+**Format:** `reminder list`
+
+**Expected output on success:** `Listed upcoming reminders`
+
+**Notes:**
+* Only shows reminders that are:
+  * Not completed
+  * Due within the next 7 days from the current date and time
+
+<br>
+<br>
 
 ### Clearing all entries : `clear`
 
@@ -396,5 +442,7 @@ the data of your previous AddressBook home folder.
 | **Note**        | `note INDEX`                                                                                                                                                |
 | **View Note**   | `viewNote INDEX`                                                                                                                                            |
 | **Delete Note** | `deleteNote INDEX`                                                                                                                                          |
+| **Add Reminder**  | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`       |
+| **List Reminders** | `reminder list` |
 --------------------------------------------------------------------------------------------------------------------
 
