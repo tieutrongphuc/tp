@@ -75,19 +75,19 @@ public class DeleteTagCommandParserTest {
     }
 
     @Test
-    public void parse_noTagsProvided_failure_exactMessage() {
+    public void parse_noTagsProvided_failure() {
         // index provided but no tags -> should fail with invalid format message
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_nonIntegerIndex_failure_exactMessage() {
+    public void parse_nonIntegerIndex_failure() {
         // non-integer index should trigger invalid format
         assertParseFailure(parser, "a" + TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_missingIndexWithPrefix_failure_exactMessage() {
+    public void parse_missingIndexWithPrefix_failure() {
         // tag prefix present but no index should trigger invalid format
         assertParseFailure(parser, TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
     }
