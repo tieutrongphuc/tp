@@ -56,8 +56,6 @@ public class Date {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime sevenDaysLater = now.plusDays(7);
 
-        boolean result = !value.isBefore(now) && !value.isAfter(sevenDaysLater);
-        System.out.println("Checking: " + value + " | Now: " + now + " | Result: " + result);
         return !value.isBefore(now) && !value.isAfter(sevenDaysLater);
     }
 
