@@ -42,7 +42,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         List<String> researchTags = argMultimap.getAllValues(PREFIX_TAG_RESEARCH);
         List<String> jobTitleTags = argMultimap.getAllValues(PREFIX_TAG_TITLE);
 
-        Set<Tag> newTag = parseTags(defaultTags, "default");
+        Set<Tag> newTag = parseTags(defaultTags);
         newTag.addAll(parseTags(researchTags, "research"));
         newTag.addAll(parseTags(jobTitleTags, "title"));
 
