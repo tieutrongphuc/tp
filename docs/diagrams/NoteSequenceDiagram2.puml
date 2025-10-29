@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Note opening UI logic LOGIC_COLOR_T1
+participant ":MainWindow" as MainWindow LOGIC_COLOR
+participant ":NoteEditView" as NoteEditView LOGIC_COLOR
+participant ":NoteTextArea" as NoteTextArea LOGIC_COLOR
+participant ":Person" as Person LOGIC_COLOR
+end box
+
+[-> MainWindow : executeCommand()
+activate MainWindow
+
+MainWindow -> MainWindow : showNoteEditView()
+activate MainWindow
+
+MainWindow -> NoteEditView : setPerson()
+activate NoteEditView
+
+NoteEditView -> Person : getNote()
+activate Person
+
+Person --> NoteEditView : note
+deactivate Person
+
+alt note is not null
+
+    NoteEditView -> NoteTextArea : setText
+    activate NoteTextArea
+
+    NoteTextArea --> NoteEditView
+
+    NoteEditView -> NoteTextArea : positionCaret
+
+    NoteTextArea --> NoteEditView
+
+else
+
+    NoteEditView -> NoteTextArea : clear
+    NoteTextArea --> NoteEditView
+    deactivate NoteTextArea
+
+end
+
+NoteEditView --> MainWindow
+deactivate NoteEditView
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+
+MainWindow -> NoteEditView : requestFocus()
+activate NoteEditView
+
+NoteEditView --> MainWindow
+deactivate NoteEditView
+
+
+
+
+[<--MainWindow
+deactivate MainWindow
+@enduml
+
