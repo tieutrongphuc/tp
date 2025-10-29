@@ -54,9 +54,8 @@ public class Date implements Comparable<Date> {
      */
     public boolean isUpcoming() {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime sevenDaysLater = now.plusDays(7);
 
-        return !value.isBefore(now) && !value.isAfter(sevenDaysLater);
+        return !value.isBefore(now);
     }
 
     /**
