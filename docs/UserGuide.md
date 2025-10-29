@@ -1,16 +1,19 @@
----
-  layout: default.md
-    title: "User Guide"
-    pageNav: 3
----
 
 # AcademeConnect User Guide
 
+# Table of Contents
+
+- [Quick start](#quick-start)
+- [Features](#features)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
+- [Command summary](#command-summary)
+
 ## Introduction
 
-Purpose: This User Guide explains how to install, run and use AcademeConnect (AC) — a desktop contact manager
+**_Purpose:_** This User Guide explains how to install, run and use AcademeConnect (AC) — a desktop contact manager
 optimized for academic researchers who prefer a Command Line Interface (CLI) with an accompanying Graphical User
-Interface (GUI). The guide is structured for quick lookup and step-by-step tasks.
+Interface (GUI).
 
 **_Target users_**
 - Graduate students, researchers, teaching assistants, and academics who manage contact/networks.
@@ -24,10 +27,10 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 **_How to use this guide_**
 - A quick-start section shows installation and the shortest path to run the app.
 - Features are organised by task with example commands and expected outputs.
-- Use the page navigation at the top of the page to jump between sections. Internal anchors are provided for direct
-  linking to commands and examples.
+- Use the page navigation at the top of the page to jump between sections. Hyperlinks are provided for direct
+  navigation to commands.
 
-  
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -48,7 +51,7 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
    ```
    Expected behaviour: A GUI window opens within a few seconds and the CLI input box is shown at the bottom of the
    window. Sample data may be present on first run.
-![img.png](img.png)
+   ![img.png](img.png)
 
 1. Type commands into the command box and press Enter. Example:
     - `help` — opens the help window.
@@ -60,8 +63,8 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 
 <div markdown="block" class="alert alert-info">
 
-- Use `list` to confirm the index numbers before using index-based commands like `delete`, `edit`, `note`, `viewNote`,
-  and `tag`.
+- Use the `list` command to confirm the index numbers before using index-based commands like `delete`, `edit`, `note`,
+  `viewNote`, and `tag`.
 
 - Copy multi-line example commands into a plain-text editor first if you find line-breaks get removed when copying from
   a PDF.
@@ -78,12 +81,35 @@ Interface (GUI). The guide is structured for quick lookup and step-by-step tasks
 * Words in `UPPER_CASE` are parameters. e.g. `add n/NAME` → `add n/John Doe`.<br>
 * Square brackets `[...]` denote optional items.<br>
 * An ellipsis `…` after an item indicates it can appear multiple times (including zero).<br>
-* Parameters can be in any order.<br>
 * Extraneous parameters for no-argument commands (`help`, `list`, `exit`, `clear`) are ignored.<br>
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple
   lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+<br>
+<br>
+
+## Feature List
+- [Adding a person: add](#adding-a-person-add)
+- [Listing all persons : list](#listing-all-persons--list)
+- [Editing a person : edit](#editing-a-person--edit)
+- [Adding tags to a person : tag](#adding-tags-to-a-person--tag)
+- [Adding or updating a note : note](#adding-or-updating-a-note--note)
+- [Viewing a note: viewNote](#viewing-a-note-viewnote)
+- [Deleting a note: deleteNote](#deleting-a-note-deletenote)
+- [Locating persons by name or tag: find](#locating-persons-by-name-or-tag-find)
+- [Deleting a person : delete](#deleting-a-person--delete)
+- [Adding a reminder: reminder add](#adding-a-reminder-reminder-add)
+- [Listing reminders: reminder list](#listing-reminders-reminder-list)
+- [Clearing all entries : clear](#clearing-all-entries--clear)
+- [Exiting the program : exit](#exiting-the-program--exit)
+- [Viewing help : help](#viewing-help--help)
+- [Saving the data](#saving-the-data)
+- [Editing the data file](#editing-the-data-file)
+- [Archiving data files \[coming in v2.0\]](#archiving-data-files-coming-in-v20)
+
+<br>
+<br>
 
 ### Adding a person: `add`
 Adds a person to the address book. <br>
@@ -91,11 +117,11 @@ Adds a person to the address book. <br>
 
 **Examples**:
 ```
-add n/John Doe # Adds a person with only a name
+add n/John Doe              # Adds a person with only a name
 add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+441234567 t/criminal
-add n/李明 p/+8613812345678 # Names can contain non-English characters
-add n/Dr. Jane Smith-O'Connor # Names can contain special characters
+add n/李明 p/+8613812345678               # Names can contain non-English characters
+add n/Dr. Jane Smith-O'Connor               # Names can contain special characters
 ```
 
 **Expected output on success:** `New person added: John Doe` <br>
@@ -122,10 +148,11 @@ Edits an existing person in the address book.<br>
 
 **Examples:**
 ```
-edit 1 p/91234567 e/johndoe@example.com   # Edits the phone number and email address of the 1st person to be `91234567` 
-                                          # and `johndoe@example.com` respectively.
+edit 1 p/91234567 e/johndoe@example.com                 # Edits the phone number and email address of the 1st person to 
+                                                        # be `91234567` and `johndoe@example.com` respectively.
                                           
-edit 2 n/Betsy Crower t/   # Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+edit 2 n/Betsy Crower t/                # Edits the name of the 2nd person to be `Betsy Crower` and clears all existing 
+                                        # tags.
 ```
 
 **Expected output on success:** `Edited Person: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
@@ -148,8 +175,8 @@ Adds one or more tags to an existing person in the address book.<br>
 
 **Examples:**
 ```
-tag 1 t/friend    # Adds the tag `friend` to the 1st person.
-tag 2 t/colleague t/cs2103t   # Adds both `colleague` and `cs2103t` tags to the 2nd person.
+tag 1 t/friend              # Adds the tag `friend` to the 1st person.
+tag 2 t/colleague t/cs2103t                 # Adds both `colleague` and `cs2103t` tags to the 2nd person.
 ```
 
 **Expected output on success:** `New tag added: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
@@ -176,7 +203,7 @@ box saves the note to storage automatically.
 
 **Examples:**
 ```
-note 2   # opens the note editor for the 2nd person
+note 2              # opens the note editor for the 2nd person
 ```
 
 **Expected output on success:** `Opening text editor for Person: John Doe`
@@ -208,6 +235,11 @@ Displays a person's note in the result area (read-only). Refer to 'note' command
 
 **Format:** `viewNote INDEX`<br>
 
+**Examples:**
+```
+viewNote 2              # displays note of the 2nd person
+```
+
 **Expected output on success:** `Note for John Doe: This is the note content`
 
 **Notes:**
@@ -225,7 +257,7 @@ Deletes a person's note.
 
 **Examples:**
 ```
-deleteNote 2   # deletes the note of the 2nd person
+deleteNote 2                # deletes the note of the 2nd person
 ```
 
 **Expected output on success:** `Deleted note of Person: John Doe`
@@ -249,10 +281,10 @@ Alternatively, finds persons whose names are assigned any of the given tags.
 
 **Examples:**
 ```
-find John # returns `john` and `John Doe`
-find alex david # returns `Alex Yeoh`, `David Li`<br>
-find t/friends # returns everyone tagged as `friends`
-find t/friends t/colleagues # returns everyone tagged as `friends` or `colleagues`
+find John               # returns `john` and `John Doe`
+find alex david                 # returns `Alex Yeoh`, `David Li`<br>
+find t/friends              # returns everyone tagged as `friends`
+find t/friends t/colleagues                 # returns everyone tagged as `friends` or `colleagues`
 ```
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 
@@ -277,7 +309,7 @@ Deletes the specified person from the address book.
 
 **Examples:**
 ```
-delete 2    # deletes the 2nd person in the address book
+delete 2                # deletes the 2nd person in the address book
 ```
 
 **Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
@@ -311,10 +343,10 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 * You can specify the person either by `n/NAME` (exact match required) or by `INDEX` from the displayed person list.
 * The `INDEX` must be a positive integer 1, 2, 3, …​
 * Date formats supported:
-  * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)
-  * `d/M/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
-  * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day
-  * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day
+    * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)
+    * `d/M/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
+    * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day
+    * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day
 * Time is optional. If not specified, the reminder will be set to the end of the specified date.
 * Messages can contain any text to describe the reminder purpose.
 * Duplicate reminders (same person, date, and message) cannot be added.
@@ -332,8 +364,8 @@ Shows all upcoming reminders for the next 7 days. This helps you see what follow
 
 **Notes:**
 * Only shows reminders that are:
-  * Not completed
-  * Due within the next 7 days from the current date and time
+    * Not completed
+    * Due within the next 7 days from the current date and time
 
 <br>
 <br>
@@ -344,7 +376,7 @@ Clears all entries from the address book.
 
 **Format:** `clear`
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">
 This action is irreversible
 </div>
 
@@ -376,7 +408,7 @@ Format: `help`
 Data is saved automatically after any command that modifies the address book. Data file location:
 `[JAR file location]/data/addressbook.json`.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">
 Incorrect manual edits to `addressbook.json` may corrupt the file and cause data loss on next run. Back
 up before editing.
 </div>
@@ -389,7 +421,7 @@ up before editing.
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are
 welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty
 data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside
@@ -429,20 +461,20 @@ the data of your previous AddressBook home folder.
 
 ## Command summary
 
-| Action          | Format, Examples                                                                                                                                            |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**         | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd t/friend t/colleague` |
-| **Clear**       | `clear`                                                                                                                                                     |
-| **Delete**      | `delete INDEX`<br> e.g., `delete 3`                                                                                                                         |
-| **Edit**        | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                  |
-| **Find**        | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                  |
-| **List**        | `list`                                                                                                                                                      |
-| **Help**        | `help`                                                                                                                                                      |
-| **Tag**         | `tag INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tag 1 t/friend t/colleague`                                                                                     |
-| **Note**        | `note INDEX`                                                                                                                                                |
-| **View Note**   | `viewNote INDEX`                                                                                                                                            |
-| **Delete Note** | `deleteNote INDEX`                                                                                                                                          |
-| **Add Reminder**  | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`       |
-| **List Reminders** | `reminder list` |
+| Action             | Format, Examples                                                                                                                                            |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**            | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd t/friend t/colleague` |
+| **Clear**          | `clear`                                                                                                                                                     |
+| **Delete**         | `delete INDEX`<br> e.g., `delete 3`                                                                                                                         |
+| **Edit**           | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                  |
+| **Find**           | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                  |
+| **List**           | `list`                                                                                                                                                      |
+| **Help**           | `help`                                                                                                                                                      |
+| **Tag**            | `tag INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tag 1 t/friend t/colleague`                                                                                     |
+| **Note**           | `note INDEX`                                                                                                                                                |
+| **View Note**      | `viewNote INDEX`                                                                                                                                            |
+| **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
+| **Add Reminder**   | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`        |
+| **List Reminders** | `reminder list`                                                                                                                                             |
 --------------------------------------------------------------------------------------------------------------------
 
