@@ -100,7 +100,8 @@ Interface (GUI).
 - [Locating persons by name or tag: find](#locating-persons-by-name-or-tag-find)
 - [Deleting a person : delete](#deleting-a-person--delete)
 - [Adding a reminder: reminder add](#adding-a-reminder-reminder-add)
-- [Listing reminders: reminder list](#listing-reminders-reminder-list)
+- [Listing upcoming reminders: reminder list](#listing-upcoming-reminders-reminder-list)
+- [Marking a reminder as complete: reminder mark](#marking-a-reminder-as-complete-reminder-mark)
 - [Clearing all entries : clear](#clearing-all-entries--clear)
 - [Exiting the program : exit](#exiting-the-program--exit)
 - [Viewing help : help](#viewing-help--help)
@@ -325,7 +326,7 @@ Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
 
 ### Adding a reminder: `reminder add`
 
-Adds a reminder for a person in the address book. Reminders help you track follow-ups, meetings, or important dates associated with your contacts.
+Adds a reminder for a person in the address book. Reminders help you track follow-ups, meetings, or important dates associated with your contacts. Added reminders automatically appear in the Upcoming Reminders panel on the right side of the application.
 
 **Format:** `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`
 
@@ -350,22 +351,50 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 * Time is optional. If not specified, the reminder will be set to the end of the specified date.
 * Messages can contain any text to describe the reminder purpose.
 * Duplicate reminders (same person, date, and message) cannot be added.
+* The application automatically displays upcoming reminders in the right panel, sorted by date.
 
 <br>
 <br>
 
-### Listing reminders: `reminder list`
+### Listing upcoming reminders: `reminder list`
 
-Shows all upcoming reminders for the next 7 days. This helps you see what follow-ups are due soon.
+Displays all incomplete reminders that are upcoming in the Upcoming Reminders panel. This command is useful for refreshing the reminder view or checking all pending reminders at once.
 
 **Format:** `reminder list`
 
-**Expected output on success:** `Listed upcoming reminders`
+**Expected output on success:** `Listed all upcoming reminders`
 
 **Notes:**
-* Only shows reminders that are:
-    * Not completed
-    * Due within the next 7 days from the current date and time
+* Shows all reminders that are:
+    * Not marked as complete
+    * Have a due date in the future or today
+* Reminders are automatically sorted by date (earliest first)
+* The Upcoming Reminders panel on the right side of the application always shows these reminders
+* Use this command to refresh the reminder view if needed
+* Completed reminders are hidden from this view - use `reminder mark INDEX` to mark reminders as complete
+
+<br>
+<br>
+
+### Marking a reminder as complete: `reminder mark`
+
+Marks a reminder as complete, removing it from the Upcoming Reminders panel. This helps you track which follow-ups you've already handled.
+
+**Format:** `reminder mark INDEX`
+
+**Examples:**
+```
+reminder mark 1                # marks the 1st reminder as complete
+reminder mark 3                # marks the 3rd reminder as complete
+```
+
+**Expected output on success:** `Marked reminder as complete: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
+
+**Notes:**
+* Marks the reminder at the specified `INDEX` as complete.
+* The index refers to the index number shown in the Upcoming Reminders panel.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Once marked as complete, the reminder will no longer appear in the Upcoming Reminders panel.
 
 <br>
 <br>
@@ -476,5 +505,6 @@ the data of your previous AddressBook home folder.
 | **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
 | **Add Reminder**   | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`        |
 | **List Reminders** | `reminder list`                                                                                                                                             |
+| **Mark Reminder**  | `reminder mark INDEX`<br> e.g., `reminder mark 1`                                                                                                           |
 --------------------------------------------------------------------------------------------------------------------
 
