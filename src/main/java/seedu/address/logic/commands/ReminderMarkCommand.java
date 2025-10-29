@@ -51,7 +51,8 @@ public class ReminderMarkCommand extends ReminderCommand {
                 throw new CommandException(Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);
             }
             Reminder reminder = lastShownList.get(targetIndex.getZeroBased());
-            reminder.markAsCompleted();
+            model.deleteReminder(reminder);
+            model.addReminder(reminder.markAsCompleted());
             model.updateFilteredReminderList(PREDICATE_SHOW_UPCOMING_REMINDERS);
             markedReminders.append(Messages.format(reminder)).append("\n");
         }
