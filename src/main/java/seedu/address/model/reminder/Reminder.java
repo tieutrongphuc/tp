@@ -101,12 +101,13 @@ public class Reminder {
         Reminder otherReminder = (Reminder) other;
         return person.equals(otherReminder.person)
                 && date.equals(otherReminder.date)
-                && message.equals(otherReminder.message);
+                && message.equals(otherReminder.message)
+                && isCompleted == otherReminder.isCompleted;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(person, date, message);
+        return Objects.hash(person, date, message, isCompleted);
     }
 
     @Override

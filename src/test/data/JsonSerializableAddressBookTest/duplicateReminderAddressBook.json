@@ -1,0 +1,35 @@
+{
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "note" : "",
+    "tags" : [ ]
+  } ],
+  "reminders" : [ {
+    "person" : {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "email" : "alice@example.com",
+      "address" : "123, Jurong West Ave 6, #08-111",
+      "note" : "",
+      "tags" : [ ]
+    },
+    "date" : "2025-12-01 10:00",
+    "message" : "Duplicate reminder",
+    "isCompleted" : false
+  }, {
+    "person" : {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "email" : "alice@example.com",
+      "address" : "123, Jurong West Ave 6, #08-111",
+      "note" : "",
+      "tags" : [ ]
+    },
+    "date" : "2025-12-01 10:00",
+    "message" : "Duplicate reminder",
+    "isCompleted" : false
+  } ]
+}
