@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -26,7 +27,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane reminderListPanelPlaceholder;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
@@ -62,6 +66,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Label headerLabel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -126,6 +133,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -184,6 +194,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -224,6 +238,7 @@ public class MainWindow extends UiPart<Stage> {
         noteEditView.setPerson(targetPerson);
         noteEditView.requestFocus();
         isNoteEditMode = true;
+        headerLabel.setText("Notes");
     }
 
     /**
@@ -237,6 +252,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         isNoteEditMode = false;
+        headerLabel.setText("Contacts");
     }
 
     /**
