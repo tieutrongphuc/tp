@@ -18,3 +18,56 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.reminder-panel {
+    -fx-background-color: #2b2b2b;
+}
+
+.reminder_id_label {
+    -fx-font-size: 9pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.reminder_date_label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: #ffa500;
+    -fx-font-weight: bold;
+}
+
+.reminder_person_label {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.reminder_message_label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: #cccccc;
+    -fx-opacity: 0.9;
+}
+
+/* Section Headers */
+.section-header {
+    -fx-background-color: #404040;
+    -fx-border-color: #555555;
+    -fx-border-width: 0 0 1 0;
+}
+
+.section-header-label {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: #f0efed;
+    -fx-font-weight: bold;
+}
+
+.section-header-label-small {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Serif";
+    -fx-text-fill: #f0efed;
+    -fx-font-weight: bold;
+}
