@@ -182,13 +182,14 @@ Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
 
 ### Deleting a person: `delete`
 
-Deletes the specified person from the address book.
+Deletes one or more persons from the address book.
 
-**Format:** `delete INDEX`
+**Format:** `delete [INDEX]...`
 
 **Examples:**
 ```
 delete 2                # deletes the 2nd person in the address book
+delete 2 3              # deletes the 2nd and 3rd person in the address book
 ```
 
 **Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
@@ -198,9 +199,9 @@ Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
 
 **Notes:**
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
+* The index (or indexes) refers to the index number shown in the displayed person list.
+* The index (or indexes) **must be a positive integer** 1, 2, 3, …​
+* Duplicate indexes are ignored.
 <br>
 <br>
 
