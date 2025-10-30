@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -38,10 +39,30 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
+
+        cleanUpOrphanedReminders();
+        updateFilteredReminderList(PREDICATE_SHOW_UPCOMING_REMINDERS);
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    /**
+     * Removes reminders that point to persons that no longer exist in the address book.
+     * This handles cases where reminders were left behind when persons were deleted.
+     */
+    private void cleanUpOrphanedReminders() {
+        ObservableList<Person> persons = addressBook.getPersonList();
+        ObservableList<Reminder> reminders = addressBook.getReminderList();
+
+        List<Reminder> orphanedReminders = reminders.stream()
+                .filter(reminder -> !persons.contains(reminder.getPerson()))
+                .collect(java.util.stream.Collectors.toList());
+
+        for (Reminder orphanedReminder : orphanedReminders) {
+            addressBook.removeReminder(orphanedReminder);
+        }
     }
 
     //=========== UserPrefs ==================================================================================
@@ -178,6 +199,14 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredReminders.setPredicate(null);
         filteredReminders.setPredicate(predicate);
+    }
+
+    @Override
+    public java.util.List<Reminder> getRemindersByPerson(Person person) {
+        requireNonNull(person);
+        return filteredReminders.stream()
+                .filter(reminder -> reminder.getPerson().equals(person))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -27,6 +28,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 4 6";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Persons:\n%1$s";
+    public static final String MESSAGE_DELETE_REMINDERS_SUCCESS = "%1$d associated reminder(s) also deleted.";
 
     private final List<Index> targetIndexes;
 
@@ -43,17 +45,26 @@ public class DeleteCommand extends Command {
 
         List<Index> sortedIndexes = new ArrayList<>(targetIndexes);
         sortedIndexes.sort(Comparator.comparing(Index::getZeroBased).reversed());
-
+        int totalRemindersDeleted = 0;
         for (Index targetIndex : sortedIndexes) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+            List<Reminder> remindersToDelete = model.getRemindersByPerson(personToDelete);
+            totalRemindersDeleted = remindersToDelete.size();
+            for (Reminder reminder : remindersToDelete) {
+                model.deleteReminder(reminder);
+            }
+
             model.deletePerson(personToDelete);
             deletedPersons.append(Messages.format(personToDelete)).append("\n");
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPersons.toString().trim()));
+        String resultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPersons.toString().trim());
+        if (totalRemindersDeleted > 0) {
+            resultMessage += "\n" + String.format(MESSAGE_DELETE_REMINDERS_SUCCESS, totalRemindersDeleted);
+        }
+        return new CommandResult(resultMessage);
     }
 
     @Override

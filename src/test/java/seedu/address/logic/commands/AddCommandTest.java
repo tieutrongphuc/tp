@@ -194,6 +194,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public java.util.List<Reminder> getRemindersByPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
