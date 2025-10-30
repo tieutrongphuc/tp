@@ -96,6 +96,7 @@ Interface (GUI).
 - [Deleting a person](#deleting-a-person-delete)
 - [Editing a person](#editing-a-person-edit)
 - [Adding tags to a person](#adding-tags-to-a-person-tag)
+- [Deleting tags from a person](#deleting-tags-from-a-person-tagdel)
 - [Locating persons](#locating-persons-find)
 - [Clearing all entries](#clearing-all-entries-clear)
 - [Exiting the program](#exiting-the-program-exit)
@@ -228,8 +229,33 @@ Blk 30 Geylang Street 29, #06-40; Tags: [classmates][friends]` <br>
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Tags are added cumulatively - existing tags are preserved.
-* Each tag must be a single word (no spaces allowed).
+* Each normal tag must be a single word (no spaces allowed).
 * You can add multiple tags in a single command.
+* **Tag suggestions:** As you type after `t/`, the application will suggest existing tags that match your input. Press `Tab` to autocomplete the suggestion.
+
+<br>
+<br>
+
+### Deleting tags from a person: `tagdel`
+Deletes one or more tags from an existing person in the address book.<br>
+You can delete specific tags or all tags of a certain type (research or title).
+
+**Format:** `tagdel INDEX [t/TAG]…​`<br>
+
+**Examples:**
+```
+tagdel 1 t/friend                     # Deletes the tag `friend` from the 1st person.
+tagdel 2 t/colleague t/cs2103t        # Deletes both `colleague` and `cs2103t` tags from the 2nd person.
+```
+
+**Expected output on success:** `Tag(s) deleted: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
+Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
+
+**Notes:**
+* Deletes tag(s) from the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* You can delete multiple tags in a single command.
 
 <br>
 <br>
@@ -537,6 +563,7 @@ the data of your previous AddressBook home folder.
 | **List**           | `list`                                                                                                                                                      |
 | **Help**           | `help`                                                                                                                                                      |
 | **Tag**            | `tag INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tag 1 t/friend t/colleague`                                                                                     |
+| **Delete Tag**     | `tagdel INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tagdel 1 t/friend t/colleague`                                                                               |
 | **Note**           | `note INDEX`                                                                                                                                                |
 | **View Note**      | `viewNote INDEX`                                                                                                                                            |
 | **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
@@ -544,4 +571,3 @@ the data of your previous AddressBook home folder.
 | **List Reminders** | `reminder list`                                                                                                                                             |
 | **Mark Reminder**  | `reminder mark INDEX`<br> e.g., `reminder mark 1`                                                                                                           |
 --------------------------------------------------------------------------------------------------------------------
-

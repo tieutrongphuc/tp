@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# AcademeConnect Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -254,6 +254,54 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Implemented Features**
+
+This section describes noteworthy details on how certain implemented features work.
+
+### Tag Autocomplete Feature
+
+#### Implementation
+
+The tag autocomplete feature provides intelligent tag suggestions as users type in the command box, helping them quickly reuse existing tags without having to remember exact tag names.
+
+**Key Components:**
+* `CommandBox` - Main UI component that handles user input and manages suggestion display
+* `suggestionText` - JavaFX Text node that displays the autocomplete suggestion
+* `TAG_PREFIXES` - Array of supported tag prefixes (`t/`)
+* `Model` - Provides access to all existing tags in the address book
+
+**How it works:**
+
+The autocomplete system monitors text input in real-time and follows this workflow:
+
+1. **Input Detection**: `CommandBox.handleTextChanged()` is triggered on every keystroke and caret position change
+2. **Prefix Recognition**: Checks if the current caret position is immediately after a tag prefix (`t/`)
+3. **Partial Tag Extraction**: Extracts the partially-typed tag text between the prefix and the caret
+4. **Tag Matching**: Queries all existing tags from the address book and filters for case-insensitive matches
+5. **Suggestion Display**: Shows the remaining untyped portion of the best matching tag in blue text
+6. **Acceptance**: User presses Tab to accept the suggestion, which completes the tag and moves the caret
+
+**Code Flow Example:**
+
+When a user types `tag 1 t/fri`, the system:
+1. Detects `t/` prefix at position before caret
+2. Extracts partial tag `"fri"`
+3. Finds matching tag `"friend"` in the address book
+4. Displays `"end"` in blue after the typed text
+5. On Tab press, replaces `"fri"` with `"friend"` and positions caret after it
+
+**Design Considerations:**
+
+* **Suggestion Visibility**: Suggestions only appear when the caret is positioned after a tag prefix and no space has been typed yet. This prevents suggestions from appearing in inappropriate contexts.
+
+* **Tab Key Handling**: The Tab key is consumed to prevent focus traversal (which would move focus away from the command box). This ensures a smooth user experience where Tab always means "accept suggestion".
+
+* **Performance**: Tag queries are performed on every keystroke. For typical use cases (up to 1000 contacts with ~5-10 tags each), this remains performant. The implementation uses Java streams for efficient filtering.
+
+* **Case Insensitivity**: Matching is case-insensitive to maximize user convenience. A user typing `ai` will match both `AI` and `ai`.
 
 
 --------------------------------------------------------------------------------------------------------------------
