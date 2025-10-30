@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteNoteCommandParser" as DeleteNoteCommandParser LOGIC_COLOR
+participant "d:DeleteNoteCommand" as DeleteNoteCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("deleteNote 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deleteNote 1")
+activate AddressBookParser
+
+create DeleteNoteCommandParser
+AddressBookParser -> DeleteNoteCommandParser
+activate DeleteNoteCommandParser
+
+DeleteNoteCommandParser --> AddressBookParser
+deactivate DeleteNoteCommandParser
+
+AddressBookParser -> DeleteNoteCommandParser : parse("1")
+activate DeleteNoteCommandParser
+
+create DeleteNoteCommand
+DeleteNoteCommandParser -> DeleteNoteCommand
+activate DeleteNoteCommand
+
+DeleteNoteCommand --> DeleteNoteCommandParser
+deactivate DeleteNoteCommand
+
+DeleteNoteCommandParser --> AddressBookParser : d
+deactivate DeleteNoteCommandParser
+destroy DeleteNoteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteNoteCommand : execute(model)
+activate DeleteNoteCommand
+
+create CommandResult
+DeleteNoteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteNoteCommand
+deactivate CommandResult
+
+DeleteNoteCommand --> LogicManager : r
+deactivate DeleteNoteCommand
+
+[<-- LogicManager
+deactivate LogicManager
+@enduml
