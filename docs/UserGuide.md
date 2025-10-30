@@ -51,7 +51,7 @@ Interface (GUI).
    ```
    Expected behaviour: A GUI window opens within a few seconds and the CLI input box is shown at the bottom of the
    window. Sample data may be present on first run.
-   ![img.png](img.png)
+   ![img_4.png](images/img_4.png)
 
 1. Type commands into the command box and press Enter. Example:
     - `help` — opens the help window.
@@ -130,6 +130,8 @@ add n/Dr. Jane Smith-O'Connor            #Names can contain special characters
 
 **Expected output on success:** `New person added: John Doe` <br>
 
+![img_5.png](images/img_5.png)
+
 **Notes:**
 * Only the name field is required; all other fields are optional.
 * The name can contain any characters (including special characters and numbers).
@@ -142,6 +144,8 @@ add n/Dr. Jane Smith-O'Connor            #Names can contain special characters
 Shows a list of all persons in the address book.<br>
 **Format:** `list` <br>
 **Expected output on success:** `Listed all persons`
+
+![img_6.png](images/img_6.png)
 
 <br>
 <br>
@@ -161,6 +165,8 @@ edit 2 n/Betsy Crower t/                # Edits the name of the 2nd person to be
 
 **Expected output on success:** `Edited Person: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
 Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
+
+![img_7.png](images/img_7.png)
 
 **Notes:**
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
@@ -187,6 +193,8 @@ delete 2                # deletes the 2nd person in the address book
 **Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
 Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
 
+![img_8.png](images/img_8.png)
+
 **Notes:**
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -212,6 +220,8 @@ tag 2 rtt/AI                        # Adds the research tag 'AI' to the 2nd pers
 
 **Expected output on success:** `New tag added: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
 Blk 30 Geylang Street 29, #06-40; Tags: [classmates][friends]` <br>
+
+![img_9.png](images/img_9.png)
 
 **Notes:**
 * Adds tag(s) to the person at the specified `INDEX`.
@@ -241,7 +251,7 @@ note 2              # opens the note editor for the 2nd person
 **Expected output on success:** `Opening text editor for Person: John Doe`
 <br>
 
-![img_1.png](img_1.png)
+![img_10.png](images/img_10.png)
 
 **Behavior of note editor:**
 - The command ```note INDEX``` opens the note editor, pre-populated with the person’s existing note (if any). After 
@@ -275,6 +285,8 @@ viewNote 2              # displays note of the 2nd person
 
 **Expected output on success:** `Note for John Doe: This is the note content`
 
+![img_11.png](images/img_11.png)
+
 **Notes:**
 * Displays the note of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -294,6 +306,8 @@ deleteNote 2                # deletes the note of the 2nd person
 ```
 
 **Expected output on success:** `Deleted note of Person: John Doe`
+
+![img_12.png](images/img_12.png)
 
 **Notes:**
 * Deletes the note of the person at the specified `INDEX`.
@@ -319,9 +333,10 @@ find t/friends                  # returns everyone tagged as `friends`
 find t/friends t/colleagues     # returns everyone tagged as `friends` or `colleagues`
 find note/Met at conference     # returns everyone who has the phrase "Met at conference" in their notes
 ```
-![result for 'find alex david'](images/findAlexDavidResult.png)
 
 **Expected output on success:** `2 persons listed!`
+
+![img_13.png](images/img_13.png)
 
 **Notes:**
 * The search is case-insensitive. e.g `hans` will match `Hans`
@@ -352,6 +367,8 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 
 **Expected output on success:** `New reminder added: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
 
+![img_14.png](images/img_14.png)
+
 **Notes:**
 * You can specify the person either by `n/NAME` (exact match required) or by `INDEX` from the displayed person list.
 * The `INDEX` must be a positive integer 1, 2, 3, …​
@@ -376,6 +393,8 @@ Displays all incomplete reminders that are upcoming in the Upcoming Reminders pa
 **Format:** `reminder list`
 
 **Expected output on success:** `Listed all upcoming reminders`
+
+![img_15.png](images/img_15.png)
 
 **Notes:**
 * Shows all reminders that are:
@@ -404,6 +423,8 @@ reminder mark 3                # marks the 3rd reminder as complete
 
 **Expected output on success:** `Marked reminder as complete: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
 
+![img_16.png](images/img_16.png)
+
 **Notes:**
 * Marks the reminder at the specified `INDEX` as complete.
 * The index refers to the index number shown in the Upcoming Reminders panel.
@@ -418,6 +439,8 @@ reminder mark 3                # marks the 3rd reminder as complete
 Clears all entries from the address book.
 
 **Format:** `clear`
+
+![img_17.png](images/img_17.png)
 
 <div markdown="span" class="alert alert-warning">
 This action is irreversible!
