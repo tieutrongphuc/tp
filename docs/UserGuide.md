@@ -90,24 +90,27 @@ Interface (GUI).
 <br>
 
 ## Feature List
-- [Adding a person: add](#adding-a-person-add)
-- [Listing all persons : list](#listing-all-persons--list)
-- [Editing a person : edit](#editing-a-person--edit)
-- [Adding tags to a person : tag](#adding-tags-to-a-person--tag)
-- [Adding or updating a note : note](#adding-or-updating-a-note--note)
-- [Viewing a note: viewNote](#viewing-a-note-viewnote)
-- [Deleting a note: deleteNote](#deleting-a-note-deletenote)
-- [Locating persons by name or tag: find](#locating-persons-by-name-or-tag-find)
-- [Deleting a person : delete](#deleting-a-person--delete)
-- [Adding a reminder: reminder add](#adding-a-reminder-reminder-add)
-- [Listing upcoming reminders: reminder list](#listing-upcoming-reminders-reminder-list)
-- [Marking a reminder as complete: reminder mark](#marking-a-reminder-as-complete-reminder-mark)
-- [Clearing all entries : clear](#clearing-all-entries--clear)
-- [Exiting the program : exit](#exiting-the-program--exit)
-- [Viewing help : help](#viewing-help--help)
-- [Saving the data](#saving-the-data)
-- [Editing the data file](#editing-the-data-file)
-- [Archiving data files \[coming in v2.0\]](#archiving-data-files-coming-in-v20)
+**Basic**
+- [Adding a person](#adding-a-person-add)
+- [Listing all persons](#listing-all-persons-list)
+- [Deleting a person](#deleting-a-person-delete)
+- [Editing a person](#editing-a-person-edit)
+- [Adding tags to a person](#adding-tags-to-a-person-tag)
+- [Locating persons](#locating-persons-find)
+- [Clearing all entries](#clearing-all-entries-clear)
+- [Exiting the program](#exiting-the-program-exit)
+- [Viewing help](#viewing-help-help)
+
+**Notes**
+- [Adding or updating a note](#adding-or-updating-a-note-note)
+- [Viewing a note](#viewing-a-note-viewnote)
+- [Deleting a note](#deleting-a-note-deletenote)
+
+**Reminders**
+- [Adding a reminder](#adding-a-reminder-reminder-add)
+- [Listing upcoming reminders](#listing-upcoming-reminders-reminder-list)
+- [Marking a reminder complete](#marking-a-reminder-as-complete-reminder-mark)
+
 
 <br>
 <br>
@@ -118,11 +121,11 @@ Adds a person to the address book. <br>
 
 **Examples**:
 ```
-add n/John Doe              # Adds a person with only a name
+add n/John                                #Adds a person with only a name
 add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/+441234567 t/criminal
-add n/李明 p/+8613812345678               # Names can contain non-English characters
-add n/Dr. Jane Smith-O'Connor               # Names can contain special characters
+add n/李明 p/+8613812345678               #Names can contain non-English characters
+add n/Dr. Jane Smith-O'Connor            #Names can contain special characters
 ```
 
 **Expected output on success:** `New person added: John Doe` <br>
@@ -135,7 +138,7 @@ add n/Dr. Jane Smith-O'Connor               # Names can contain special characte
 <br>
 <br>
 
-### Listing all persons : `list`
+### Listing all persons: `list`
 Shows a list of all persons in the address book.<br>
 **Format:** `list` <br>
 **Expected output on success:** `Listed all persons`
@@ -143,7 +146,7 @@ Shows a list of all persons in the address book.<br>
 <br>
 <br>
 
-### Editing a person : `edit`
+### Editing a person: `edit`
 Edits an existing person in the address book.<br>
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br>
 
@@ -170,14 +173,41 @@ Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
 <br>
 <br>
 
-### Adding tags to a person : `tag`
+### Deleting a person: `delete`
+
+Deletes the specified person from the address book.
+
+**Format:** `delete INDEX`
+
+**Examples:**
+```
+delete 2                # deletes the 2nd person in the address book
+```
+
+**Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
+Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
+
+**Notes:**
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+<br>
+<br>
+
+### Adding tags to a person: `tag`
 Adds one or more tags to an existing person in the address book.<br>
+You can choose to add research tags and title tags to reflect  your contacts' research topics or job titles. These tags
+are displayed with a different colour than other tags.
+
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`<br>
 
 **Examples:**
 ```
-tag 1 t/friend              # Adds the tag `friend` to the 1st person.
-tag 2 t/colleague t/cs2103t                 # Adds both `colleague` and `cs2103t` tags to the 2nd person.
+tag 1 t/friend                      # Adds the tag `friend` to the 1st person.
+tag 1 jtt/lead researcher           # Adds the title tag 'lead researcher' to the 1st person.
+tag 2 t/colleague t/cs2103t         # Adds both `colleague` and `cs2103t` tags to the 2nd person.
+tag 2 rtt/AI                        # Adds the research tag 'AI' to the 2nd person. 
 ```
 
 **Expected output on success:** `New tag added: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
@@ -194,11 +224,12 @@ Blk 30 Geylang Street 29, #06-40; Tags: [classmates][friends]` <br>
 <br>
 <br>
 
-### Adding or updating a note : `note`
-Opens a note editor for the person at the given index in the currently displayed list. The editor is a text box overlay
-(like a simple notepad) that replaces the person list area; the command box and result display remain. Use the editor
-to type or edit the note, then press Esc to toggle back to the command box — toggling from the editor into the command
-box saves the note to storage automatically.
+### Adding or updating a note: `note`
+Opens a note editor for the person at the given index in the currently displayed list. The editor is a text box that 
+replaces the person list. Use Esc to toggle back to the
+command box, which automatically saves the note to storage.
+
+See below for a sample image and exact behaviour of the editor.
 
 **Format:** `note INDEX`<br>
 
@@ -212,14 +243,15 @@ note 2              # opens the note editor for the 2nd person
 
 ![img_1.png](img_1.png)
 
-**Behavior:**
-- Running note INDEX opens the note editor pre-populated with the person’s existing note (if any).
-- The application is typing-focused: press Esc to toggle typing focus between the command box and the note editor.
+**Behavior of note editor:**
+- The command ```note INDEX``` opens the note editor, pre-populated with the person’s existing note (if any). After 
+running the command, you will be focused on the editor (able to edit the note). 
+- Press Esc to toggle between the command box and the note editor.
     - Pressing Esc while the editor is focused switches focus to the command box and saves the current editor content
-      to disk.
-    - Pressing Esc while the command box is focused returns focus to the note editor (no save).
-- Navigating away (for example, running list) returns the UI to the person list. When you later reopen the same
-  person’s note, the editor will show the saved content.
+      to disk. You can proceed to run other commands.
+    - Pressing Esc while the command box is focused returns focus to the note editor. You can continue to edit the note.
+- When focused on the command box, navigating away (for example, running ```list```) removes the text editor and 
+returns the UI to the person list. The note saved will reflect the most recent update.
 
 **Notes:**
 * Editor supports text wrapping and vertical scrolling.
@@ -254,7 +286,7 @@ viewNote 2              # displays note of the 2nd person
 ### Deleting a note: `deleteNote`
 Deletes a person's note.
 
-**Format:** `deleteNote INDEX'<br>
+**Format:** `deleteNote INDEX`<br>
 
 **Examples:**
 ```
@@ -267,62 +299,42 @@ deleteNote 2                # deletes the note of the 2nd person
 * Deletes the note of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-
-
 <br>
 <br>
 
+### Locating persons: `find`
 
-### Locating persons by name or tag: `find`
+You can choose between 3 search methods: by name, by tag, or by note content.<br>
+Searching by name displays every person whose name contains any of the given keywords. <br>
+Searching by tag displays every person who has been assigned any of the specified tags. <br>
+Seaching by note displays every person whose note contains the search phrase.
 
-Finds persons whose names contain any of the given keywords. <br>
-Alternatively, finds persons whose names are assigned any of the given tags.
-
-**Format:** `find KEYWORD [MORE_KEYWORDS]` OR `find t/[TAG_NAME]`
+**Format:** `find KEYWORD [MORE_KEYWORDS]` OR `find t/TAG_NAME [t/MORE_TAG_NAMES]` OR `find note/SEARCH_PHRASE`
 
 **Examples:**
 ```
-find John               # returns `john` and `John Doe`
-find alex david                 # returns `Alex Yeoh`, `David Li`<br>
-find t/friends              # returns everyone tagged as `friends`
-find t/friends t/colleagues                 # returns everyone tagged as `friends` or `colleagues`
+find John                       # returns `john` and `John Doe`
+find alex david                 # returns `Alex Yeoh`, `David Li`
+find t/friends                  # returns everyone tagged as `friends`
+find t/friends t/colleagues     # returns everyone tagged as `friends` or `colleagues`
+find note/Met at conference     # returns everyone who has the phrase "Met at conference" in their notes
 ```
 ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-**Expected output on success:** `1 persons listed!`
+**Expected output on success:** `2 persons listed!`
 
 **Notes:**
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only search by name or search by tag.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only search by one of name, tag, or note
+* Searching by tag is solely name-based. Searching by tags will match research tags or title tags with the same name
+* For name and tag search, only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 <br>
 <br>
 
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-**Format:** `delete INDEX`
-
-**Examples:**
-```
-delete 2                # deletes the 2nd person in the address book
-```
-
-**Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
-Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
-
-**Notes:**
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-<br>
-<br>
 
 ### Adding a reminder: `reminder add`
 
@@ -345,10 +357,11 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 * The `INDEX` must be a positive integer 1, 2, 3, …​
 * Date formats supported:
     * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)
-    * `d/M/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
+    * `dd/MM/yyyy HH:mm` (e.g., `15/11/2025 10:30`)
     * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day
-    * `d/M/yyyy` (e.g., `15/11/2025`) - defaults to end of day
-* Time is optional. If not specified, the reminder will be set to the end of the specified date.
+    * `dd/MM/yyyy` (e.g., `15/11/2025`) - defaults to end of day
+* Time is optional. If not provided, the reminder will default to the end of the day for the specified date.
+* Only 24-hour time format is allowed.
 * Messages can contain any text to describe the reminder purpose.
 * Duplicate reminders (same person, date, and message) cannot be added.
 * The application automatically displays upcoming reminders in the right panel, sorted by date.
@@ -378,7 +391,8 @@ Displays all incomplete reminders that are upcoming in the Upcoming Reminders pa
 
 ### Marking a reminder as complete: `reminder mark`
 
-Marks a reminder as complete, removing it from the Upcoming Reminders panel. This helps you track which follow-ups you've already handled.
+Marks a reminder as complete, removing it from the Upcoming Reminders panel. This helps you track which follow-ups 
+you have already handled.
 
 **Format:** `reminder mark INDEX`
 
@@ -399,20 +413,20 @@ reminder mark 3                # marks the 3rd reminder as complete
 <br>
 <br>
 
-### Clearing all entries : `clear`
+### Clearing all entries: `clear`
 
 Clears all entries from the address book.
 
 **Format:** `clear`
 
 <div markdown="span" class="alert alert-warning">
-This action is irreversible
+This action is irreversible!
 </div>
 
 <br>
 <br>
 
-### Exiting the program : `exit`
+### Exiting the program: `exit`
 
 Exits the program.
 
@@ -421,7 +435,7 @@ Exits the program.
 <br>
 <br>
 
-### Viewing help : `help`
+### Viewing help: `help`
 
 Shows a message explaining how to access the help page.
 
