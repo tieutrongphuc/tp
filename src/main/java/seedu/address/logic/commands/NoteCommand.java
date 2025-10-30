@@ -54,4 +54,19 @@ public class NoteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()), false, false, true,
                 index);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof NoteCommand)) {
+            return false;
+        }
+
+        NoteCommand otherNoteCommand = (NoteCommand) other;
+        return index.equals(otherNoteCommand.index);
+    }
 }
