@@ -38,7 +38,6 @@ public class NoteEditView extends UiPart<Region> {
         if (personNote != null) {
             String noteText = personNote.toString();
             noteTextArea.setText(noteText);
-            
             String textAreaContent = noteTextArea.getText();
             int caretPosition = textAreaContent.length();
             noteTextArea.positionCaret(caretPosition);

@@ -182,7 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         double windowWidth = guiSettings.getWindowWidth();
         primaryStage.setHeight(windowHeight);
         primaryStage.setWidth(windowWidth);
-        
         Point windowCoordinates = guiSettings.getWindowCoordinates();
         if (windowCoordinates != null) {
             double windowX = windowCoordinates.getX();
@@ -274,15 +273,12 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Person> filteredPersonList = logic.getFilteredPersonList();
         int personZeroBasedIndex = personIndex.getZeroBased();
         Person targetPerson = filteredPersonList.get(personZeroBasedIndex);
-        
         contactsHeader.setVisible(false);
         contactsHeader.setManaged(false);
-        
         ObservableList<Node> personListPanelChildren = personListPanelPlaceholder.getChildren();
         personListPanelChildren.clear();
         Region noteEditViewRoot = noteEditView.getRoot();
         personListPanelChildren.add(noteEditViewRoot);
-        
         noteEditView.setPerson(targetPerson);
         noteEditView.requestFocus();
         isNoteEditMode = true;
@@ -306,7 +302,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelChildren.clear();
         Region personListPanelRoot = personListPanel.getRoot();
         personListPanelChildren.add(personListPanelRoot);
-        
         isNoteEditMode = false;
         headerLabel.setText("Contacts");
     }
@@ -319,7 +314,6 @@ public class MainWindow extends UiPart<Stage> {
         if (currentPerson == null) {
             return;
         }
-        
         try {
             saveNoteForPerson(currentPerson);
         } catch (Exception e) {
@@ -333,10 +327,8 @@ public class MainWindow extends UiPart<Stage> {
     private void saveNoteForPerson(Person person) throws CommandException {
         String content = noteEditView.getNoteContent();
         Note note = new Note(content);
-        
         Person personToUpdate = findPersonInFilteredList(person);
         logic.setPersonNote(personToUpdate, note);
-        
         Name personName = personToUpdate.getName();
         resultDisplay.setFeedbackToUser("Note saved for " + personName);
     }
@@ -347,14 +339,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private Person findPersonInFilteredList(Person person) {
         ObservableList<Person> filteredPersonList = logic.getFilteredPersonList();
-        
         for (Person p : filteredPersonList) {
             boolean isSamePerson = p.isSamePerson(person);
             if (isSamePerson) {
                 return p;
             }
         }
-        
         return person;
     }
 
@@ -382,11 +372,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleEscapeKeyPress(KeyEvent event) {
         KeyCode eventCode = event.getCode();
         boolean isEscapePressed = eventCode == KeyCode.ESCAPE;
-        
         if (!isEscapePressed || !isNoteEditMode) {
             return;
         }
-        
         boolean isTextAreaFocused = noteEditView.isTextAreaFocused();
         if (isTextAreaFocused) {
             handleEscapeFromTextArea();
@@ -411,14 +399,11 @@ public class MainWindow extends UiPart<Stage> {
     private void focusCommandTextField() {
         ObservableList<Node> commandBoxChildren = commandBoxPlaceholder.getChildren();
         Node commandBoxRoot = commandBoxChildren.get(0);
-        
         if (!(commandBoxRoot instanceof Region)) {
             return;
         }
-        
         Parent commandBoxParent = (Parent) commandBoxRoot;
         TextField commandTextField = (TextField) commandBoxParent.lookup("#commandTextField");
-        
         if (commandTextField != null) {
             commandTextField.requestFocus();
         }
