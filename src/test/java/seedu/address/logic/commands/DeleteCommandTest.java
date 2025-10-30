@@ -83,6 +83,29 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_multipleValidIndexesUnfilteredList_success() {
+        List<Person> personsToDelete = List.of(
+                model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()),
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())
+        );
+
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                personsToDelete.stream()
+                        .map(Messages::format)
+                        .reduce((a, b) -> a + "\n" + b)
+                        .orElse(""));
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        personsToDelete.forEach(expectedModel::deletePerson);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(List.of(INDEX_FIRST_PERSON));
         DeleteCommand deleteSecondCommand = new DeleteCommand(List.of(INDEX_SECOND_PERSON));
