@@ -1,4 +1,6 @@
 [![Java CI](https://github.com/AY2526S1-CS2103T-W08-4/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-W08-4/tp/actions/workflows/gradle.yml)
+[![codecov](https://codecov.io/gh/AY2526S1-CS2103T-W08-4/tp/branch/master/graph/badge.svg?token=16SB0RNY6N)](https://codecov.io/gh/AY2526S1-CS2103T-W08-4/tp)
+
 ![img_4.png](docs/images/img_4.png)
 
 AcademeConnect is a contact management application designed specifically for academic researchers who need to organize and maintain their professional network. Built with a Command Line Interface (CLI) for fast, efficient data entry, AcademeConnect helps researchers keep track of collaborators, research interests, and important conversations.
