@@ -96,7 +96,7 @@ Interface (GUI).
 - [Deleting a person](#deleting-a-person-delete)
 - [Editing a person](#editing-a-person-edit)
 - [Adding tags to a person](#adding-tags-to-a-person-tag)
-- [Deleting tags from a person](#deleting-tags-from-a-person-deletetag)
+- [Deleting tags from a person](#deleting-tags-from-a-person-tagdel)
 - [Locating persons](#locating-persons-find)
 - [Clearing all entries](#clearing-all-entries-clear)
 - [Exiting the program](#exiting-the-program-exit)
