@@ -13,8 +13,8 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
+<br>
+The UI color palette was taken from the Notion application <br>
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -306,6 +306,89 @@ When a user types `tag 1 t/fri`, the system:
 
 * **Case Insensitivity**: Matching is case-insensitive to maximize user convenience. A user typing `ai` will match both `AI` and `ai`.
 
+<br>
+<br>
+
+### Note Feature
+
+#### Implementation
+
+The note feature allows users to open a dedicated note editor for any contact in the address book, enabling them to add
+or edit detailed notes. The editor provides a full-screen text area with a 5000-character limit and keyboard-based save
+functionality via the Esc key.
+
+**Key Components:**
+* `NoteCommand` - Command class that initiates note editing mode for a specified person
+* `NoteCommandParser` - Parser that validates and extracts the person index from user input
+* `NoteEditView` - JavaFX UI component that displays the note editor with a TextArea
+* `CommandResult` - Extended to include `showNoteEdit` flag and `targetPersonIndex` for note editing mode
+* `MainWindow` - Manages view switching between person list and note editor, handles Esc key detection and save logic
+* `Logic` - Interface extended with `setPersonNote()` method for persisting notes to storage
+
+**How it works:**
+
+The note feature orchestrates multiple components across the UI, Logic, and Model layers following this workflow:
+
+1. **Command Parsing**: `AddressBookParser` routes "note" commands to `NoteCommandParser`
+2. **Index Validation**: Parser extracts and validates the person index using `ParserUtil.parseIndex()`
+3. **Command Execution**: `NoteCommand.execute()` retrieves the target person and returns a `CommandResult` with
+`showNoteEdit=true` and the `targetPersonIndex`
+4. **View Switching**: `MainWindow` detects the `showNoteEdit` flag and calls `showNoteEditView()`
+5. **Note Loading**: `NoteEditView.setPerson()` loads the person's existing note (if any) into the TextArea and
+positions the caret at the end
+6. **User Editing**: User types in the TextArea, with a listener preventing input beyond 5000 characters
+7. **Esc Key Handling**: When user presses Esc while in note edit mode:
+   - First press: If TextArea is focused, saves the note via `saveCurrentNote()` and shifts focus to command box
+   - Second press: If command box is focused, returns focus to TextArea
+8. **Note Persistence**: `saveCurrentNote()` retrieves content via `noteEditView.getNoteContent()` and calls
+`logic.setPersonNote()` to update the model and storage
+
+**Code Flow Example:**
+
+When a user types `note 1` and edits a note, the system:
+1. `AddressBookParser` creates `NoteCommandParser` and calls `parse("1")`
+2. Parser extracts index `1` and creates `NoteCommand(Index.fromOneBased(1))`
+3. `NoteCommand.execute()` retrieves Person at index 1 from the filtered list
+4. Returns `CommandResult` with `showNoteEdit=true` and `targetPersonIndex=1`
+5. `MainWindow.executeCommand()` detects the `showNoteEdit` flag
+6. Calls `showNoteEditView(Index.fromOneBased(1))` which:
+   - Retrieves the Person from the filtered list
+   - Clears the person list panel and adds `NoteEditView`
+   - Calls `noteEditView.setPerson(person)` to load existing note content
+   - Requests focus on the TextArea
+   - Sets `isNoteEditMode = true` and updates header to "Notes"
+7. User edits the note text (character limit enforced by TextArea listener)
+8. When user presses Esc key:
+   - `MainWindow.handleEscapeKeyPress()` is triggered by the keyboard event filter
+   - Checks if `isNoteEditMode=true` and consumes the event
+   - Calls `handleEscapeFromTextArea()` which:
+     - Invokes `saveCurrentNote()` to retrieve note content via `noteEditView.getNoteContent()`
+     - Creates new `Note` object
+     - Calls `logic.setPersonNote(person, note)` which updates model and saves to storage
+     - Shifts focus to command box via `focusCommandTextField()`
+9. User can press Esc again to return focus to TextArea, or execute any command to exit note edit mode
+
+**Design Considerations:**
+
+* **Esc Key Save Mechanism**: The implementation uses the Esc key to trigger saving, which provides a quick
+keyboard-based workflow for CLI-focused users. The two-state behavior (save and shift focus on first press, return 
+focus on second press) allows users to quickly switch between editing notes and entering commands without leaving note
+edit mode. This is more efficient than requiring users to execute another command to save and exit.
+
+* **Auto-Save vs Manual Save**: Notes are only saved when the user explicitly presses Esc, giving users control over
+when their edits are persisted. This prevents unnecessary disk writes on every keystroke while still providing a quick
+save mechanism. However, this means users must remember to press Esc before closing the application, as unsaved notes
+will be lost.
+
+* **Character Limit Enforcement**: The 5000 character limit is enforced in real-time by a JavaFX listener on the
+TextArea's text property. When new text would exceed the limit, the listener reverts to the old value, providing
+immediate feedback. This approach prevents users from typing beyond the limit rather than showing an error after the
+fact.
+
+* **Caret Positioning**: When opening an existing note, the caret is positioned at the end of the text rather than
+the beginning. This allows users to quickly append to existing notes, which is the most common use case.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -448,6 +531,74 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AcademeConnect shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: UC04 - Add or edit notes for a contact**
+
+**MSS**
+
+1. User requests to list contacts.
+2. AcademeConnect shows a list of contacts.
+3. User requests to open the note editor for a specific contact.
+4. AcademeConnect displays the note editor with any existing note content.
+5. User types or edits the note content in the text area.
+6. User presses Esc key to save the note.
+7. AcademeConnect saves the note and shifts focus to the command box.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. AcademeConnect shows an error message.
+
+      Use case resumes at step 2.
+
+* 5a. User types more than 5000 characters.
+    * 5a1. AcademeConnect prevents additional characters from being entered.
+    * 5a2. User edits the content to stay within the limit.
+
+      Use case resumes at step 6.
+
+* 6a. User presses Esc key again while command box is focused.
+    * 6a1. AcademeConnect returns focus to the note text area.
+    * 6a2. User continues editing the note.
+
+      Use case resumes at step 5.
+
+
+**Use case: UC05 - View notes for a contact**
+
+**MSS**
+
+1. User requests to list contacts.
+2. AcademeConnect shows a list of contacts.
+3. User requests to open the note editor for a specific contact.
+4. AcademeConnect displays the note editor with the existing note content for that contact.
+5. User reads the note content.
+6. User presses Esc key to return focus to command box.
+7. User executes a command to exit note edit mode.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. AcademeConnect shows an error message.
+
+      Use case resumes at step 2.
+
+* 4a. The contact has no existing note.
+    * 4a1. AcademeConnect displays an empty note editor.
+
+      Use case ends.
 
 
 ### Non-Functional Requirements
