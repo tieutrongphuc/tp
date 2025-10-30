@@ -40,14 +40,19 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label reminderCount;
+    @FXML
+    private Label nextReminder;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonCard} with the given {@code PersonCardData}.
      */
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(PersonCardData cardData) {
         super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
+        this.person = cardData.getPerson();
+
+        id.setText(cardData.getDisplayIndex() + ". ");
         name.setText(person.getName().fullName);
 
         String phoneValue = person.getPhone().value;
@@ -57,7 +62,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText((addressValue != null && !addressValue.isEmpty()) ? "      🏠  " + addressValue : "");
 
         String emailValue = person.getEmail().value;
-        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCC4  " + emailValue : "");
+        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCE7  " + emailValue : "");
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -66,5 +71,28 @@ public class PersonCard extends UiPart<Region> {
                     tagLabel.setStyle("-fx-background-color: " + tag.getTagColour() + ";");
                     tags.getChildren().add(tagLabel);
                 });
+
+        // Display reminder information
+        int count = cardData.getUpcomingReminderCount();
+        if (count > 0) {
+            reminderCount.setText("      🔔  " + count + (count == 1 ? " upcoming reminder" : " upcoming reminders"));
+            reminderCount.setVisible(true);
+            reminderCount.setManaged(true);
+        } else {
+            reminderCount.setText("");
+            reminderCount.setVisible(false);
+            reminderCount.setManaged(false);
+        }
+
+        String next = cardData.getNextReminderText();
+        if (!next.isEmpty()) {
+            nextReminder.setText("      ⏰  " + "Next: " + next);
+            nextReminder.setVisible(true);
+            nextReminder.setManaged(true);
+        } else {
+            nextReminder.setText("");
+            nextReminder.setVisible(false);
+            nextReminder.setManaged(false);
+        }
     }
 }

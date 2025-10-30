@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_FIELD_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_RESEARCH;
@@ -42,10 +43,14 @@ public class TagCommandParser implements Parser<TagCommand> {
         List<String> researchTags = argMultimap.getAllValues(PREFIX_TAG_RESEARCH);
         List<String> jobTitleTags = argMultimap.getAllValues(PREFIX_TAG_TITLE);
 
-        Set<Tag> newTag = parseTags(defaultTags, "default");
-        newTag.addAll(parseTags(researchTags, "research"));
-        newTag.addAll(parseTags(jobTitleTags, "title"));
+        Set<Tag> newTags = parseTags(defaultTags);
+        newTags.addAll(parseTags(researchTags, "research"));
+        newTags.addAll(parseTags(jobTitleTags, "title"));
 
-        return new TagCommand(index, newTag);
+        if (newTags.isEmpty()) {
+            throw new ParseException(MESSAGE_FIELD_EMPTY);
+        }
+
+        return new TagCommand(index, newTags);
     }
 }

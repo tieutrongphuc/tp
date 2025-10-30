@@ -20,6 +20,11 @@ Class Name
 Class Phone
 Class Tag
 
+Class UniqueReminderList
+Class Reminder
+Class Date
+Class Message
+
 Class I #FFFFFF
 }
 
@@ -36,7 +41,9 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
+AddressBook *--> "1" UniqueReminderList
 UniquePersonList --> "~* all" Person
+UniqueReminderList --> "~* all" Reminder
 Person *--> Name
 Person o--> "0..1" Phone
 Person o--> "0..1" Email
@@ -44,12 +51,18 @@ Person o--> "0..1" Note
 Person o--> "0..1" Address
 Person o--> "*" Tag
 
+Reminder --> "1" Person
+Reminder *--> Date
+Reminder *--> Message
+
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
+UniqueReminderList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Reminder
 @enduml

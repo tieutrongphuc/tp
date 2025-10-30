@@ -49,10 +49,10 @@ public class ReminderCommandParser implements Parser<Command> {
 
         switch (commandWord) {
 
-        case ReminderAddCommand.COMMAND_WORD:
+        case ReminderAddCommand.SUB_COMMAND_WORD:
             return new ReminderAddCommandParser().parse(arguments);
 
-        case ReminderListCommand.COMMAND_WORD:
+        case ReminderListCommand.SUB_COMMAND_WORD:
             return new ReminderListCommand();
 
         case ReminderMarkCommand.SUB_COMMAND_WORD:

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="AcademeConnect" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -41,19 +42,33 @@
           <Label fx:id="headerLabel" text="Contacts" styleClass="header-text"/>
         </HBox>
 
-        <SplitPane dividerPositions="0.4" orientation="VERTICAL" VBox.vgrow="ALWAYS">
-          <VBox fx:id="reminderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" minHeight="150">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        <SplitPane dividerPositions="0.72" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
+          <VBox fx:id="personList" minWidth="200" prefWidth="500" minHeight="200">
+            <HBox fx:id="contactsHeader" styleClass="section-header" spacing="5">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+              <Label text="👥 Contacts" styleClass="section-header-label"/>
+            </HBox>
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="0" right="10" bottom="10" left="10" />
+              </padding>
+            </StackPane>
           </VBox>
 
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" minHeight="200">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <VBox fx:id="reminderList" styleClass="pane-with-border reminder-panel" minWidth="200" prefWidth="500" minHeight="200">
+            <HBox styleClass="section-header" spacing="5">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+              <Label text="🔔 Upcoming Reminders" styleClass="section-header-label"/>
+            </HBox>
+            <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="0" right="10" bottom="10" left="10" />
+              </padding>
+            </StackPane>
           </VBox>
         </SplitPane>
 
