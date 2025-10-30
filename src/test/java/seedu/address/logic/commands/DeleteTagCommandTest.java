@@ -86,14 +86,7 @@ public class DeleteTagCommandTest {
             personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         }
 
-        // pick two tags from the person's current tags
-        int picked = 0;
-        for (Tag t : personToEdit.getTags()) {
-            if (picked < 2) {
-                tagsToDelete.add(t);
-                picked++;
-            }
-        }
+        tagsToDelete.addAll(personToEdit.getTags().stream().limit(2).toList());
 
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
         updatedTags.removeAll(tagsToDelete);

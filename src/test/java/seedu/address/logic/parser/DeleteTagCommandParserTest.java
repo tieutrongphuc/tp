@@ -62,6 +62,18 @@ public class DeleteTagCommandParserTest {
     }
 
     @Test
+    public void parse_singleTag_success() {
+        String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_FRIEND;
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag(VALID_TAG_FRIEND));
+
+        DeleteTagCommand expectedCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, tags);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
     public void parse_multipleTags_success() {
         String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
 
@@ -92,4 +104,3 @@ public class DeleteTagCommandParserTest {
         assertParseFailure(parser, TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
     }
 }
-
