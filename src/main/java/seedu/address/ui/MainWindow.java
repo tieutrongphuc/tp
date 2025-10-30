@@ -14,6 +14,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -69,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label headerLabel;
+
+    @FXML
+    private HBox contactsHeader;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -233,6 +237,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showNoteEditView(Index personIndex) {
         Person targetPerson = logic.getFilteredPersonList().get(personIndex.getZeroBased());
+        
+        // Hide the contacts header when in note mode
+        contactsHeader.setVisible(false);
+        contactsHeader.setManaged(false);
+        
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(noteEditView.getRoot());
         noteEditView.setPerson(targetPerson);
@@ -248,6 +257,10 @@ public class MainWindow extends UiPart<Stage> {
         if (isNoteEditMode && noteEditView.getCurrentPerson() != null) {
             saveCurrentNote();
         }
+
+        // Show the contacts header when in list view mode
+        contactsHeader.setVisible(true);
+        contactsHeader.setManaged(true);
 
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

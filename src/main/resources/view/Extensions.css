@@ -53,9 +53,10 @@
 
 /* Section Headers */
 .section-header {
-    -fx-background-color: #404040;
-    -fx-border-color: #555555;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 0 0 1 0;
+    -fx-padding: 15 20 20 20;
 }
 
 .section-header-label {
