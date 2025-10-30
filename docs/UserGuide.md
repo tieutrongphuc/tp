@@ -540,7 +540,7 @@ the data of your previous AddressBook home folder.
 | **List**           | `list`                                                                                                                                                      |
 | **Help**           | `help`                                                                                                                                                      |
 | **Tag**            | `tag INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tag 1 t/friend t/colleague`                                                                                     |
-| **Delete Tag**     | `tagdel INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `deletetag 1 t/friend t/colleague`                                                                            |
+| **Delete Tag**     | `tagdel INDEX t/TAG [t/MORE_TAGS]…`<br> e.g., `tagdel 1 t/friend t/colleague`                                                                               |
 | **Note**           | `note INDEX`                                                                                                                                                |
 | **View Note**      | `viewNote INDEX`                                                                                                                                            |
 | **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
