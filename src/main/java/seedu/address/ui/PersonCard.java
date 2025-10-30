@@ -62,7 +62,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText((addressValue != null && !addressValue.isEmpty()) ? "      🏠  " + addressValue : "");
 
         String emailValue = person.getEmail().value;
-        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCC4  " + emailValue : "");
+        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCE7  " + emailValue : "");
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
