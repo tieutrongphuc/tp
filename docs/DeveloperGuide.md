@@ -350,13 +350,18 @@ When a user types `note 1` and edits a note, the system:
 2. Parser extracts index `1` and creates `NoteCommand(Index.fromOneBased(1))`
 3. `NoteCommand.execute()` retrieves Person at index 1 from the filtered list
 4. Returns `CommandResult` with `showNoteEdit=true` and `targetPersonIndex=1`
+
+[NoteSequenceDiagram.puml](diagrams/NoteSequenceDiagram.puml)
+
 5. `MainWindow.executeCommand()` detects the `showNoteEdit` flag
 6. Calls `showNoteEditView(Index.fromOneBased(1))` which:
    - Retrieves the Person from the filtered list
-   - Clears the person list panel and adds `NoteEditView`
-   - Calls `noteEditView.setPerson(person)` to load existing note content
+   - Clears the person list panel and adds `NoteEditView` OR Calls `noteEditView.setPerson(person)` to load existing note content
    - Requests focus on the TextArea
    - Sets `isNoteEditMode = true` and updates header to "Notes"
+
+[NoteSequenceDiagram2.puml](diagrams/NoteSequenceDiagram2.puml)
+
 7. User edits the note text (character limit enforced by TextArea listener)
 8. When user presses Esc key:
    - `MainWindow.handleEscapeKeyPress()` is triggered by the keyboard event filter
@@ -366,6 +371,9 @@ When a user types `note 1` and edits a note, the system:
      - Creates new `Note` object
      - Calls `logic.setPersonNote(person, note)` which updates model and saves to storage
      - Shifts focus to command box via `focusCommandTextField()`
+
+[NoteSequenceDiagram3.puml](diagrams/NoteSequenceDiagram3.puml)
+
 9. User can press Esc again to return focus to TextArea, or execute any command to exit note edit mode
 
 **Design Considerations:**
