@@ -51,7 +51,7 @@ Interface (GUI).
    ```
    Expected behaviour: A GUI window opens within a few seconds and the CLI input box is shown at the bottom of the
    window. Sample data may be present on first run.
-   ![img_4.png](images/img_4.png)
+   ![img_4.png](images/Ui.png)
 
 1. Type commands into the command box and press Enter. Example:
     - `help` — opens the help window.
