@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_FIELD_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_RESEARCHER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_RESEARCHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -59,15 +62,19 @@ public class TagCommandParserTest {
 
         // tag prefix with no value
         assertParseFailure(parser, "1" + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+
+        // tag command with no tag prefix and no value
+        assertParseFailure(parser, "1", MESSAGE_FIELD_EMPTY);
     }
 
     @Test
     public void parse_multipleTags_success() {
-        String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
+        String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + TAG_DESC_RESEARCHER;
 
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag(VALID_TAG_HUSBAND));
         tags.add(new Tag(VALID_TAG_FRIEND));
+        tags.add(new Tag(VALID_TAG_RESEARCHER));
 
         TagCommand expectedCommand = new TagCommand(INDEX_SECOND_PERSON, tags);
 

@@ -6,16 +6,22 @@ skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniquePersonList
 AddressBook *-right-> "1" UniqueTagList
+AddressBook *-down-> "1" UniqueReminderList
 UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
 
 UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
+UniqueReminderList -right-> Reminder
 
 Person -up-> "*" Tag
 
 Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person o--> "0..1" Phone
+Person o--> "0..1" Email
+Person o--> "0..1" Address
+
+Reminder --> "1" Person
+Reminder *--> Date
+Reminder *--> Message
 @enduml

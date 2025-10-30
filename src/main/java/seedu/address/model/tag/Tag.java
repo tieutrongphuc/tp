@@ -51,6 +51,7 @@ public class Tag {
      * Returns the colour for Tag display.
      */
     public String getTagColour() {
+        assert (tagType.equals("research") || tagType.equals("title") || tagType.equals("default"));
         switch (tagType) {
         case "research":
             return "#00008B";

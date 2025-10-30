@@ -33,8 +33,8 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        personName.setText(reminder.getPerson().getName().fullName);
+        personName.setText("    " + reminder.getPerson().getName().fullName);
         date.setText(reminder.getDate().toString());
-        message.setText(reminder.getMessage().toString());
+        message.setText("    " + reminder.getMessage().toString());
     }
 }

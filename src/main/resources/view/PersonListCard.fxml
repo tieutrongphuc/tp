@@ -44,6 +44,14 @@
             <font>
                <Font size="15.0" />
             </font></Label>
+      <Label fx:id="reminderCount" styleClass="cell_small_label" text="\$reminderCount">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
+      <Label fx:id="nextReminder" styleClass="cell_small_label" text="\$nextReminder" wrapText="true">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
     </VBox>
       <rowConstraints>
          <RowConstraints />

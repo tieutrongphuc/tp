@@ -1,0 +1,106 @@
+package seedu.address.logic.parser;
+
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.model.tag.Tag;
+
+public class DeleteTagCommandParserTest {
+
+    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE);
+
+    private DeleteTagCommandParser parser = new DeleteTagCommandParser();
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no index specified
+        assertParseFailure(parser, VALID_TAG_FRIEND, MESSAGE_INVALID_FORMAT);
+
+        // no index and no field specified
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidPreamble_failure() {
+        // negative index
+        assertParseFailure(parser, "-5" + TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
+
+        // zero index
+        assertParseFailure(parser, "0" + TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidValue_failure() {
+        // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+
+        // tag prefix with no value
+        assertParseFailure(parser, "1" + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_singleTag_success() {
+        String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_FRIEND;
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag(VALID_TAG_FRIEND));
+
+        DeleteTagCommand expectedCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, tags);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_multipleTags_success() {
+        String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag(VALID_TAG_HUSBAND, "title"));
+        tags.add(new Tag(VALID_TAG_FRIEND));
+
+        DeleteTagCommand expectedCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, tags);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_noTagsProvided_failure() {
+        // index provided but no tags -> should fail with invalid format message
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_nonIntegerIndex_failure() {
+        // non-integer index should trigger invalid format
+        assertParseFailure(parser, "a" + TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_missingIndexWithPrefix_failure() {
+        // tag prefix present but no index should trigger invalid format
+        assertParseFailure(parser, TAG_DESC_FRIEND, MESSAGE_INVALID_FORMAT);
+    }
+}

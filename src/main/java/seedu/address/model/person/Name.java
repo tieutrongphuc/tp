@@ -16,7 +16,7 @@ public class Name {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Graph}][\\p{Graph} ]*";
+    public static final String VALIDATION_REGEX = "^[^\\s].*";
 
     public final String fullName;
 
@@ -56,7 +56,9 @@ public class Name {
         }
 
         Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        String ownFullname = fullName.trim().replaceAll("\\s+", " ");
+        String otherFullname = otherName.fullName.trim().replaceAll("\\s+", " ");
+        return ownFullname.equalsIgnoreCase(otherFullname);
     }
 
     @Override

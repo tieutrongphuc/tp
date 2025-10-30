@@ -23,9 +23,10 @@ import seedu.address.model.reminder.Reminder;
  */
 public class ReminderAddCommand extends ReminderCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String SUB_COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reminder to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SUB_COMMAND_WORD + ":"
+            + ": Adds a reminder to the address book.\n"
             + "Format 1 (with index): "
             + COMMAND_WORD + " INDEX "
             + PREFIX_DATE + "DATE "

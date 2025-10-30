@@ -12,16 +12,16 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" minHeight="75" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
+                <Insets top="3" right="5" bottom="3" left="10" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label" />
-                <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
+                <Label fx:id="id" styleClass="reminder_id_label" />
+                <Label fx:id="date" styleClass="reminder_date_label" text="\$date" />
             </HBox>
-            <Label fx:id="personName" styleClass="cell_big_label" text="\$personName" />
-            <Label fx:id="message" styleClass="cell_small_label" text="\$message" wrapText="true"/>
+            <Label fx:id="personName" styleClass="reminder_person_label" text="\$personName" maxWidth="Infinity" wrapText="true"/>
+            <Label fx:id="message" styleClass="reminder_message_label" text="\$message" maxWidth="Infinity" wrapText="true"/>
         </VBox>
     </GridPane>
 </HBox>

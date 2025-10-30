@@ -1,0 +1,61 @@
+{
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "note" : "",
+    "tags" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "note" : "",
+    "tags" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "address" : "wall street",
+    "note" : "",
+    "tags" : [ ]
+  } ],
+  "reminders" : [ {
+    "person" : {
+      "name" : "Alice Pauline",
+      "phone" : "94351253",
+      "email" : "alice@example.com",
+      "address" : "123, Jurong West Ave 6, #08-111",
+      "note" : "",
+      "tags" : [ "friends" ]
+    },
+    "date" : "2025-12-01 10:00",
+    "message" : "Follow up on project",
+    "isCompleted" : false
+  }, {
+    "person" : {
+      "name" : "Benson Meier",
+      "phone" : "98765432",
+      "email" : "johnd@example.com",
+      "address" : "311, Clementi Ave 2, #02-25",
+      "note" : "",
+      "tags" : [ "owesMoney", "friends" ]
+    },
+    "date" : "2025-11-15 14:30",
+    "message" : "Coffee meeting",
+    "isCompleted" : false
+  }, {
+    "person" : {
+      "name" : "Carl Kurz",
+      "phone" : "95352563",
+      "email" : "heinz@example.com",
+      "address" : "wall street",
+      "note" : "",
+      "tags" : [ ]
+    },
+    "date" : "2025-12-15 09:00",
+    "message" : "Review documents",
+    "isCompleted" : false
+  } ]
+}
