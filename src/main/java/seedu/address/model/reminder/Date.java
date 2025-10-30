@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 
 /**
@@ -17,17 +19,29 @@ import java.util.List;
 public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date must be a valid date in 'yyyy-MM-dd' or 'd/M/yyyy' format, "
+            "Date must be a valid date in 'yyyy-MM-dd' or 'dd/MM/yyyy' format, "
             + "optionally with a time in 'HH:mm' format.";
 
     // Formatters
     private static final List<DateTimeFormatter> DATETIME_FORMATTERS = List.of(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
-            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm")
+            new DateTimeFormatterBuilder()
+                    .appendPattern("uuuu-MM-dd HH:mm")
+                    .toFormatter()
+                    .withResolverStyle(ResolverStyle.STRICT),
+            new DateTimeFormatterBuilder()
+                    .appendPattern("dd/MM/uuuu HH:mm")
+                    .toFormatter()
+                    .withResolverStyle(ResolverStyle.STRICT)
     );
     private static final List<DateTimeFormatter> DATE_ONLY_FORMATTERS = List.of(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-            DateTimeFormatter.ofPattern("d/M/yyyy")
+            new DateTimeFormatterBuilder()
+                    .appendPattern("uuuu-MM-dd")
+                    .toFormatter()
+                    .withResolverStyle(ResolverStyle.STRICT),
+            new DateTimeFormatterBuilder()
+                    .appendPattern("dd/MM/uuuu")
+                    .toFormatter()
+                    .withResolverStyle(ResolverStyle.STRICT)
     );
 
     // Default Time for Date-Only Inputs
@@ -90,6 +104,7 @@ public class Date implements Comparable<Date> {
             return false;
         }
         String trimmedTest = test.trim();
+        trimmedTest = trimmedTest.replaceAll("\\s+", " ").trim();
 
         for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
             try {
