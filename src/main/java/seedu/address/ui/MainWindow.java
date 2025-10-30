@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
-import java.util.List;
+import java.awt.Point;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -25,8 +28,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -134,20 +140,34 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getFilteredReminderList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        ObservableList<Person> filteredPersonList = logic.getFilteredPersonList();
+        ObservableList<Reminder> filteredReminderList = logic.getFilteredReminderList();
+        personListPanel = new PersonListPanel(filteredPersonList, filteredReminderList);
+        ObservableList<Node> personListPanelChildren = personListPanelPlaceholder.getChildren();
+        Region personListPanelRoot = personListPanel.getRoot();
+        personListPanelChildren.add(personListPanelRoot);
 
-        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        reminderListPanel = new ReminderListPanel(filteredReminderList);
+        ObservableList<Node> reminderListPanelChildren = reminderListPanelPlaceholder.getChildren();
+        Region reminderListPanelRoot = reminderListPanel.getRoot();
+        reminderListPanelChildren.add(reminderListPanelRoot);
 
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        ObservableList<Node> resultDisplayChildren = resultDisplayPlaceholder.getChildren();
+        Region resultDisplayRoot = resultDisplay.getRoot();
+        resultDisplayChildren.add(resultDisplayRoot);
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        Path addressBookFilePath = logic.getAddressBookFilePath();
+        StatusBarFooter statusBarFooter = new StatusBarFooter(addressBookFilePath);
+        ObservableList<Node> statusbarChildren = statusbarPlaceholder.getChildren();
+        Region statusBarFooterRoot = statusBarFooter.getRoot();
+        statusbarChildren.add(statusBarFooterRoot);
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getModel());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        Model model = logic.getModel();
+        CommandBox commandBox = new CommandBox(this::executeCommand, model);
+        ObservableList<Node> commandBoxChildren = commandBoxPlaceholder.getChildren();
+        Region commandBoxRoot = commandBox.getRoot();
+        commandBoxChildren.add(commandBoxRoot);
 
         noteEditView = new NoteEditView();
 
@@ -158,11 +178,16 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        double windowHeight = guiSettings.getWindowHeight();
+        double windowWidth = guiSettings.getWindowWidth();
+        primaryStage.setHeight(windowHeight);
+        primaryStage.setWidth(windowWidth);
+        Point windowCoordinates = guiSettings.getWindowCoordinates();
+        if (windowCoordinates != null) {
+            double windowX = windowCoordinates.getX();
+            double windowY = windowCoordinates.getY();
+            primaryStage.setX(windowX);
+            primaryStage.setY(windowY);
         }
     }
 
@@ -187,8 +212,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        double stageWidth = primaryStage.getWidth();
+        double stageHeight = primaryStage.getHeight();
+        int stageX = (int) primaryStage.getX();
+        int stageY = (int) primaryStage.getY();
+        GuiSettings guiSettings = new GuiSettings(stageWidth, stageHeight, stageX, stageY);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -210,19 +238,24 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            String feedbackToUser = commandResult.getFeedbackToUser();
+            logger.info("Result: " + feedbackToUser);
+            resultDisplay.setFeedbackToUser(feedbackToUser);
 
-            if (commandResult.isShowHelp()) {
+            boolean shouldShowHelp = commandResult.isShowHelp();
+            if (shouldShowHelp) {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
+            boolean shouldExit = commandResult.isExit();
+            if (shouldExit) {
                 handleExit();
             }
 
-            if (commandResult.isShowNoteEdit()) {
-                showNoteEditView(commandResult.getTargetPersonIndex());
+            boolean shouldShowNoteEdit = commandResult.isShowNoteEdit();
+            if (shouldShowNoteEdit) {
+                Index targetPersonIndex = commandResult.getTargetPersonIndex();
+                showNoteEditView(targetPersonIndex);
             } else if (isNoteEditMode) {
                 showPersonListView();
             }
@@ -230,17 +263,22 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            String errorMessage = e.getMessage();
+            resultDisplay.setFeedbackToUser(errorMessage);
             throw e;
         }
     }
 
     private void showNoteEditView(Index personIndex) {
-        Person targetPerson = logic.getFilteredPersonList().get(personIndex.getZeroBased());
+        ObservableList<Person> filteredPersonList = logic.getFilteredPersonList();
+        int personZeroBasedIndex = personIndex.getZeroBased();
+        Person targetPerson = filteredPersonList.get(personZeroBasedIndex);
         contactsHeader.setVisible(false);
         contactsHeader.setManaged(false);
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(noteEditView.getRoot());
+        ObservableList<Node> personListPanelChildren = personListPanelPlaceholder.getChildren();
+        personListPanelChildren.clear();
+        Region noteEditViewRoot = noteEditView.getRoot();
+        personListPanelChildren.add(noteEditViewRoot);
         noteEditView.setPerson(targetPerson);
         noteEditView.requestFocus();
         isNoteEditMode = true;
@@ -251,7 +289,8 @@ public class MainWindow extends UiPart<Stage> {
      * Shows the person list view.
      */
     private void showPersonListView() {
-        if (isNoteEditMode && noteEditView.getCurrentPerson() != null) {
+        Person currentPerson = noteEditView.getCurrentPerson();
+        if (isNoteEditMode && currentPerson != null) {
             saveCurrentNote();
         }
 
@@ -259,8 +298,10 @@ public class MainWindow extends UiPart<Stage> {
         contactsHeader.setVisible(true);
         contactsHeader.setManaged(true);
 
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        ObservableList<Node> personListPanelChildren = personListPanelPlaceholder.getChildren();
+        personListPanelChildren.clear();
+        Region personListPanelRoot = personListPanel.getRoot();
+        personListPanelChildren.add(personListPanelRoot);
         isNoteEditMode = false;
         headerLabel.setText("Contacts");
     }
@@ -269,53 +310,103 @@ public class MainWindow extends UiPart<Stage> {
      * Saves the current note content to the person.
      */
     private void saveCurrentNote() {
-        if (noteEditView.getCurrentPerson() != null) {
-            try {
-                String content = noteEditView.getNoteContent();
-                Person person = noteEditView.getCurrentPerson();
+        Person currentPerson = noteEditView.getCurrentPerson();
+        if (currentPerson == null) {
+            return;
+        }
+        try {
+            saveNoteForPerson(currentPerson);
+        } catch (Exception e) {
+            handleNoteSaveError(e);
+        }
+    }
 
-                List<Person> persons = logic.getFilteredPersonList();
-                Person currentPerson = null;
-                for (Person p : persons) {
-                    if (p.isSamePerson(person)) {
-                        currentPerson = p;
-                        break;
-                    }
-                }
+    /**
+     * Saves the note for the specified person.
+     */
+    private void saveNoteForPerson(Person person) throws CommandException {
+        String content = noteEditView.getNoteContent();
+        Note note = new Note(content);
+        Person personToUpdate = findPersonInFilteredList(person);
+        logic.setPersonNote(personToUpdate, note);
+        Name personName = personToUpdate.getName();
+        resultDisplay.setFeedbackToUser("Note saved for " + personName);
+    }
 
-                if (currentPerson != null) {
-                    logic.setPersonNote(currentPerson, new Note(content));
-                    resultDisplay.setFeedbackToUser("Note saved for " + currentPerson.getName());
-                } else {
-                    logic.setPersonNote(person, new Note(content));
-                    resultDisplay.setFeedbackToUser("Note saved for " + person.getName());
-                }
-            } catch (Exception e) {
-                resultDisplay.setFeedbackToUser("Error saving note: " + e.getMessage());
+    /**
+     * Finds the person in the filtered list that matches the given person.
+     * Returns the given person if not found in the list.
+     */
+    private Person findPersonInFilteredList(Person person) {
+        ObservableList<Person> filteredPersonList = logic.getFilteredPersonList();
+        for (Person p : filteredPersonList) {
+            boolean isSamePerson = p.isSamePerson(person);
+            if (isSamePerson) {
+                return p;
             }
         }
+        return person;
+    }
+
+    /**
+     * Handles errors that occur during note saving.
+     */
+    private void handleNoteSaveError(Exception e) {
+        String errorMessage = e.getMessage();
+        resultDisplay.setFeedbackToUser("Error saving note: " + errorMessage);
     }
 
     /**
      * Sets up keyboard shortcuts.
      */
     private void setupKeyboardShortcuts() {
-        primaryStage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ESCAPE && isNoteEditMode) {
-                if (noteEditView.isTextAreaFocused()) {
-                    saveCurrentNote();
-                    Node commandBoxRoot = commandBoxPlaceholder.getChildren().get(0);
-                    if (commandBoxRoot instanceof Region) {
-                        TextField commandTextField = (TextField) ((Parent) commandBoxRoot).lookup("#commandTextField");
-                        if (commandTextField != null) {
-                            commandTextField.requestFocus();
-                        }
-                    }
-                } else {
-                    noteEditView.requestFocus();
-                }
-                event.consume();
-            }
+        Scene primaryScene = primaryStage.getScene();
+        primaryScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            handleEscapeKeyPress(event);
         });
     }
+
+    /**
+     * Handles the Escape key press event.
+     */
+    private void handleEscapeKeyPress(KeyEvent event) {
+        KeyCode eventCode = event.getCode();
+        boolean isEscapePressed = eventCode == KeyCode.ESCAPE;
+        if (!isEscapePressed || !isNoteEditMode) {
+            return;
+        }
+        boolean isTextAreaFocused = noteEditView.isTextAreaFocused();
+        if (isTextAreaFocused) {
+            handleEscapeFromTextArea();
+        } else {
+            noteEditView.requestFocus();
+        }
+        event.consume();
+    }
+
+    /**
+     * Handles Escape key press when text area is focused.
+     * Saves the current note and shifts focus to the command box.
+     */
+    private void handleEscapeFromTextArea() {
+        saveCurrentNote();
+        focusCommandTextField();
+    }
+
+    /**
+     * Focuses on the command text field.
+     */
+    private void focusCommandTextField() {
+        ObservableList<Node> commandBoxChildren = commandBoxPlaceholder.getChildren();
+        Node commandBoxRoot = commandBoxChildren.get(0);
+        if (!(commandBoxRoot instanceof Region)) {
+            return;
+        }
+        Parent commandBoxParent = (Parent) commandBoxRoot;
+        TextField commandTextField = (TextField) commandBoxParent.lookup("#commandTextField");
+        if (commandTextField != null) {
+            commandTextField.requestFocus();
+        }
+    }
 }
+

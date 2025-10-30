@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,9 +34,13 @@ public class NoteEditView extends UiPart<Region> {
     public void setPerson(Person person) {
         this.currentPerson = person;
 
-        if (person.getNote() != null) {
-            noteTextArea.setText(person.getNote().toString());
-            noteTextArea.positionCaret(noteTextArea.getText().length());
+        Note personNote = person.getNote();
+        if (personNote != null) {
+            String noteText = personNote.toString();
+            noteTextArea.setText(noteText);
+            String textAreaContent = noteTextArea.getText();
+            int caretPosition = textAreaContent.length();
+            noteTextArea.positionCaret(caretPosition);
         } else {
             noteTextArea.clear();
         }
