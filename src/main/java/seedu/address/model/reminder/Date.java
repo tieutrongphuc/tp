@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 
 /**
@@ -64,14 +65,14 @@ public class Date implements Comparable<Date> {
     private static LocalDateTime parse(String input) {
         for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
             try {
-                return LocalDateTime.parse(input, formatter);
+                return LocalDateTime.parse(input, formatter.withResolverStyle(ResolverStyle.STRICT));
             } catch (DateTimeParseException e) {
                 // Continue to next format
             }
         }
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
             try {
-                LocalDate date = LocalDate.parse(input, formatter);
+                LocalDate date = LocalDate.parse(input, formatter.withResolverStyle(ResolverStyle.STRICT));
                 return date.atTime(DEFAULT_TIME);
             } catch (DateTimeParseException e) {
                 // Continue to next format
@@ -93,7 +94,7 @@ public class Date implements Comparable<Date> {
 
         for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
             try {
-                LocalDateTime.parse(trimmedTest, formatter);
+                LocalDateTime.parse(trimmedTest, formatter.withResolverStyle(ResolverStyle.STRICT));
                 return true; // Found a valid format
             } catch (DateTimeParseException e) {
                 // Ignore and try the next format
@@ -101,7 +102,7 @@ public class Date implements Comparable<Date> {
         }
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
             try {
-                LocalDate.parse(trimmedTest, formatter);
+                LocalDate.parse(trimmedTest, formatter.withResolverStyle(ResolverStyle.STRICT));
                 return true; // Found a valid format
             } catch (DateTimeParseException e) {
                 // Ignore and try the next format
