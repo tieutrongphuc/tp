@@ -237,11 +237,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showNoteEditView(Index personIndex) {
         Person targetPerson = logic.getFilteredPersonList().get(personIndex.getZeroBased());
-        
-        // Hide the contacts header when in note mode
         contactsHeader.setVisible(false);
         contactsHeader.setManaged(false);
-        
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(noteEditView.getRoot());
         noteEditView.setPerson(targetPerson);
