@@ -20,8 +20,8 @@
                 <Label fx:id="id" styleClass="reminder_id_label" />
                 <Label fx:id="date" styleClass="reminder_date_label" text="\$date" />
             </HBox>
-            <Label fx:id="personName" styleClass="reminder_person_label" text="\$personName" />
-            <Label fx:id="message" styleClass="reminder_message_label" text="\$message" wrapText="true"/>
+            <Label fx:id="personName" styleClass="reminder_person_label" text="\$personName" maxWidth="Infinity" wrapText="true"/>
+            <Label fx:id="message" styleClass="reminder_message_label" text="\$message" maxWidth="Infinity" wrapText="true"/>
         </VBox>
     </GridPane>
 </HBox>

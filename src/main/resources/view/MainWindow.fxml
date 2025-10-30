@@ -43,8 +43,8 @@
         </HBox>
 
         <SplitPane dividerPositions="0.72" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="500" minHeight="200">
-            <HBox styleClass="section-header" spacing="5">
+          <VBox fx:id="personList" minWidth="200" prefWidth="500" minHeight="200">
+            <HBox fx:id="contactsHeader" styleClass="section-header" spacing="5">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
@@ -57,12 +57,12 @@
             </StackPane>
           </VBox>
 
-          <VBox fx:id="reminderList" styleClass="pane-with-border reminder-panel" minWidth="200" prefWidth="250" maxWidth="300">
+          <VBox fx:id="reminderList" styleClass="pane-with-border reminder-panel" minWidth="200" prefWidth="500" minHeight="200">
             <HBox styleClass="section-header" spacing="5">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
-              <Label text="🔔 Upcoming Reminders" styleClass="section-header-label-small"/>
+              <Label text="🔔 Upcoming Reminders" styleClass="section-header-label"/>
             </HBox>
             <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS">
               <padding>

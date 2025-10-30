@@ -24,14 +24,14 @@
 }
 
 .reminder_id_label {
-    -fx-font-size: 9pt;
+    -fx-font-size: 13pt;
     -fx-font-family: "Serif";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 
 .reminder_date_label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 13pt;
     -fx-font-family: "Serif";
     -fx-text-fill: #ffa500;
     -fx-font-weight: bold;
@@ -45,7 +45,7 @@
 }
 
 .reminder_message_label {
-    -fx-font-size: 12pt;
+    -fx-font-size: 13pt;
     -fx-font-family: "Serif";
     -fx-text-fill: #cccccc;
     -fx-opacity: 0.9;
@@ -53,9 +53,10 @@
 
 /* Section Headers */
 .section-header {
-    -fx-background-color: #404040;
-    -fx-border-color: #555555;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 0 0 1 0;
+    -fx-padding: 15 20 20 20;
 }
 
 .section-header-label {
