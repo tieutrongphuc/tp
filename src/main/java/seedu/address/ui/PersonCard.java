@@ -86,7 +86,7 @@ public class PersonCard extends UiPart<Region> {
 
         String next = cardData.getNextReminderText();
         if (!next.isEmpty()) {
-            nextReminder.setText("      🕰️  " + "Next: " + next);
+            nextReminder.setText("      ⏰  " + "Next: " + next);
             nextReminder.setVisible(true);
             nextReminder.setManaged(true);
         } else {
