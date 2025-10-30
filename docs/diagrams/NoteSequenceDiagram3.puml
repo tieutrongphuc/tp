@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box ShowPersonListView saving logic LOGIC_COLOR_T1
+participant ":MainWindow" as MainWindow LOGIC_COLOR
+participant ":NoteEditView" as NoteEditView LOGIC_COLOR
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+[-> MainWindow : executeCommand()
+activate MainWindow
+
+MainWindow -> MainWindow : showPersonListView()
+activate MainWindow
+
+opt isNoteEditMode && currentPerson != null
+
+MainWindow -> MainWindow : saveCurrentNote()
+activate MainWindow
+
+MainWindow -> NoteEditView : getNoteContent()
+activate NoteEditView
+
+NoteEditView --> MainWindow : content
+
+MainWindow -> NoteEditView : getCurrentPerson()
+
+NoteEditView --> MainWindow : person
+deactivate NoteEditView
+
+MainWindow -> Logic : setPersonNote(person, content)
+activate Logic
+
+note right
+    New note saved in storage from here onwards
+end note
+
+
+Logic --> MainWindow
+deactivate Logic
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+end
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+
+[<--MainWindow
+deactivate MainWindow
+@enduml
+

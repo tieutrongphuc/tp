@@ -47,6 +47,7 @@ UniqueReminderList --> "~* all" Reminder
 Person *--> Name
 Person o--> "0..1" Phone
 Person o--> "0..1" Email
+Person o--> "0..1" Note
 Person o--> "0..1" Address
 Person o--> "*" Tag
 
