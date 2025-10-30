@@ -127,4 +127,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredReminderList(Predicate<Reminder> predicate);
+
+    /**
+     * Returns a list of reminders associated with the given person.
+     * @param person The person to get reminders for.
+     * @return A list of reminders for the specified person.
+     */
+    java.util.List<Reminder> getRemindersByPerson(Person person);
 }
