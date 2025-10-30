@@ -54,6 +54,8 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
+Note: When a person with reminders is deleted, all associated reminders are automatically deleted to maintain referential integrity.
+
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
@@ -80,7 +82,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Reminder` objects residing in the `Model`.
 
 ### Logic component
 
@@ -123,9 +125,10 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and all `Reminder` objects (which are contained in a `UniqueReminderList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores the currently 'selected' `Reminder` objects (e.g., upcoming reminders) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Reminder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
@@ -144,8 +147,8 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both address book data, user preference data, and reminder data in JSON format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage` and `ReminderStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
