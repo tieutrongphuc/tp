@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_FIELD_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
@@ -61,6 +62,9 @@ public class TagCommandParserTest {
 
         // tag prefix with no value
         assertParseFailure(parser, "1" + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+
+        // tag command with no tag prefix and no value
+        assertParseFailure(parser, "1", MESSAGE_FIELD_EMPTY);
     }
 
     @Test
