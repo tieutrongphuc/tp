@@ -78,7 +78,7 @@ public class DeleteTagCommandParserTest {
         String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
 
         Set<Tag> tags = new HashSet<>();
-        tags.add(new Tag(VALID_TAG_HUSBAND));
+        tags.add(new Tag(VALID_TAG_HUSBAND, "title"));
         tags.add(new Tag(VALID_TAG_FRIEND));
 
         DeleteTagCommand expectedCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, tags);

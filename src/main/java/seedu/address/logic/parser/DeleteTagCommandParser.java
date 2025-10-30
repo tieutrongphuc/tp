@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_RESEARCH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_TITLE;
 
 import java.util.Set;
 
@@ -23,8 +25,8 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
      */
     public DeleteTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_TAG, PREFIX_TAG_RESEARCH, PREFIX_TAG_TITLE);
         Index index;
 
         try {
@@ -35,6 +37,8 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         }
 
         Set<Tag> tagsToDelete = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        tagsToDelete.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_RESEARCH), "research"));
+        tagsToDelete.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_TITLE), "title"));
 
         if (tagsToDelete.isEmpty()) {
             throw new ParseException(
