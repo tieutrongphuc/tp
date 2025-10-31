@@ -1,4 +1,3 @@
-
 # AcademeConnect User Guide
 
 # Table of Contents
@@ -212,6 +211,13 @@ You can choose to add research tags and title tags to reflect  your contacts' re
 are displayed with a different colour than other tags.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`<br>
+
+**Tag Types:**
+* **`t/`** - General tags (e.g., `t/friend`, `t/colleague`)
+* **`rtt/`** - Research Topic Tags for categorizing contacts by their research interests (e.g., `rtt/AI`, `rtt/Machine Learning`)
+* **`jtt/`** - Job Title Tags for categorizing contacts by their professional roles (e.g., `jtt/Lead Researcher`, `jtt/Professor`)
+
+Research topic tags (`rtt/`) and job title tags (`jtt/`) are displayed with distinct colors to help you quickly identify the type of tag at a glance.
 
 **Examples:**
 ```
