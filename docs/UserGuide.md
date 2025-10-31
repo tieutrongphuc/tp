@@ -129,7 +129,8 @@ add n/李明 p/+8613812345678               #Names can contain non-English chara
 add n/Dr. Jane Smith-O'Connor            #Names can contain special characters
 ```
 
-**Expected output on success:** `New person added: John Doe` <br>
+**Example expected output on success:** `New person added: John Smith, Phone: 12345678; Email:SmithyM@example.com; 
+Address:Smithy street, block 123, #01-01; Tags:` <br>
 
 ![img_5.png](images/img_5.png)
 
@@ -164,8 +165,8 @@ edit 2 n/Betsy Crower t/                # Edits the name of the 2nd person to be
                                         # tags.
 ```
 
-**Expected output on success:** `Edited Person: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
-Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
+**Example expected output on success:** `New person added: John Smith, Phone: 87654321; Email:SmithyM@example.com;
+Address:Smithy street, block 123, #01-01; Tags:` <br>
 
 ![img_7.png](images/img_7.png)
 
@@ -192,8 +193,8 @@ delete 2                # deletes the 2nd person in the address book
 delete 2 3              # deletes the 2nd and 3rd person in the address book
 ```
 
-**Expected output on success:** `Deleted Persons: Roy Balakrishnan; Phone: 92624417; Email: royb@example.com; Address:
-Blk 45 Aljunied Street 85, #11-31; Tags: [colleagues]`
+**Expected output on success:** `Deleted Persons: Betsy Crowe; Phone: +441234567; Email: betsycrowe@example.com;
+Address: Newgate Prison; Tags:[friend][criminal]`
 
 ![img_8.png](images/img_8.png)
 
@@ -220,8 +221,8 @@ tag 2 t/colleague t/cs2103t         # Adds both `colleague` and `cs2103t` tags t
 tag 2 rtt/AI                        # Adds the research tag 'AI' to the 2nd person. 
 ```
 
-**Expected output on success:** `New tag added: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
-Blk 30 Geylang Street 29, #06-40; Tags: [classmates][friends]` <br>
+**Example expected output on success:** `New tag added: John Doe; Phone: 98765432; Email:johnd@example.com;
+Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 
 ![img_9.png](images/img_9.png)
 
@@ -249,8 +250,8 @@ tagdel 1 t/friend                     # Deletes the tag `friend` from the 1st pe
 tagdel 2 t/colleague t/cs2103t        # Deletes both `colleague` and `cs2103t` tags from the 2nd person.
 ```
 
-**Expected output on success:** `Tag(s) deleted: Johnathan Man; Phone: 87438807; Email: alexyeoh@example.com; Address:
-Blk 30 Geylang Street 29, #06-40; Tags: [friends]` <br>
+**Example expected output on success:** `Tag(s) deleted: John Doe; Phone: 98765432; Email:johnd@example.com;
+Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 
 **Notes:**
 * Deletes tag(s) from the person at the specified `INDEX`.
@@ -275,7 +276,7 @@ See below for a sample image and exact behaviour of the editor.
 note 2              # opens the note editor for the 2nd person
 ```
 
-**Expected output on success:** `Opening text editor for Person: John Doe`
+**Expected output on success:** `Opening text editor for Person: John Smith`
 <br>
 
 ![img_10.png](images/img_10.png)
@@ -310,7 +311,7 @@ Displays a person's note in the result area (read-only). Refer to 'note' command
 viewNote 2              # displays note of the 2nd person
 ```
 
-**Expected output on success:** `Note for John Doe: This is the note content`
+**Example expected output on success:** `Note for John Smith: This is some note content`
 
 ![img_11.png](images/img_11.png)
 
@@ -332,7 +333,8 @@ Deletes a person's note.
 deleteNote 2                # deletes the note of the 2nd person
 ```
 
-**Expected output on success:** `Deleted note of Person: John Doe`
+**Expected output on success:** `Deleted note of Person: John Smith; Phone 8765432;
+Email: SmithyM@example.com; Address: Smithy Street, block 123, #01-01 Tags: `
 
 ![img_12.png](images/img_12.png)
 
@@ -361,7 +363,7 @@ find t/friends t/colleagues     # returns everyone tagged as `friends` or `colle
 find note/Met at conference     # returns everyone who has the phrase "Met at conference" in their notes
 ```
 
-**Expected output on success:** `2 persons listed!`
+**Expected output on success:** `1 persons listed!`
 
 ![img_13.png](images/img_13.png)
 
@@ -392,7 +394,7 @@ reminder add n/Jane Smith d/2025-12-01 m/Send conference paper draft
 reminder add 2 d/1/12/2025 m/Review thesis chapter
 ```
 
-**Expected output on success:** `New reminder added: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
+**Example expected output on success:** `New reminder added: John Smith; Date: 2025-12-01; Message: Review thesis chapter`
 
 ![img_14.png](images/img_14.png)
 
@@ -419,7 +421,7 @@ Displays all incomplete reminders that are upcoming in the Upcoming Reminders pa
 
 **Format:** `reminder list`
 
-**Expected output on success:** `Listed all upcoming reminders`
+**Expected output on success:** `Listed all reminders`
 
 ![img_15.png](images/img_15.png)
 
@@ -448,7 +450,7 @@ reminder mark 1                # marks the 1st reminder as complete
 reminder mark 3                # marks the 3rd reminder as complete
 ```
 
-**Expected output on success:** `Marked reminder as complete: John Doe; Date: 2025-11-15 10:30; Message: Follow up on research collaboration`
+**Example expected output on success:** `Marked reminders: Person: John Smith; Date: 2025-12-01; Message: Review thesis chapter.
 
 ![img_16.png](images/img_16.png)
 
@@ -465,7 +467,9 @@ reminder mark 3                # marks the 3rd reminder as complete
 
 Clears all entries from the address book.
 
-**Format:** `clear`
+**Format:** `clear` <br>
+**Expected output on success:** 'Address book has been cleared!'
+
 
 ![img_17.png](images/img_17.png)
 
