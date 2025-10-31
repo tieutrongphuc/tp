@@ -351,7 +351,7 @@ When a user types `note 1` and edits a note, the system:
 3. `NoteCommand.execute()` retrieves Person at index 1 from the filtered list
 4. Returns `CommandResult` with `showNoteEdit=true` and `targetPersonIndex=1`
 
-[NoteSequenceDiagram.puml](diagrams/NoteSequenceDiagram.puml)
+<puml src="diagrams/NoteSequenceDiagram.puml" alt="NoteSequenceDiagram" />
 
 5. `MainWindow.executeCommand()` detects the `showNoteEdit` flag
 6. Calls `showNoteEditView(Index.fromOneBased(1))` which:
@@ -360,7 +360,7 @@ When a user types `note 1` and edits a note, the system:
    - Requests focus on the TextArea
    - Sets `isNoteEditMode = true` and updates header to "Notes"
 
-[NoteSequenceDiagram2.puml](diagrams/NoteSequenceDiagram2.puml)
+<puml src="diagrams/NoteSequenceDiagram2.puml" alt="NoteSequenceDiagram2" />
 
 7. User edits the note text (character limit enforced by TextArea listener)
 8. When user presses Esc key:
@@ -372,7 +372,7 @@ When a user types `note 1` and edits a note, the system:
      - Calls `logic.setPersonNote(person, note)` which updates model and saves to storage
      - Shifts focus to command box via `focusCommandTextField()`
 
-[NoteSequenceDiagram3.puml](diagrams/NoteSequenceDiagram3.puml)
+<puml src="diagrams/NoteSequenceDiagram3.puml" alt="NoteSequenceDiagram3" />
 
 9. User can press Esc again to return focus to TextArea, or execute any command to exit note edit mode
 
