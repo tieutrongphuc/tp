@@ -34,7 +34,16 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         TagContainsKeywordsPredicate otherTagContainsKeywordsPredicate = (TagContainsKeywordsPredicate) other;
-        return keywords.equals(otherTagContainsKeywordsPredicate.keywords);
+        if (keywords.size() != otherTagContainsKeywordsPredicate.keywords.size()) {
+            return false;
+        } else {
+            for (Tag tag: otherTagContainsKeywordsPredicate.keywords) {
+                if (!this.keywords.contains(tag)) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     @Override

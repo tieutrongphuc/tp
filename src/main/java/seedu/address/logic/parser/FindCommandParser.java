@@ -34,24 +34,24 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(" " + args, PREFIX_TAG, PREFIX_TAG_RESEARCH, PREFIX_TAG_TITLE);
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_RESEARCH), "research"));
         tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_TITLE), "title"));
 
         String[] noteKeywordsArr = args.split("note/");
-        if (noteKeywordsArr.length > 1) {
+        if (noteKeywordsArr.length > 2) {
             throw new ParseException("Note should not contain the following string: 'note/'");
         }
         String noteKeywords = "";
         if (trimmedArgs.contains("note/")) {
-            noteKeywords = noteKeywordsArr[0];
+            noteKeywords = noteKeywordsArr[1];
         }
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
         String[] nameKeywords = trimmedArgs.split("\\s+");
         boolean containsTagAndNote = (!noteKeywords.isBlank() && !tagKeywords.isEmpty());
         boolean containsTagAndName = (!tagKeywords.isEmpty() && nameKeywords.length > tagKeywords.size());
-        boolean containsNoteAndName = (trimmedArgs.split("note/").length > 1);
+        boolean containsNoteAndName = (trimmedArgs.split("note/").length > 2);
 
         boolean containsMultipleSearch = containsTagAndName || containsTagAndNote || containsNoteAndName;
 

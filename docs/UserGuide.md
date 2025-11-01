@@ -350,7 +350,7 @@ Email: SmithyM@example.com; Address: Smithy Street, block 123, #01-01 Tags: `
 You can choose between 3 search methods: by name, by tag, or by note content.<br>
 Searching by name displays every person whose name contains any of the given keywords. <br>
 Searching by tag displays every person who has been assigned any of the specified tags. <br>
-Seaching by note displays every person whose note contains the search phrase.
+Searching by note displays every person whose note contains the search phrase.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` OR `find t/TAG_NAME [t/MORE_TAG_NAMES]` OR `find note/SEARCH_PHRASE`
 
