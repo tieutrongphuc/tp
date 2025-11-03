@@ -203,6 +203,7 @@ Address: Newgate Prison; Tags:[friend][criminal]`
 * The index (or indexes) refers to the index number shown in the displayed person list.
 * The index (or indexes) **must be a positive integer** 1, 2, 3, …​
 * Duplicate indexes are ignored.
+* When a person is deleted, all of their associated reminders (including completed and past reminders) are also automatically deleted. The success message will confirm the total number of reminders that were removed.
 <br>
 <br>
 

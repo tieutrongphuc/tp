@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
             }
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
             List<Reminder> remindersToDelete = model.getRemindersByPerson(personToDelete);
-            totalRemindersDeleted = remindersToDelete.size();
+            totalRemindersDeleted += remindersToDelete.size();
             for (Reminder reminder : remindersToDelete) {
                 model.deleteReminder(reminder);
             }
