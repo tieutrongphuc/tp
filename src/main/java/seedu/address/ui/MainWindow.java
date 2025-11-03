@@ -256,7 +256,7 @@ public class MainWindow extends UiPart<Stage> {
             if (shouldShowNoteEdit) {
                 Index targetPersonIndex = commandResult.getTargetPersonIndex();
                 showNoteEditView(targetPersonIndex);
-            } else if (isNoteEditMode) {
+            } else if (isNoteEditMode && commandText.trim().equals("list")) {
                 showPersonListView();
             }
 

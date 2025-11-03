@@ -16,13 +16,18 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
+    /**
+     * A UI component that displays the results of executed commands.
+     */
     public ResultDisplay() {
         super(FXML);
+        resultDisplay.setWrapText(true);
+        resultDisplay.setMinHeight(50);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
+        resultDisplay.setScrollTop(0);
     }
-
 }
