@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ReminderAddCommand;
+import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.ReminderListCommand;
 import seedu.address.logic.commands.ReminderMarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,7 +36,7 @@ public class ReminderCommandParser implements Parser<Command> {
     public Command parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
