@@ -43,9 +43,9 @@ public class ViewNoteCommand extends Command {
 
         Person targetPerson = lastShownList.get(index.getZeroBased());
         Note note = targetPerson.getNote();
-
         String noteContent = note.value.isEmpty() ? "(No note)" : note.value;
+        String message = String.format("Note for %1$s: %2$s", targetPerson.getName(), noteContent);
 
-        return new CommandResult(String.format("Note for %1$s: %2$s", targetPerson.getName(), noteContent));
+        return new CommandResult(message);
     }
 }
