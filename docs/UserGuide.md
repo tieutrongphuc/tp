@@ -11,6 +11,11 @@
 
 ## Introduction
 
+**_Value Proposition:_** AcademeConnect lets academic researchers manage and act on their professional networks faster
+and more privately than generic contact apps. It supports rich contact metadata (tags, notes, schedules), tag
+autocompletion, and local-only storage. This enables rapid, scalable contact management and reliable
+follow-up tracking tailored to research workflows.
+
 **_Purpose:_** This User Guide explains how to install, run and use AcademeConnect (AC) — a desktop contact manager
 optimized for academic researchers who prefer a Command Line Interface (CLI) with an accompanying Graphical User
 Interface (GUI).
@@ -39,15 +44,14 @@ Interface (GUI).
 
 1. Ensure you have Java `17` or above installed on your computer.
     - Windows: Verify with `java -version` in PowerShell or Command Prompt. Expected output: `java version "17.0.x" ...`
-    - macOS: follow the Java installation instructions [here]
-      (https://se-education.org/guides/tutorials/javaInstallationMac.html).
+    - macOS: follow the Java installation instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
     - Linux: Verify with `java -version`. Expected output: `java version "17.0.x" ...`
 
 1. Download the latest `.jar` file (release) and save it to the folder you want to use as the _home folder_ for AC.
 
 1. Open a command terminal, `cd` into the folder containing the jar file, and run:
    ```
-   java -jar addressbook.jar
+   java -jar "AcademeConnect.jar"
    ```
    Expected behaviour: A GUI window opens within a few seconds and the CLI input box is shown at the bottom of the
    window. Sample data may be present on first run.
@@ -129,8 +133,8 @@ add n/李明 p/+8613812345678               #Names can contain non-English chara
 add n/Dr. Jane Smith-O'Connor            #Names can contain special characters
 ```
 
-**Example expected output on success:** `New person added: John Smith, Phone: 12345678; Email:SmithyM@example.com; 
-Address:Smithy street, block 123, #01-01; Tags:` <br>
+**Example expected output on success:** `New person added: John Doe; Phone: 98765432; Email: johnd@example.com;
+ Address: John street, block 123, #01-01; Tags: ` <br>
 
 ![img_5.png](images/img_5.png)
 
@@ -285,8 +289,8 @@ note 2              # opens the note editor for the 2nd person
 - The command ```note INDEX``` opens the note editor, pre-populated with the person’s existing note (if any). After 
 running the command, you will be focused on the editor (able to edit the note). 
 - Press Esc to toggle between the command box and the note editor.
-    - Pressing Esc while the editor is focused switches focus to the command box and saves the current editor content
-      to disk. You can proceed to run other commands.
+    - Pressing Esc while the editor is focused saves the edited note into the application's in-memory model and shifts
+focus to the command box.
     - Pressing Esc while the command box is focused returns focus to the note editor. You can continue to edit the note.
 - When focused on the command box, navigating away (for example, running ```list```) removes the text editor and 
 returns the UI to the person list. The note saved will reflect the most recent update.
@@ -350,7 +354,7 @@ Email: SmithyM@example.com; Address: Smithy Street, block 123, #01-01 Tags: `
 You can choose between 3 search methods: by name, by tag, or by note content.<br>
 Searching by name displays every person whose name contains any of the given keywords. <br>
 Searching by tag displays every person who has been assigned any of the specified tags. <br>
-Seaching by note displays every person whose note contains the search phrase.
+Searching by note displays every person whose note contains the search phrase.
 
 **Format:** `find KEYWORD [MORE_KEYWORDS]` OR `find t/TAG_NAME [t/MORE_TAG_NAMES]` OR `find note/SEARCH_PHRASE`
 
@@ -391,7 +395,7 @@ Adds a reminder for a person in the address book. Reminders help you track follo
 reminder add n/John Doe d/2025-11-15 10:30 m/Follow up on research collaboration
 reminder add 1 d/15/11/2025 14:00 m/Coffee meeting at NUS
 reminder add n/Jane Smith d/2025-12-01 m/Send conference paper draft
-reminder add 2 d/1/12/2025 m/Review thesis chapter
+reminder add 2 d/01/12/2025 m/Review thesis chapter
 ```
 
 **Example expected output on success:** `New reminder added: John Smith; Date: 2025-12-01; Message: Review thesis chapter`
