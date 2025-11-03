@@ -35,7 +35,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -69,13 +69,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -86,7 +86,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -118,7 +118,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -142,7 +142,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-W08-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -160,109 +160,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Implemented Features**
-
-This section describes noteworthy details on how certain implemented features work.
 
 ### Tag Autocomplete Feature
 
@@ -313,9 +210,9 @@ When a user types `tag 1 t/fri`, the system:
 
 #### Implementation
 
-The note feature allows users to open a dedicated note editor for any contact in the address book, enabling them to add
-or edit detailed notes. The editor provides a full-screen text area with a 5000-character limit and keyboard-based save
-functionality via the Esc key.
+The note feature is facilitated by NoteEditView, NoteCommand, and MainWindow. It provides a dedicated full-screen
+editor for adding and modifying detailed notes for contacts. The feature operates through a modal editing mode that
+overlays the person list and integrates with the keyboard-based workflow.
 
 **Key Components:**
 * `NoteCommand` - Command class that initiates note editing mode for a specified person
@@ -327,7 +224,10 @@ functionality via the Esc key.
 
 **How it works:**
 
-The note feature orchestrates multiple components across the UI, Logic, and Model layers following this workflow:
+These operations are coordinated through the CommandResult object, which signals when note editing mode should be 
+activated by setting showNoteEdit=true and providing the targetPersonIndex.
+
+Given below is an example usage scenario and how the note editing mechanism behaves at each step.
 
 1. **Command Parsing**: `AddressBookParser` routes "note" commands to `NoteCommandParser`
 2. **Index Validation**: Parser extracts and validates the person index using `ParserUtil.parseIndex()`
@@ -663,8 +563,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -672,7 +570,8 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+   Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
@@ -680,12 +579,269 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a person
 
-### Saving data
+1. Adding a person with only required fields
 
-1. Dealing with missing/corrupted data files
+   1. Test case: `add n/John Doe`<br>
+   Expected: Person added with name only. Optional fields (phone, email, address) show as empty in the contact card.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   2. Test case: `add n/Dr. Jane Smith-O'Connor p/+6591234567 e/jane@example.com a/NUS, Computing Drive`<br>
+   Expected: Person added with all fields populated. International phone number and special characters in name are handled correctly.
 
-1. _{ more test cases …​ }_
+   3. Test case: `add n/李明 p/+8613812345678`<br>
+   Expected: Person with non-English name is added successfully.
+
+   4. Test case: `add p/12345678`<br>
+   Expected: Error message indicating name is required. No person added.
+
+### Listing all persons
+1. Listing all persons
+   1. Prerequisite: Have multiple persons in the address book (including some filtered by a previous find command).
+
+   2. Test case: `list`<br>
+   Expected: All persons in the address book are displayed. Status message shows "Listed all persons".
+
+### Editing a person
+1. Editing a person's details
+   1. Prerequisites: List all persons using list. Multiple persons in the list.
+
+   2. Test case: `edit 1 p/91234567 e/newemail@example.com`<br>
+   Expected: First contact's phone and email are updated. Details shown in status message.
+
+   3. Test case: `edit 2 t/`<br>
+   Expected: All tags removed from second contact.
+
+   4. Test case: `edit 0 n/New Name`<br>
+   Expected: Error message indicating invalid index. No person edited.
+
+   5. Test case: `edit 1`<br>
+   Expected: Error message indicating at least one field must be provided. No person edited.
+
+### Adding tags to a person
+1. Adding regular tags
+   1. Prerequisites: List all persons. At least one person in the list.
+
+   2. Test case: `tag 1 t/friend t/colleague`<br>
+   Expected: Tags "friend" and "colleague" added to first person. Existing tags are preserved.
+
+   3. Test case: `tag 1 rtt/Machine Learning`<br>
+   Expected: Research tag "Machine Learning" added with distinct color.
+
+   4. Test case: `tag 1 jtt/Professor`<br>
+   Expected: Job title tag "Professor" added with distinct color.
+
+   5. Testing tag autocomplete: Type `tag 1 t/fri` and press Tab. If "friend" tag exists, it should autocomplete.
+
+### Deleting tags from a person
+1. Deleting specific tags
+   1. Prerequisites: Person at index 1 has tags "friend", "colleague", and research tag "AI".
+
+   2. Test case: `tagdel 1 t/friend`<br>
+   Expected: "friend" tag removed from first person. Other tags remain.
+
+   3. Test case: `tagdel 1 t/friend t/colleague`<br>
+   Expected: Both "friend" and "colleague" tags removed.
+
+   4. Test case: `tagdel 1 rtt/AI`<br>
+   Expected: Research tag "AI" removed.
+
+   5. Test case: `tagdel 1 t/nonexistent`<br>
+   Expected: Error message indicating tag does not exist.
+
+### Locating persons
+1. Finding by name
+
+   1. Prerequisites: Have persons with names like "John Doe", "Jane Smith", "Alex Yeoh".
+
+   2. Test case: `find John`<br>
+   Expected: Persons with "John" in their name are listed. Status shows number of persons found.
+
+   3. Test case: `find john alex`<br>
+   Expected: Persons matching either "john" OR "alex" are listed (case-insensitive).
+
+2. Finding by tag
+
+   1. Prerequisites: Multiple persons with various tags like "friends", "colleagues".
+
+   2. Test case: `find t/friend`<br>
+   Expected: All persons tagged with "friends" are listed.
+
+   3. Test case: `find t/friend t/colleague`<br>
+   Expected: Persons with either tag are listed (OR search).
+
+3. Finding by note content
+
+   1. Prerequisites: Some persons have notes containing phrases like "Met at conference".
+
+   2. Test case: `find note/Met at conference`<br>
+   Expected: Persons whose notes contain the phrase "Met at conference" are listed.
+
+   3. Test case: `find note/xyz123`<br>
+   Expected: No persons found if phrase doesn't exist. Status shows "0 persons listed!".
+
+4. Invalid find commands
+
+   1. Test case: `find`<br>
+   Expected: Error message indicating invalid format.
+
+   2. Test case: `find t/friends note/meeting`<br>
+   Expected: Error message (cannot combine search methods).
+
+### Adding or updating a note
+1. Opening note editor and saving
+
+   1. Prerequisites: List all persons. At least one person in the list.
+
+   2. Test case: `note 1`<br>
+   Expected: Note editor opens, replacing person list. Command box shows success message. If person already has a note, 
+   it is pre-loaded in editor.
+
+   3. Type some text in the editor (e.g., "Met at AI conference 2025"). Press Esc.<br>
+   Expected: Focus moves to command box. Note is automatically saved.
+
+   4. Press Esc again while in command box.<br>
+   Expected: Focus returns to note editor.
+
+   5. While in command box, execute list.<br>
+   Expected: Person list view restored. Note is saved with most recent changes.
+
+2. Testing character limit
+
+   1. Prerequisite: Note editor is open for a person.
+
+   2. Attempt to type more than 5000 characters.<br>
+   Expected: Editor rejects input beyond 5000 characters.
+
+3. Invalid index
+
+   1. Test case: `note 0`<br>
+   Expected: Error message indicating invalid index.
+
+### Viewing a note
+1. Viewing a Note
+   1. Viewing an existing note
+   Prerequisites: Person at index 1 has a note with content.
+
+   2. Test case: `viewNote 1`<br>
+   Expected: Note content displayed in result area (read-only).
+
+   3. Test case: `viewNote 2` (person with no note)<br>
+   Expected: Message indicating person has no note.
+
+   4. Test case: `viewNote 0`<br>
+   Expected: Error indicating invalid index.
+
+### Deleting a note
+1. Deleting a person's note
+   1. Prerequisites: Person at index 1 has a note.
+
+   2. Test case: `deleteNote 1`<br>
+   Expected: Note deleted. Success message with person details shown.
+
+   3. Test case: `deleteNote 1` (person with no note)<br>
+   Expected: Error message indicating no note to delete.
+
+   4. Test case: `deleteNote 999`<br>
+   Expected: Error indicating invalid index.
+
+### Adding a reminder
+1. Adding reminder by index
+
+   1. Prerequisites: List all persons. Multiple persons in the list.
+
+   2. Test case: `reminder add 1 d/2025-12-31 23:59 m/Submit final report`<br>
+   Expected: Reminder added for first person. Success message shows person name, date, and message. 
+   Reminder appears in Upcoming Reminders panel.
+
+   3. Test case: `reminder add 2 d/15/12/2025 m/Conference deadline`<br>
+   Expected: Reminder added with date in dd/MM/yyyy format, defaulting to end of day (23:59).
+
+2. Adding reminder by name
+
+   1. Prerequisites: Person named "John Doe" exists in address book.
+
+   2. Test case: `reminder add n/John Doe d/2025-11-20 10:30 m/Coffee meeting`<br>
+   Expected: Reminder added for "John Doe" (searches entire address book, not just filtered list).
+
+   3. Test case: `reminder add n/Nonexistent Person d/2025-12-01 m/Test`<br>
+   Expected: Error message indicating person not found.
+
+3. Testing past date reminder
+
+   1. Test case: `reminder add 1 d/2020-01-01 m/Old reminder`<br>
+   Expected: Reminder is saved but shows warning about past date. It will NOT appear in Upcoming Reminders panel.
+
+4. Duplicate reminder
+
+   1. Prerequisites: Reminder already exists for person at index 1 with date "2025-12-25" and message "Test".
+
+   2. Test case: `reminder add 1 d/2025-12-25 m/Test`<br>
+   Expected: Error message indicating duplicate reminder.
+
+5. Invalid formats
+
+   1. Test case: `reminder add 1 d/invalid m/Test`<br>
+   Expected: Error indicating invalid date format.
+
+   2. Test case: `reminder add 999 d/2025-12-31 m/Test`<br>
+   Expected: Error indicating invalid person index.
+
+### Listing Upcoming reminders
+1. Listing all upcoming reminders
+   1. Prerequisites: Have reminders with future dates and some marked as complete or with past dates.
+
+   2. Test case: `reminder list`<br>
+   Expected: All incomplete reminders with future/today dates displayed in Upcoming Reminders panel.
+   Status shows "Listed all reminders". Completed and past reminders are hidden.
+
+### Marking a reminder as complete
+1. Marking a reminder complete
+   1. Prerequisites: Upcoming Reminders panel shows at least one reminder.
+
+   2. Test case: `reminder mark 1`<br>
+   Expected: First reminder marked complete and removed from Upcoming Reminders panel. Success message shows reminder
+   details.
+
+   3. Test case: `reminder mark 0`<br>
+   Expected: Error indicating invalid index.
+
+   4. Test case: `reminder mark 999`<br>
+   Expected: Error indicating invalid index (larger than list size).
+
+### Deleting a person (with reminders)
+1. Deleting person with associated reminders
+
+   1. Prerequisites: Person at index 1 has multiple reminders (both upcoming and completed).
+
+   2. Test case: `delete 1`<br>
+   Expected: Person and ALL associated reminders deleted (including completed ones). 
+   Success message shows person details and number of reminders deleted.
+
+2. Deleting multiple persons
+
+   1. Prerequisites: Multiple persons in list.
+
+   2. Test case: `delete 1 3 5`<br>
+   Expected: Persons at indices 1, 3, and 5 deleted along with their reminders. Success message shows all deleted persons.
+
+   3. Test case: `delete 2 2 2`<br>
+   Expected: Duplicate indices handled gracefully. Person at index 2 deleted once.
+
+### Clearing all Entries
+1. Clearing the address book
+
+   1. Prerequisites: Have persons and reminders in the address book.
+
+   2. Test case: `clear`<br>
+   Expected: All persons and reminders removed. Success message "Address book has been cleared!" displayed.
+
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. Allow `note` feature to save when navigating away from the note edit view. The current implementation does not
+account for the user using the cursor to click away from the note edit text box and inputting other commands like
+`exit` or `list` which effectively bypasses the saving mechanism in place. This results in potential data loss. 
+We plan to implement note saving when the current note edit view is rendered and other commands are being executed.
