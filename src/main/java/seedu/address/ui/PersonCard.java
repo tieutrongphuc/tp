@@ -56,13 +56,28 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
 
         String phoneValue = person.getPhone().value;
-        phone.setText((phoneValue != null && !phoneValue.isEmpty()) ? "      📞  " + phoneValue : "");
+        if (phoneValue != null && !phoneValue.isEmpty()) {
+            phone.setText("      📞  " + phoneValue);
+        } else {
+            phone.setVisible(false);
+            phone.setManaged(false);
+        }
 
         String addressValue = person.getAddress().value;
-        address.setText((addressValue != null && !addressValue.isEmpty()) ? "      🏠  " + addressValue : "");
+        if (addressValue != null && !addressValue.isEmpty()) {
+            address.setText("      🏠  " + addressValue);
+        } else {
+            address.setVisible(false);
+            address.setManaged(false);
+        }
 
         String emailValue = person.getEmail().value;
-        email.setText((emailValue != null && !emailValue.isEmpty()) ? "      \uD83D\uDCE7  " + emailValue : "");
+        if (emailValue != null && !emailValue.isEmpty()) {
+            email.setText("      \uD83D\uDCE7  " + emailValue);
+        } else {
+            email.setVisible(false);
+            email.setManaged(false);
+        }
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
