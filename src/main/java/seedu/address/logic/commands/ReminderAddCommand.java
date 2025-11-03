@@ -47,6 +47,7 @@ public class ReminderAddCommand extends ReminderCommand {
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
     public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists in the address book";
     public static final String MESSAGE_PERSON_NOT_FOUND = "The specified person does not exist in the address book";
+    public static final String MESSAGE_WARNING_PAST_DATE = "Warning: This reminder date is in the past!";
 
     private final Name personName;
     private final Index targetIndex;
@@ -118,7 +119,12 @@ public class ReminderAddCommand extends ReminderCommand {
         }
 
         model.addReminder(reminderToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(reminderToAdd)));
+        if (date.isUpcoming()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(reminderToAdd)));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_WARNING_PAST_DATE,
+                    Messages.format(reminderToAdd)));
+        }
     }
 
     @Override
