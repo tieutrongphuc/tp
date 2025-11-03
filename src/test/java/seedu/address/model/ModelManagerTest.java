@@ -119,7 +119,7 @@ public class ModelManagerTest {
         modelManager.setPerson(BENSON, editedBenson);
 
         Reminder expectedUpdatedReminder = new ReminderBuilder(completedReminder).withPerson(editedBenson).build();
-        expectedUpdatedReminder.markAsCompleted(); 
+        expectedUpdatedReminder.markAsCompleted();
 
         assertTrue(modelManager.hasReminder(expectedUpdatedReminder));
         assertFalse(modelManager.hasReminder(completedReminder));
