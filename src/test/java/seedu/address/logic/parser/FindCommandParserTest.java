@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_FIELD_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 
@@ -43,8 +45,23 @@ public class FindCommandParserTest {
         // find note command
         FindCommand expectedFindNoteCommand =
                 new FindCommand(new NoteContainsKeywordsPredicate("hello"));
-
         assertParseSuccess(parser, "note/hello", expectedFindNoteCommand);
+    }
+
+    @Test
+    public void parse_invalidArgs() {
+        // no blank field
+        assertParseFailure(parser, "t/hi t/", Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "note/ ", "Note field : " + MESSAGE_FIELD_EMPTY);
+
+        // multiple search fields
+        assertParseFailure(parser, "Alice t/test1", FindCommand.MESSAGE_MULTIPLE_SEARCH);
+        assertParseFailure(parser, "t/test1 note/yapa", FindCommand.MESSAGE_MULTIPLE_SEARCH);
+        assertParseFailure(parser, "Alice note/yapa", FindCommand.MESSAGE_MULTIPLE_SEARCH);
+
+        // find note command
+        String doubleNoteFailure = "Note should not contain the following string: 'note/'";
+        assertParseFailure(parser, "note/take note/details of friend", doubleNoteFailure);
     }
 
 
