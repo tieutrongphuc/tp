@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and not start with a whitespace!";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Tag names should be alphanumeric and should not start with a whitespace!";
     public static final String VALIDATION_REGEX = "\\p{Alnum}[\\p{Alnum}\\s]*";
 
     public final String tagName;
@@ -73,7 +74,7 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-            return tagName.equals(otherTag.tagName);
+        return tagName.equals(otherTag.tagName);
     }
 
     @Override
