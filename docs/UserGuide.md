@@ -400,6 +400,8 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
 
 **Notes:**
 * You can specify the person either by `n/NAME` (exact match required) or by `INDEX` from the displayed person list.
+    * When using `n/NAME`, the application searches your **entire** address book. This means that you can add a reminder for someone that is not visible on the **currently displayed** contact list
+    * When using `INDEX`, it refers to the index number in the **currently displayed** contact list.
 * The `INDEX` must be a positive integer 1, 2, 3, …​
 * Date formats supported:
     * `yyyy-MM-dd HH:mm` (e.g., `2025-11-15 10:30`)

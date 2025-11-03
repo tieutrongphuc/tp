@@ -106,7 +106,7 @@ public class ReminderAddCommand extends ReminderCommand {
             }
             targetPerson = lastShownList.get(targetIndex.getZeroBased());
         } else {
-            targetPerson = lastShownList.stream()
+            targetPerson = model.getAddressBook().getPersonList().stream()
                     .filter(person -> person.getName().equals(personName))
                     .findFirst()
                     .orElseThrow(() -> new CommandException(MESSAGE_PERSON_NOT_FOUND));
