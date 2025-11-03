@@ -133,6 +133,16 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
+        List<Reminder> remindersToUpdate = getRemindersByPerson(target);
+        for (Reminder r : remindersToUpdate) {
+            Reminder updatedReminder = new Reminder(
+                    editedPerson,
+                    r.getDate(),
+                    r.getMessage(),
+                    r.isCompleted()
+            );
+            addressBook.setReminder(r, updatedReminder);
+        }
         addressBook.setPerson(target, editedPerson);
     }
 
