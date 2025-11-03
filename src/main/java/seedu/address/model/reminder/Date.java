@@ -76,6 +76,7 @@ public class Date implements Comparable<Date> {
      * Parses the input string into a LocalDateTime using the defined formatters after validation.
      */
     private static LocalDateTime parse(String input) {
+        input = input.replaceAll("\\s+", " ").trim();
         for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
             try {
                 return LocalDateTime.parse(input, formatter);
