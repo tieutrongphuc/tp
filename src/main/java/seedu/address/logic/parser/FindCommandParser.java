@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_FIELD_EMPTY;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.FindCommand.MESSAGE_MULTIPLE_SEARCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -33,27 +34,35 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+
+        if (args.contains("t/") && args.contains("note/")) {
+            throw new ParseException(MESSAGE_MULTIPLE_SEARCH);
+        }
+
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(" " + args, PREFIX_TAG, PREFIX_TAG_RESEARCH, PREFIX_TAG_TITLE);
+
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_RESEARCH), "research"));
         tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_TITLE), "title"));
 
-        String[] noteKeywordsArr = args.split("note/");
-        if (noteKeywordsArr.length > 1) {
+        String[] noteKeywordsArr = trimmedArgs.split("note/");
+        if (noteKeywordsArr.length > 2) {
             throw new ParseException("Note should not contain the following string: 'note/'");
+        } else if (noteKeywordsArr.length < 2 && args.contains("note/")) {
+            throw new ParseException("Note field : " + MESSAGE_FIELD_EMPTY);
         }
+
         String noteKeywords = "";
         if (trimmedArgs.contains("note/")) {
-            noteKeywords = noteKeywordsArr[0];
+            noteKeywords = noteKeywordsArr[1];
         }
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        boolean containsTagAndNote = (!noteKeywords.isBlank() && !tagKeywords.isEmpty());
         boolean containsTagAndName = (!tagKeywords.isEmpty() && nameKeywords.length > tagKeywords.size());
-        boolean containsNoteAndName = (trimmedArgs.split("note/").length > 1);
+        boolean containsNoteAndName = (noteKeywords.length() > 1 && !noteKeywordsArr[0].isBlank());
 
-        boolean containsMultipleSearch = containsTagAndName || containsTagAndNote || containsNoteAndName;
+        boolean containsMultipleSearch = containsTagAndName || containsNoteAndName;
 
         if (containsMultipleSearch) {
             throw new ParseException(MESSAGE_MULTIPLE_SEARCH);
