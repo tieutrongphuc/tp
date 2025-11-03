@@ -224,7 +224,7 @@ overlays the person list and integrates with the keyboard-based workflow.
 
 **How it works:**
 
-These operations are coordinated through the CommandResult object, which signals when note editing mode should be 
+These operations are coordinated through the CommandResult object, which signals when note editing mode should be
 activated by setting showNoteEdit=true and providing the targetPersonIndex.
 
 Given below is an example usage scenario and how the note editing mechanism behaves at each step.
@@ -845,3 +845,4 @@ Team size: 5
 account for the user using the cursor to click away from the note edit text box and inputting other commands like
 `exit` or `list` which effectively bypasses the saving mechanism in place. This results in potential data loss. 
 We plan to implement note saving when the current note edit view is rendered and other commands are being executed.
+
