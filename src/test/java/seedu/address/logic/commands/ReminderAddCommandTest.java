@@ -80,6 +80,24 @@ public class ReminderAddCommandTest {
     }
 
     @Test
+    public void execute_addReminderWithPastDate_successWithWarning() {
+        Date pastDate = new Date("2020-01-01 10:00");
+        Reminder reminderWithPastDate = new ReminderBuilder().withPerson(ALICE).withDate("2020-01-01 10:00").build();
+
+        ReminderAddCommand reminderAddCommand = new ReminderAddCommand(
+                INDEX_FIRST_PERSON, pastDate, reminderWithPastDate.getMessage());
+
+        String expectedMessage = String.format(ReminderAddCommand.MESSAGE_SUCCESS + "\n"
+                + ReminderAddCommand.MESSAGE_WARNING_PAST_DATE,
+                Messages.format(reminderWithPastDate));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addReminder(reminderWithPastDate);
+
+        assertCommandSuccess(reminderAddCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_duplicateReminder_throwsCommandException() {
         Reminder reminderInList = new ReminderBuilder().withPerson(ALICE).build();
         Model modelWithReminder = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
