@@ -16,7 +16,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ReminderBuilder;
 
 public class ModelManagerTest {
 
@@ -86,6 +90,39 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void setPerson_personWithReminders_updatesReminders() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).build();
+        ModelManager modelManager = new ModelManager(addressBook, new UserPrefs());
+        Reminder reminderForAlice = new ReminderBuilder().withPerson(ALICE).withMessage("Old Reminder").build();
+        modelManager.addReminder(reminderForAlice);
+
+        Person editedAlice = new PersonBuilder(ALICE).withName("Alice V2").build();
+        modelManager.setPerson(ALICE, editedAlice);
+
+        Reminder expectedUpdatedReminder = new ReminderBuilder(reminderForAlice).withPerson(editedAlice).build();
+        assertTrue(modelManager.hasReminder(expectedUpdatedReminder));
+        assertFalse(modelManager.hasReminder(reminderForAlice));
+    }
+
+    @Test
+    public void setPerson_personWithCompletedReminder_updatesAndPreservesStatus() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(BENSON).build();
+        ModelManager modelManager = new ModelManager(addressBook, new UserPrefs());
+        Reminder completedReminder = new ReminderBuilder().withPerson(BENSON).build();
+        completedReminder.markAsCompleted();
+        modelManager.addReminder(completedReminder);
+
+        Person editedBenson = new PersonBuilder(BENSON).withName("Benson V2").build();
+        modelManager.setPerson(BENSON, editedBenson);
+
+        Reminder expectedUpdatedReminder = new ReminderBuilder(completedReminder).withPerson(editedBenson).build();
+        expectedUpdatedReminder.markAsCompleted(); 
+
+        assertTrue(modelManager.hasReminder(expectedUpdatedReminder));
+        assertFalse(modelManager.hasReminder(completedReminder));
     }
 
     @Test
