@@ -204,7 +204,7 @@ public class ModelManager implements Model {
     @Override
     public java.util.List<Reminder> getRemindersByPerson(Person person) {
         requireNonNull(person);
-        return filteredReminders.stream()
+        return addressBook.getReminderList().stream()
                 .filter(reminder -> reminder.getPerson().equals(person))
                 .collect(java.util.stream.Collectors.toList());
     }
