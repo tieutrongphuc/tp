@@ -410,6 +410,7 @@ reminder add 2 d/1/12/2025 m/Review thesis chapter
     * `yyyy-MM-dd` (e.g., `2025-11-15`) - defaults to end of day
     * `dd/MM/yyyy` (e.g., `15/11/2025`) - defaults to end of day
 * Time is optional. If not provided, the reminder will default to the end of the day for the specified date.
+* Reminders created with a date in the past will be saved, but will not be displayed in the `Upcoming Reminders` panel.
 * Only 24-hour time format is allowed.
 * Messages can contain any text to describe the reminder purpose.
 * Duplicate reminders (same person, date, and message) cannot be added.
