@@ -296,7 +296,42 @@ fact.
 * **Caret Positioning**: When opening an existing note, the caret is positioned at the end of the text rather than
 the beginning. This allows users to quickly append to existing notes, which is the most common use case.
 
+<br>
+<br>
 
+### Reminder Feature
+
+#### Implementation
+
+The reminder feature allows users to set, view, and manage time-sensitive follow-ups associated with their contacts. The core functionality revolves around filtering reminders to ensure only relevant, upcoming tasks are displayed to the user.
+
+**Key Components:**
+*   `Reminder` - The data class for a reminder, containing a `Person`, `Date`, `Message`, and a completion status.
+*   `UniqueReminderList` - Manages the list of all reminders, ensuring no duplicates.
+*   `ReminderAddCommand`, `ReminderListCommand`, `ReminderMarkCommand` - Command classes that handle the logic for adding, listing, and marking reminders.
+*   `ReminderPanel` - The UI component in the `MainWindow` that displays the list of upcoming reminders.
+
+**How it works:**
+
+The `reminder list` command is the central part of this feature's user experience. When executed, it doesn't just display all reminders. Instead, it applies a predicate to the `Model`'s master reminder list to filter for reminders that meet two conditions:
+1.  The reminder's date is in the future (or today).
+2.  The reminder has not been marked as complete.
+
+This filtered list is then displayed in the `ReminderPanel`. This design ensures the user is only presented with actionable, relevant information.
+
+**Code Flow for `reminder list`:**
+
+<puml src="diagrams/ReminderListSequenceDiagram.puml" alt="ReminderListSequenceDiagram" />
+
+1.  The `LogicManager` executes the `ReminderListCommand`.
+2.  The command calls `model.updateFilteredReminderList()` with a predicate that checks `!reminder.isCompleted() && reminder.isUpcoming()`.
+3.  The `Model` updates its internal `filteredReminderList`.
+4.  Because the `ReminderPanel` in the UI is observing this list, it automatically refreshes to display the newly filtered reminders.
+
+**Design Considerations:**
+
+*   **Default View is "Upcoming":** The decision to only show upcoming reminders by default was made to keep the UI clean and focused on actionable tasks, preventing clutter from past or completed items.
+*   **Referential Integrity:** When a `Person` is deleted, a cascading delete is performed on the `UniqueReminderList` to remove all reminders associated with that person, preventing orphaned data.
 
 --------------------------------------------------------------------------------------------------------------------
 
