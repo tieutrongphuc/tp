@@ -1,3 +1,8 @@
+---
+layout: default.md
+title: "AcademeConnect User Guide"
+pageNav: 2
+---
 
 # AcademeConnect User Guide
 
