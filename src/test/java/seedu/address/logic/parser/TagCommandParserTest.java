@@ -78,6 +78,8 @@ public class TagCommandParserTest {
 
         TagCommand expectedCommand = new TagCommand(INDEX_SECOND_PERSON, tags);
 
+
+
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
