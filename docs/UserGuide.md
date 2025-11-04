@@ -595,5 +595,5 @@ the data of your previous AddressBook home folder.
 | **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
 | **Add Reminder**   | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`        |
 | **List Reminders** | `reminder list`                                                                                                                                             |
-| **Mark Reminder**  | `reminder mark INDEX`<br> e.g., `reminder mark 1`                                                                                                           |
+| **Mark Reminder**  | `reminder mark INDEX [MORE_INDEXES]...`<br> e.g., `reminder mark 1 3`                                                                                                           |
 --------------------------------------------------------------------------------------------------------------------
