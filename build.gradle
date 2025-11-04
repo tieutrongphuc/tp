@@ -27,18 +27,6 @@ run {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
-
-    jvmArgs(
-        '--add-opens', 'javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
-        '--add-opens', 'javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
-        '--add-opens', 'javafx.graphics/com.sun.javafx.tk=ALL-UNNAMED',
-        '--add-opens', 'javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED',
-        '--add-opens', 'javafx.graphics/com.sun.javafx.scene.traversal=ALL-UNNAMED',
-        '--add-opens', 'javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED',
-        '--add-opens', 'javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED',
-        '--add-opens', 'javafx.base/com.sun.javafx.collections=ALL-UNNAMED',
-        '--add-opens', 'javafx.base/com.sun.javafx.runtime=ALL-UNNAMED'
-    )
 }
 
 task coverage(type: JacocoReport) {
@@ -77,8 +65,6 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-    testImplementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
-    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
