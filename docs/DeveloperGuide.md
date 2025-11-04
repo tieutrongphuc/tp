@@ -897,3 +897,7 @@ account for the user using the cursor to click away from the note edit text box 
 5. **Allow removal of optional fields via the `edit`:**
    *   **Current Flaw:** The `edit` command does not allow users to remove an optional field (like phone, email, or address) from a contact once it has been set.
    *   **Proposed Enhancement:** We will modify the parser for the `edit` command to recognize an empty prefix as a request to clear that field's value. For example, executing `edit 1 p/` will be interpreted as "remove the phone number from the contact at index 1", making the command more consistent.
+6. **Duplicate Detection for certain fields**:
+   *   **Current Flaw:** Duplicate detection was not done for certain fields such as phone and email despite of no two people should be having the same entry for this field.
+   *   **Proposed Enhancement:** We will check the addressbook for duplicates of these fields and give the user a warning before adding the contact.
+
