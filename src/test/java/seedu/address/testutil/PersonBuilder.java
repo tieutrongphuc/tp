@@ -66,6 +66,15 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code tag} and adds it into the tag set of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAddedTag(String tag, String tagType) {
+        this.tags.add(new Tag(tag, tagType));
+        return this;
+    }
+
+
+    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      * If the address is null, it sets the address to Address.EMPTY.
      */

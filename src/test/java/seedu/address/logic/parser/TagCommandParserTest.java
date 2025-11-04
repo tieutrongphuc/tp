@@ -72,11 +72,13 @@ public class TagCommandParserTest {
         String userInput = INDEX_SECOND_PERSON.getOneBased() + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + TAG_DESC_RESEARCHER;
 
         Set<Tag> tags = new HashSet<>();
-        tags.add(new Tag(VALID_TAG_HUSBAND));
+        tags.add(new Tag(VALID_TAG_HUSBAND, "title"));
         tags.add(new Tag(VALID_TAG_FRIEND));
-        tags.add(new Tag(VALID_TAG_RESEARCHER));
+        tags.add(new Tag(VALID_TAG_RESEARCHER, "research"));
 
         TagCommand expectedCommand = new TagCommand(INDEX_SECOND_PERSON, tags);
+
+
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
