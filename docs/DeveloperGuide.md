@@ -854,3 +854,7 @@ account for the user using the cursor to click away from the note edit text box 
 3.  **Implement a `reminder edit` command:**
     *   **Current Flaw:** There is no command to modify an existing reminder. To fix a typo or change a date, users must delete the reminder and create a new one, which is inefficient and error-prone.
     *   **Proposed Enhancement:** We plan to introduce a `reminder edit` command. It will allow users to modify the date and/or message of an existing reminder using its index from the reminder list. For example: `reminder edit 1 d/2026-11-20` would update the date of the first reminder in the list.
+
+4.  **Automatically refresh the Upcoming Reminders list:**
+    *   **Flaw:** The "Upcoming Reminders" list is static. It only updates when a command is run. If a reminder's due time passes, it remains visible in the list until the user manually runs a command like `reminder list` to refresh the view.
+    *   **Enhancement:** We plan to implement a background timer that periodically checks the system clock (e.g., every minute). This timer will automatically refresh the reminder list, ensuring that reminders that are no longer "upcoming" are removed from the view without requiring any user action.
