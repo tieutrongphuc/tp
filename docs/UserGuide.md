@@ -242,7 +242,7 @@ Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 * Tags are added cumulatively - existing tags are preserved.
 * You can add multiple tags in a single command.
 * **Tag suggestions:** As you type after `t/`, the application will suggest existing tags that match your input. Press `Tab` to autocomplete the suggestion.
-
+* **Research tags (`rtt/`) and job title tags (`jtt/`)** are tag displayed with distinct colors to help you visually distinguish research topics and job titles from other tags. They function identically to normal tags for searching and storage.
 <br>
 <br>
 
