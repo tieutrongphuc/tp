@@ -468,8 +468,7 @@ reminder mark 1 4 6            # marks the 1st, 4th, and 6th reminders as comple
 **Example expected output on success:** 
 ```
 Marked Reminders:
-Person: Charlotte Oliveiro; Date: 2026-01-01; Message: Review thesis chapter
-Person: Alex Yeoh; Date: 2026-01-01; Message: Discuss about project
+Person: John Smith; Date: 2025-12-01; Message: Review thesis chapter
 ```
 
 ![img_16.png](images/img_16.png)
