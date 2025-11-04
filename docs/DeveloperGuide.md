@@ -898,6 +898,6 @@ account for the user using the cursor to click away from the note edit text box 
    *   **Current Flaw:** The `edit` command does not allow users to remove an optional field (like phone, email, or address) from a contact once it has been set.
    *   **Proposed Enhancement:** We will modify the parser for the `edit` command to recognize an empty prefix as a request to clear that field's value. For example, executing `edit 1 p/` will be interpreted as "remove the phone number from the contact at index 1", making the command more consistent.
 
-6.**Allow tag autocompletion with multiple word tags:**
+6. **Allow tag autocompletion with multiple word tags:**
    *   **Current Flaw:** The tag autocompletion feature only works for single-word tags. If a user tries to autocomplete a multi-word tag (e.g., "machine learning"), after machine the autocomplete cannot continue to parse.
    *   **Proposed Enhancement:** We plan to enhance the tag autocompletion logic to support multi-word tags. This will involve adjusting the parsing and matching algorithms to recognize spaces within tags, allowing users to quickly select existing multi-word tags when adding or deleting them.
