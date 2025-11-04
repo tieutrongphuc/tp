@@ -58,8 +58,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             noteKeywords = noteKeywordsArr[1];
         }
         ArrayList<Tag> tagKeywords = new ArrayList<>(tagSet);
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        boolean containsTagAndName = (!tagKeywords.isEmpty() && nameKeywords.length > tagKeywords.size());
+        String preamble = argMultimap.getPreamble().trim();
+        String[] nameKeywords = preamble.isEmpty() ? new String[0] : preamble.split("\\s+");
+        boolean containsTagAndName = (!tagKeywords.isEmpty() && nameKeywords.length > 0);
         boolean containsNoteAndName = (noteKeywords.length() > 1 && !noteKeywordsArr[0].isBlank());
 
         boolean containsMultipleSearch = containsTagAndName || containsNoteAndName;
@@ -71,7 +72,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         } else if (!noteKeywords.isEmpty()) {
             return new FindCommand(new NoteContainsKeywordsPredicate(noteKeywords));
         } else {
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            String[] allNameKeywords = trimmedArgs.split("\\s+");
+            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(allNameKeywords)));
         }
     }
 }

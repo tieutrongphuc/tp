@@ -213,7 +213,7 @@ Address: Newgate Prison; Tags:[friend][criminal]`
 
 ### Adding tags to a person: `tag`
 Adds one or more tags to an existing person in the address book.<br>
-You can choose to add research tags and title tags to reflect  your contacts' research topics or job titles. These tags
+You can choose to add research tags and title tags to reflect your contacts' research topics or job titles. These tags
 are displayed with a different colour than other tags.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`<br>
@@ -239,7 +239,7 @@ Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 * Each normal tag must be a single word (no spaces allowed).
 * You can add multiple tags in a single command.
 * **Tag suggestions:** As you type after `t/`, the application will suggest existing tags that match your input. Press `Tab` to autocomplete the suggestion.
-
+* **Research tags (`rtt/`) and job title tags (`jtt/`)** are tag displayed with distinct colors to help you visually distinguish research topics and job titles from other tags. They function identically to normal tags for searching and storage.
 <br>
 <br>
 
