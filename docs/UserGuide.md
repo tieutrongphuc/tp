@@ -455,25 +455,30 @@ Displays all incomplete reminders that are upcoming in the Upcoming Reminders pa
 
 ### Marking a reminder as complete: `reminder mark`
 
-Marks a reminder as complete, removing it from the Upcoming Reminders panel. This helps you track which follow-ups 
-you have already handled.
+Marks one or more reminders as complete, removing them from the Upcoming Reminders panel. This helps you track which follow-ups you have already handled.
 
-**Format:** `reminder mark INDEX`
+**Format:** `reminder mark INDEX [MORE_INDEXES]...`
 
 **Examples:**
 ```
 reminder mark 1                # marks the 1st reminder as complete
-reminder mark 3                # marks the 3rd reminder as complete
+reminder mark 1 4 6            # marks the 1st, 4th, and 6th reminders as complete
 ```
 
-**Example expected output on success:** `Marked reminders: Person: John Smith; Date: 2025-12-01; Message: Review thesis chapter.
+**Example expected output on success:** 
+```
+Marked Reminders:
+Person: Charlotte Oliveiro; Date: 2026-01-01; Message: Review thesis chapter
+Person: Alex Yeoh; Date: 2026-01-01; Message: Discuss about project
+```
 
 ![img_16.png](images/img_16.png)
 
 **Notes:**
-* Marks the reminder at the specified `INDEX` as complete.
+* Marks the reminder(s) at the specified `INDEX` (or `INDEXES`) as complete.
 * The index refers to the index number shown in the Upcoming Reminders panel.
 * The index **must be a positive integer** 1, 2, 3, …​
+* You can mark multiple reminders in a single command.
 * Once marked as complete, the reminder will no longer appear in the Upcoming Reminders panel.
 
 <br>
@@ -590,5 +595,5 @@ the data of your previous AddressBook home folder.
 | **Delete Note**    | `deleteNote INDEX`                                                                                                                                          |
 | **Add Reminder**   | `reminder add n/NAME d/DATE m/MESSAGE` OR `reminder add INDEX d/DATE m/MESSAGE`<br> e.g., `reminder add 1 d/2025-11-15 10:30 m/Follow up on project`        |
 | **List Reminders** | `reminder list`                                                                                                                                             |
-| **Mark Reminder**  | `reminder mark INDEX`<br> e.g., `reminder mark 1`                                                                                                           |
+| **Mark Reminder**  | `reminder mark INDEX [MORE_INDEXES]...`<br> e.g., `reminder mark 1 3`                                                                                                           |
 --------------------------------------------------------------------------------------------------------------------
