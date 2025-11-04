@@ -88,10 +88,12 @@ Interface (GUI).
 * Extraneous parameters for no-argument commands (`help`, `list`, `exit`, `clear`) are ignored.<br>
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple
   lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* Text entered after certain parameters go through a validity check. Entering non-existent prefixes 
+may cause this check to fail. In which case, the error message will reflect which field failed the validity check.
+For example, `add n/John p/123456 y/info` will cause an error reflecting the constraints on phone numbers.
+
 </div>
 
-<br>
-<br>
 
 ## Feature List
 **Basic**
@@ -213,8 +215,10 @@ Address: Newgate Prison; Tags:[friend][criminal]`
 
 ### Adding tags to a person: `tag`
 Adds one or more tags to an existing person in the address book.<br>
-You can choose to add research tags and title tags to reflect  your contacts' research topics or job titles. These tags
-are displayed with a different colour than other tags.
+To reflect  your contacts' research topics or job titles,
+you can choose to add research tags and title tags by using different prefixes `rtt/` or `jtt/`, 
+instead of `t/` (see below).
+These tags are displayed with a different colour than other tags.
 
 **Format:** `tag INDEX t/TAG [t/MORE_TAGS]…​`<br>
 
@@ -226,7 +230,7 @@ tag 2 t/colleague t/cs2103t         # Adds both `colleague` and `cs2103t` tags t
 tag 2 rtt/AI                        # Adds the research tag 'AI' to the 2nd person. 
 ```
 
-**Example expected output on success:** `New tag added: John Doe; Phone: 98765432; Email:johnd@example.com;
+**Example expected output on success:** `Tags updated: John Doe; Phone: 98765432; Email:johnd@example.com;
 Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 
 ![img_9.png](images/img_9.png)
@@ -236,7 +240,6 @@ Address:John street, block 123, #01-01, Tags:[lead researcher]` <br>
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Tags are added cumulatively - existing tags are preserved.
-* Each normal tag must be a single word (no spaces allowed).
 * You can add multiple tags in a single command.
 * **Tag suggestions:** As you type after `t/`, the application will suggest existing tags that match your input. Press `Tab` to autocomplete the suggestion.
 

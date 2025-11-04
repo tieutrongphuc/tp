@@ -74,7 +74,8 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName);
+        return tagName.equals(otherTag.tagName) && tagType.equals(otherTag.tagType);
+
     }
 
     @Override
