@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
-    public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Tags updated: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds one or more tag to a person identified by "
             + "the index number used in the displayed person list.\n"
             + "Use 'rtt' to tag by research topics and 'jtt' to tag by job title.\n"
