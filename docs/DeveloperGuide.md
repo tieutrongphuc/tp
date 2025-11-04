@@ -849,7 +849,7 @@ account for the user using the cursor to click away from the note edit text box 
 
 2.  **Provide a way to view all reminders:**
     *   **Current Flaw:** The `reminder list` command only shows upcoming, incomplete reminders. There is no way for a user to view past or completed reminders to review their history.
-    *   **Proposed Enhancement:** We plan to add an option to the `reminder list` command to show all reminders. For example, `reminder list --all` would display every reminder, including past and completed ones, providing a complete overview.
+    *   **Proposed Enhancement:** We plan to add some options (flags) to the `reminder list` command. For example: `reminder list --all` would display every reminder, `reminder list --completed` would show only completed reminders, and `reminder list --past` would show past, incomplete reminders. This provides a more complete and flexible overview of all tasks.
 
 3.  **Implement a `reminder edit` command:**
     *   **Current Flaw:** There is no command to modify an existing reminder. To fix a typo or change a date, users must delete the reminder and create a new one, which is inefficient and error-prone.
