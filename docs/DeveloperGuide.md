@@ -847,9 +847,9 @@ account for the user using the cursor to click away from the note edit text box 
 We plan to implement note saving when the current note edit view is rendered and other commands are being executed.
 
 2.  **Provide a way to view all reminders:**
-    *   **Flaw:** The `reminder list` command only shows upcoming, incomplete reminders. There is no way for a user to view past or completed reminders to review their history.
-    *   **Enhancement:** We plan to add an option to the `reminder list` command to show all reminders. For example, `reminder list --all` would display every reminder, including past and completed ones, providing a complete overview.
+    *   **Current Flaw:** The `reminder list` command only shows upcoming, incomplete reminders. There is no way for a user to view past or completed reminders to review their history.
+    *   **Proposed Enhancement:** We plan to add an option to the `reminder list` command to show all reminders. For example, `reminder list --all` would display every reminder, including past and completed ones, providing a complete overview.
 
 3.  **Implement a `reminder edit` command:**
-    *   **Flaw:** There is no command to modify an existing reminder. To fix a typo or change a date, users must delete the reminder and create a new one, which is inefficient and error-prone.
-    *   **Enhancement:** We plan to introduce a `reminder edit` command. It will allow users to modify the date and/or message of an existing reminder using its index from the reminder list. For example: `reminder edit 1 d/2026-11-20` would update the date of the first reminder in the list.
+    *   **Current Flaw:** There is no command to modify an existing reminder. To fix a typo or change a date, users must delete the reminder and create a new one, which is inefficient and error-prone.
+    *   **Proposed Enhancement:** We plan to introduce a `reminder edit` command. It will allow users to modify the date and/or message of an existing reminder using its index from the reminder list. For example: `reminder edit 1 d/2026-11-20` would update the date of the first reminder in the list.
