@@ -379,7 +379,7 @@ find note/Met at conference     # returns everyone who has the phrase "Met at co
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only search by one of name, tag, or note
-* Searching by tag is solely name-based. Searching by tags will match research tags or title tags with the same name
+* Searching by tag is sensitive to tag type. For example, job title tag named 'friend' will not be the same as regular 'friend' tag.
 * For name and tag search, only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
