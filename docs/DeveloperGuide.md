@@ -858,3 +858,7 @@ account for the user using the cursor to click away from the note edit text box 
 4.  **Automatically refresh the Upcoming Reminders list:**
     *   **Current Flaw:** The "Upcoming Reminders" list is static. It only updates when a command is run. If a reminder's due time passes, it remains visible in the list until the user manually runs a command like `reminder list` to refresh the view.
     *   **Proposed Enhancement:** We plan to implement a background timer that periodically checks the system clock (e.g., every minute). This timer will automatically refresh the reminder list, ensuring that reminders that are no longer "upcoming" are removed from the view without requiring any user action.
+
+5. **Allow removal of optional fields via the `edit`:**
+   *   **Current Flaw:** The `edit` command does not allow users to remove an optional field (like phone, email, or address) from a contact once it has been set.
+   *   **Proposed Enhancement:** We will modify the parser for the `edit` command to recognize an empty prefix as a request to clear that field's value. For example, executing `edit 1 p/` will be interpreted as "remove the phone number from the contact at index 1", making the command more consistent.
