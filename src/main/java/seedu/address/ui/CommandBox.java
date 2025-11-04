@@ -182,7 +182,8 @@ public class CommandBox extends UiPart<Region> {
             // Only show the REMAINING part that hasn't been typed yet
             String remainingPart = suggestion.substring(partialTag.length());
             suggestionText.setText(remainingPart);
-
+            commandTextField.applyCss();
+            commandTextField.layout();
             Text measureText = new Text(currentText);
             measureText.setFont(commandTextField.getFont());
             double currentTextWidth = measureText.getLayoutBounds().getWidth();
