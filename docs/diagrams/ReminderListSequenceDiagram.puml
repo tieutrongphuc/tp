@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ReminderCommandParser" as ReminderCommandParser LOGIC_COLOR
+participant ":ReminderListCommandParser" as ReminderListCommandParser LOGIC_COLOR
+participant "c:ReminderListCommand" as ReminderListCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("reminder list")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("reminder list")
+activate AddressBookParser
+
+AddressBookParser -> ReminderCommandParser : parse("list")
+activate ReminderCommandParser
+
+ReminderCommandParser -> ReminderListCommandParser : parse("")
+activate ReminderListCommandParser
+
+create ReminderListCommand
+ReminderListCommandParser -> ReminderListCommand
+activate ReminderListCommand
+ReminderListCommand --> ReminderListCommandParser
+deactivate ReminderListCommand
+
+ReminderListCommandParser --> ReminderCommandParser : c
+deactivate ReminderListCommandParser
+
+ReminderCommandParser --> AddressBookParser : c
+deactivate ReminderCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> ReminderListCommand : execute(m)
+activate ReminderListCommand
+
+ReminderListCommand -> Model : updateFilteredReminderList(predicate)
+note right of ReminderListCommand
+  Predicate filters for reminders where
+  !isCompleted() && isUpcoming()
+end note
+activate Model
+
+Model --> ReminderListCommand
+deactivate Model
+
+create CommandResult
+ReminderListCommand -> CommandResult : new CommandResult("Listed all reminders")
+activate CommandResult
+CommandResult --> ReminderListCommand : r
+deactivate CommandResult
+
+ReminderListCommand --> LogicManager : r
+deactivate ReminderListCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
