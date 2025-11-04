@@ -13,8 +13,8 @@
 
 ## **Acknowledgements**
 
-<br>
-The UI color palette was taken from the Notion application <br>
+* The UI color palette was taken from the Notion application
+* Note feature, UI and some content for User guide and Developer guide were generated using Co-pilot
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
