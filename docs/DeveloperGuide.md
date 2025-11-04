@@ -296,7 +296,8 @@ fact.
 * **Caret Positioning**: When opening an existing note, the caret is positioned at the end of the text rather than
 the beginning. This allows users to quickly append to existing notes, which is the most common use case.
 
---------------------------------------------------------------------------------------------------------------------
+<br>
+<br>
 
 ### Reminder Feature
 
