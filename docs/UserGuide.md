@@ -10,6 +10,7 @@ pageNav: 3
 
 - [Quick start](#quick-start)
 - [Features](#features)
+- [Feature List](#feature-list)
 - [FAQ](#faq)
 - [Known issues](#known-issues)
 - [Command summary](#command-summary)
