@@ -841,10 +841,11 @@ testers are expected to do more *exploratory* testing.
 
 Team size: 5
 
-1. Allow `note` feature to save when navigating away from the note edit view. The current implementation does not
+1. **Allow `note` feature to save when navigating away from the note edit view:**
+   *   **Current Flaw:** The current implementation does not
 account for the user using the cursor to click away from the note edit text box and inputting other commands like
-`exit` or `list` which effectively bypasses the saving mechanism in place. This results in potential data loss. 
-We plan to implement note saving when the current note edit view is rendered and other commands are being executed.
+`exit` or `list` which effectively bypasses the saving mechanism in place. This results in potential data loss.
+   *   **Proposed Enhancement:** We plan to implement note saving when the current note edit view is rendered and other commands are being executed.
 
 2.  **Provide a way to view all reminders:**
     *   **Current Flaw:** The `reminder list` command only shows upcoming, incomplete reminders. There is no way for a user to view past or completed reminders to review their history.
