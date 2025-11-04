@@ -313,7 +313,7 @@ The reminder feature allows users to set, view, and manage time-sensitive follow
 
 **How it works:**
 
-The `reminder list` command is the central part of this feature's user experience. When executed, it doesn't just display all reminders. Instead, it applies a predicate to the `Model`'s master reminder list to filter for reminders that meet two conditions:
+The `reminder list` command is the central part of this feature's user experience. When executed, it applies a predicate to the `Model`'s master reminder list to filter for reminders that meet two conditions:
 1.  The reminder's date is in the future (or today).
 2.  The reminder has not been marked as complete.
 
@@ -326,7 +326,6 @@ This filtered list is then displayed in the `ReminderPanel`. This design ensures
 1.  The `LogicManager` executes the `ReminderListCommand`.
 2.  The command calls `model.updateFilteredReminderList()` with a predicate that checks `!reminder.isCompleted() && reminder.isUpcoming()`.
 3.  The `Model` updates its internal `filteredReminderList`.
-4.  Because the `ReminderPanel` in the UI is observing this list, it automatically refreshes to display the newly filtered reminders.
 
 **Design Considerations:**
 
@@ -542,6 +541,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 4a1. AcademeConnect displays an empty note editor.
 
       Use case ends.
+
+
+**Use case: UC06 - Add a reminder for a contact**
+
+**MSS**
+
+1.  User requests to add a reminder for a specific contact with a date and message.
+2.  AcademeConnect validates the contact, date, and message.
+3.  AcademeConnect saves the new reminder.
+4.  AcademeConnect displays a success message and shows the new reminder in the "Upcoming Reminders" panel.
+
+    Use case ends.
+
+**Extensions**
+
+*   2a. The specified contact index is invalid.
+    *   2a1. AcademeConnect shows an error message indicating the index is out of bounds.
+        Use case ends.
+*   2b. The specified contact name does not exist.
+    *   2b1. AcademeConnect shows an error message indicating the person was not found.
+        Use case ends.
+*   2c. The date format is invalid.
+    *   2c1. AcademeConnect shows an error message explaining the correct date format.
+        Use case ends.
+*   2d. The reminder is a duplicate (same person, date, and message).
+    *   2d1. AcademeConnect shows an error message indicating a duplicate reminder exists.
+        Use case ends.
 
 
 ### Non-Functional Requirements
@@ -897,7 +923,12 @@ account for the user using the cursor to click away from the note edit text box 
 5. **Allow removal of optional fields via the `edit`:**
    *   **Current Flaw:** The `edit` command does not allow users to remove an optional field (like phone, email, or address) from a contact once it has been set.
    *   **Proposed Enhancement:** We will modify the parser for the `edit` command to recognize an empty prefix as a request to clear that field's value. For example, executing `edit 1 p/` will be interpreted as "remove the phone number from the contact at index 1", making the command more consistent.
+
 6. **Duplicate Detection for certain fields**:
    *   **Current Flaw:** Duplicate detection was not done for certain fields such as phone and email despite of no two people should be having the same entry for this field.
    *   **Proposed Enhancement:** We will check the addressbook for duplicates of these fields and give the user a warning before adding the contact.
+
+7.**Allow tag autocompletion with multiple word tags:**
+   *   **Current Flaw:** The tag autocompletion feature only works for single-word tags. If a user tries to autocomplete a multi-word tag (e.g., "machine learning"), after machine the autocomplete cannot continue to parse.
+   *   **Proposed Enhancement:** We plan to enhance the tag autocompletion logic to support multi-word tags. This will involve adjusting the parsing and matching algorithms to recognize spaces within tags, allowing users to quickly select existing multi-word tags when adding or deleting them.
 
