@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
@@ -54,6 +55,14 @@ public class PersonCard extends UiPart<Region> {
 
         id.setText(cardData.getDisplayIndex() + ". ");
         name.setText(person.getName().fullName);
+
+        // Prevent the index label from being truncated when name is too long
+        id.setMinWidth(Region.USE_PREF_SIZE);
+        id.setMaxWidth(Region.USE_PREF_SIZE);
+
+        // Allow the name label to grow and take remaining space
+        HBox.setHgrow(name, Priority.ALWAYS);
+        name.setMaxWidth(Double.MAX_VALUE);
 
         String phoneValue = person.getPhone().value;
         if (phoneValue != null && !phoneValue.isEmpty()) {
