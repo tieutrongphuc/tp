@@ -29,7 +29,7 @@ import seedu.address.testutil.PersonBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for DeleteTagCommand.
  */
 public class DeleteTagCommandTest {
-
+    // this class tests is made with the help of AI language model
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
